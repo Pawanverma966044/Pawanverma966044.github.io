@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0614">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<meta name="mobile-web-app-capable" content="yes">
 <meta name="author" content="Pawan Verma — PAWANGAMINGSTUDIO">
-<meta name="description" content="रक्षा-गार्ड — Emergency Protection OS. SOS, voice trigger, 50+ helpline numbers. Created by Pawan Verma (PAWANGAMINGSTUDIO).">
-<title>रक्षा-गार्ड | Raksha-Guard — Emergency Protection OS</title>
+<meta name="description" content="सुरक्षा ज्ञान केंद्र (Safety Knowledge Hub) — रक्षा-गार्ड इमरजेंसी OS टूल्स, 51+ राष्ट्रीय व 36 राज्य हेल्पलाइन्स और 50+ प्रमाणित सुरक्षा गाइड्स।">
+<title>सुरक्षा ज्ञान केंद्र (Safety Knowledge Hub) — रक्षा-गार्ड</title>
+<link rel="icon" type="image/png" href="../icon-192.png">
 <style>
   :root{
     --bg:#070310; --panel:#120b20; --card:#161027; --card2:#1c1433;
@@ -18,1628 +15,397 @@
     --pink:#ff2d6a; --red:#ff1744; --purple:#8b5cf6; --violet:#a78bfa;
     --teal:#22d3ee; --green:#34d399; --amber:#f59e0b; --yellow:#fde047;
   }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{background:var(--bg)}
+  *{margin:0;padding:0;box-sizing:border-box}
   body{
-    font-family:'Segoe UI',system-ui,-apple-system,'Noto Sans Devanagari','Noto Sans',sans-serif;
-    color:var(--txt); min-height:100dvh;
-    background:radial-gradient(1200px 600px at 50% -10%, #1a0f33 0%, #070310 60%);
+    font-family:'Segoe UI',system-ui,-apple-system,'Noto Sans Devanagari',sans-serif;
+    color:var(--txt); background:radial-gradient(1200px 600px at 50% -10%, #1a0f33 0%, #070310 60%);
+    min-height:100vh; line-height:1.7; padding:20px 14px 60px;
   }
-  .phone{max-width:430px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;
-    position:relative;background:linear-gradient(180deg,#0d0718 0%,#0a0514 100%);}
-  @media(min-width:500px){
-    .phone{border:1px solid #241a3f;border-radius:30px;margin:14px auto;min-height:calc(100dvh - 28px);
-      box-shadow:0 0 60px rgba(139,92,246,.15), 0 0 0 8px #05030a;}
-  }
-  /* ---------- status bar ---------- */
-  .statusbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 6px;font-weight:700;font-size:15px;letter-spacing:.5px}
-  .island{width:120px;height:28px;background:#000;border-radius:20px;display:flex;align-items:center;justify-content:center;gap:8px}
-  .island .cam{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%, #3b3f8f, #10123a 70%)}
-  .island .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
-  .sb-right{display:flex;align-items:center;gap:7px;font-size:13px}
-  .sb-right svg{display:block}
-  /* ---------- header ---------- */
-  .apphead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;background:linear-gradient(180deg,#170d2b,#120a22);border-bottom:1px solid var(--line)}
-  .logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,#ff4d7e,#d40f45);display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(255,45,106,.55);flex:none}
-  .titles{flex:1;min-width:110px}
-  .titles h1{font-size:19px;line-height:1.15}
-  .titles p{font-size:11.5px;color:var(--dim);letter-spacing:.4px}
-  .chips{display:flex;gap:7px;flex-wrap:wrap}
-  .chip{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:12px;font-size:12px;font-weight:700;border:1px solid;background:rgba(0,0,0,.25)}
-  .chip.teal{color:var(--teal);border-color:#0e7490}
-  .chip.green{color:var(--green);border-color:#065f46}
-  .chip.pink{color:#ffd7e2;border-color:#be1857;cursor:pointer}
-  .chip.purple{color:var(--violet);border-color:#6d28d9;cursor:pointer}
-  .chip:active{transform:scale(.95)}
-  /* ---------- views ---------- */
-  main{flex:1;padding:14px 14px 26px;display:flex;flex-direction:column;gap:14px}
-  .view{display:none;flex-direction:column;gap:14px;animation:fadein .25s ease}
-  .view.active{display:flex}
-  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .card{border-radius:18px;padding:14px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line)}
-  .card.pinkline{border-color:#be123c;box-shadow:0 0 14px rgba(255,23,68,.15)}
-  .card.purpleline{border-color:#5b21b6;box-shadow:0 0 14px rgba(139,92,246,.14)}
-  .card.redline{border-color:#9f1239;box-shadow:0 0 14px rgba(255,45,106,.18)}
-  .rowline{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
-  .tipbar{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#241303,#1a0e04);border:1px solid #b45309;border-radius:16px;padding:12px 14px;box-shadow:0 0 18px rgba(245,158,11,.18)}
-  .tipbar .t{flex:1;color:var(--yellow);font-weight:800;font-size:15px}
-  .btn{border:none;border-radius:14px;padding:12px 14px;font-weight:800;font-size:13.5px;cursor:pointer;color:#fff;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.25}
-  .btn:active{transform:scale(.96)}
-  .btn.amber{background:linear-gradient(145deg,#b45309,#7c3a06);color:#ffe9b3;border:1px solid #d97706}
-  .btn.purple{background:linear-gradient(145deg,#7c3aed,#5b21b6);border:1px solid #a78bfa}
-  .btn.pink{background:linear-gradient(145deg,#ff2d6a,#d40f45);border:1px solid #ff8fab;box-shadow:0 0 16px rgba(255,45,106,.4)}
-  .btn.dark{background:#232936;border:1px solid #3b4252;color:#e5e7eb}
-  .btn.small{padding:9px 12px;font-size:12px;border-radius:11px}
-  .banner{border:2px solid var(--red);border-radius:999px;padding:11px 16px;text-align:center;font-weight:800;font-size:15px;background:linear-gradient(90deg,rgba(255,23,68,.25),rgba(255,145,0,.12),rgba(255,23,68,.25));box-shadow:0 0 20px rgba(255,23,68,.35);text-shadow:0 0 12px rgba(255,23,68,.7)}
-  .netnote{text-align:center;font-size:11.5px;color:var(--dim);margin-top:6px}
-  /* contacts */
-  .ctitle{font-weight:800;font-size:15px;display:flex;gap:8px;align-items:center}
-  .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-  .ctile{border-radius:14px;padding:11px 12px;background:#101a2b;border:1px solid #1e293b;cursor:pointer;min-height:64px}
-  .ctile small{display:block;color:#7d8aa5;font-size:11px;font-weight:600;margin-bottom:4px}
-  .ctile .num{font-weight:800;font-size:16px;letter-spacing:.5px}
-  .ctile.filled{border-color:#b45309;background:#170f04;box-shadow:0 0 12px rgba(245,158,11,.15)}
-  .ctile.filled .num{color:var(--yellow)}
-  .ctile.empty .num{color:#34d399;font-size:13.5px;font-weight:700}
-  .ctile .callmini{float:right;color:var(--green);font-size:14px}
-  /* voice */
-  .vrow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
-  .vtxt{flex:1;min-width:180px;font-size:14px;font-weight:700}
-  .vtxt .say{color:var(--yellow)}
-  .vbtns{display:grid;grid-template-columns:1fr 1.15fr;gap:10px;margin-top:12px}
-  /* SOS button */
-  .soswrap{display:flex;justify-content:center;padding:26px 0 10px}
-  .sos{width:215px;height:215px;border-radius:50%;border:none;cursor:pointer;position:relative;color:#fff;font-family:inherit;
-    background:radial-gradient(circle at 32% 28%, #ff7096, #f43f5e 45%, #be123c 90%);
-    box-shadow:0 0 0 10px rgba(244,63,94,.22), 0 0 45px rgba(244,63,94,.55), inset 0 -14px 30px rgba(0,0,0,.35);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-    animation:sospulse 2s infinite}
-  @keyframes sospulse{0%{box-shadow:0 0 0 8px rgba(244,63,94,.28),0 0 45px rgba(244,63,94,.5)}50%{box-shadow:0 0 0 20px rgba(244,63,94,.10),0 0 70px rgba(244,63,94,.75)}100%{box-shadow:0 0 0 8px rgba(244,63,94,.28),0 0 45px rgba(244,63,94,.5)}}
-  .sos .big{font-size:38px;font-weight:900;letter-spacing:4px;text-shadow:0 2px 10px rgba(0,0,0,.4)}
-  .sos .sub{font-size:12.5px;font-weight:700;opacity:.95}
-  .sos .cd{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;font-size:64px;font-weight:900}
-  .sos.counting .cd{display:flex}
-  /* bottom nav */
-  .bottomnav{position:sticky;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(13,7,24,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
-  .nb{border:none;background:none;color:var(--dim);font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:9.8px;font-weight:700;cursor:pointer;padding:6px 2px;border-radius:12px}
-  .nb.active{color:#ff8fab;background:rgba(255,23,68,.12);border:1px solid #9f1239}
-  .nb svg{width:20px;height:20px}
-  .nb[data-view="view-tips"].active{color:var(--yellow);background:rgba(245,158,11,.1);border-color:#92400e}
-  .nb[data-view="view-help"].active{color:var(--yellow);background:rgba(245,158,11,.1);border-color:#92400e}
-  .nb[data-view="view-creator"].active{color:var(--teal);background:rgba(34,211,238,.08);border-color:#155e75}
-  .nb[data-view="view-more"].active{color:var(--violet);background:rgba(139,92,246,.1);border-color:#5b21b6}
-  /* lists */
-  .h2{font-size:17px;font-weight:900;display:flex;align-items:center;gap:8px}
-  .rule{display:flex;gap:12px;padding:12px;border-radius:14px;background:#141024;border:1px solid var(--line);align-items:flex-start}
-  .rule .n{flex:none;width:28px;height:28px;border-radius:50%;background:linear-gradient(145deg,#f59e0b,#b45309);display:flex;align-items:center;justify-content:center;font-weight:900;color:#1a0e04}
-  .rule b{font-size:13.5px;line-height:1.5;display:block}
-  .rule small{color:var(--dim);font-size:11.5px;line-height:1.45;display:block;margin-top:2px}
-  .search{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#100a1e;color:var(--txt);font-family:inherit;font-size:14px;outline:none}
-  .search:focus{border-color:var(--purple)}
-  .cat{color:var(--yellow);font-weight:900;font-size:13px;margin:6px 2px 8px;letter-spacing:.5px}
-  .hitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;border-radius:14px;background:#120d22;border:1px solid var(--line);margin-bottom:8px}
-  .hitem b{font-size:13.5px;display:block}
-  .hitem small{color:var(--dim);font-size:11px;display:block}
-  .callbtn{flex:none;text-decoration:none;color:var(--green);border:1px solid #065f46;background:rgba(52,211,153,.08);padding:8px 12px;border-radius:12px;font-weight:800;font-size:13px;letter-spacing:.5px}
-  .callbtn:active{transform:scale(.95)}
-  .para{font-size:13.5px;line-height:1.7;color:#cfc6ea}
-  .para p{margin:8px 0}
-  .para li{margin:7px 0 7px 18px}
-  /* creator */
-  .avatar{width:132px;height:132px;border-radius:50%;object-fit:cover;border:3px solid var(--pink);box-shadow:0 0 28px rgba(255,45,106,.55)}
-  .quote{border-left:3px solid var(--amber);padding:10px 12px;background:rgba(245,158,11,.08);border-radius:10px;font-style:italic;margin-top:10px;color:var(--yellow)}
-  .moreitem{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:14px;border-radius:16px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);color:var(--txt);font-family:inherit;font-weight:800;font-size:14px;cursor:pointer}
-  .moreitem .ar{margin-left:auto;color:var(--dim);font-size:18px}
-  .moreitem small{display:block;color:var(--dim);font-weight:600;font-size:11px;margin-top:2px}
-  .moreitem:active{transform:scale(.98)}
-  /* modal */
-  .modal{position:fixed;inset:0;background:rgba(3,2,8,.75);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;z-index:100}
-  .modal.open{display:flex}
-  .sheet{width:100%;max-width:430px;background:#150e26;border:1px solid var(--line);border-bottom:none;border-radius:24px 24px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));max-height:88dvh;overflow:auto;animation:up .25s ease}
-  @keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
-  .sheet h3{font-size:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-  .xbtn{border:none;background:#241a3f;color:var(--dim);width:30px;height:30px;border-radius:10px;font-size:15px;cursor:pointer}
-  .fld{margin-bottom:12px}
-  .fld label{font-size:12px;color:var(--dim);font-weight:700;display:block;margin-bottom:5px}
-  .fld input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0e0819;color:var(--yellow);font-size:16px;font-weight:700;letter-spacing:1px;font-family:inherit;outline:none}
-  .fld input:focus{border-color:var(--amber)}
-  .sosrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
-  .sosrow a,.sosrow button{font-size:12px;padding:10px 4px;border-radius:12px;text-align:center;text-decoration:none;font-weight:800}
-  .a-call{background:rgba(52,211,153,.1);border:1px solid #065f46;color:var(--green)}
-  .a-sms{background:rgba(34,211,238,.1);border:1px solid #155e75;color:var(--teal)}
-  .a-wa{background:rgba(139,92,246,.12);border:1px solid #5b21b6;color:var(--violet)}
-  .locbox{margin:10px 0;padding:10px 12px;border-radius:12px;background:#0e0819;border:1px dashed var(--line);font-size:12.5px;color:var(--dim);word-break:break-all}
-  .locbox a{color:var(--teal)}
-  .alarmstop{width:100%;margin-top:12px}
-  /* toast & flash */
-  #toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:90px;background:#1d1433;border:1px solid var(--purple);color:var(--txt);padding:11px 18px;border-radius:14px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;z-index:200;max-width:90%;text-align:center;box-shadow:0 0 20px rgba(139,92,246,.4)}
-  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-  #flash{position:fixed;inset:0;pointer-events:none;z-index:150;display:none}
-  body.alarm #flash{display:block;animation:flash .7s infinite}
-  @keyframes flash{0%,100%{background:rgba(255,23,68,.28)}50%{background:transparent}}
-  .tiphero{border-radius:18px;padding:16px;background:linear-gradient(145deg,#2a1606,#1a0e04);border:1px solid #b45309;box-shadow:0 0 22px rgba(245,158,11,.2)}
-  .tiphero .d{color:var(--amber);font-size:11px;font-weight:800;letter-spacing:1px}
-  .tiphero .t{color:var(--yellow);font-size:16px;font-weight:800;margin-top:6px;line-height:1.5}
-  .tiphero small{display:block;color:var(--dim);margin-top:6px;font-size:12px;line-height:1.5}
-  /* onboarding */
-  #onboard{position:fixed;inset:0;z-index:300;background:radial-gradient(900px 500px at 50% -10%,#1a0f33,#070310 70%);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
-  .ob-card{width:100%;max-width:400px;background:#150e26;border:1px solid var(--line);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 0 40px rgba(139,92,246,.25)}
-  .ob-t{font-size:14px;font-weight:800;line-height:1.5}
-  .ob-t small{display:block;color:var(--dim);font-weight:600;margin-top:2px}
-  .perm-ok{color:var(--green)}
-  /* fake call — real full-screen call UI */
-  #fakecall{position:fixed;inset:0;z-index:400;background:linear-gradient(160deg,#12203a 0%,#0a1226 45%,#070310 100%);display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:34px 26px 46px;color:#fff}
-  #fakecall.on{display:flex}
-  .fc-status{font-size:12px;color:#9fb0c8;letter-spacing:1px;font-weight:700}
-  .fc-mid{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:6vh}
-  .fc-av{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3b82f6,#1e3a8a 70%);display:flex;align-items:center;justify-content:center;font-size:54px;box-shadow:0 0 0 10px rgba(59,130,246,.15),0 0 40px rgba(59,130,246,.4);position:relative}
-  .fc-av::after{content:'';position:absolute;inset:-18px;border-radius:50%;border:2px solid rgba(59,130,246,.35);animation:fcring 1.6s infinite}
-  @keyframes fcring{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.25);opacity:0}}
-  .fc-name{font-size:26px;font-weight:800;margin-top:16px}
-  .fc-num{color:#9fb0c8;font-size:14px;letter-spacing:1px}
-  .fc-state{color:#7dd3fc;font-size:13px;font-weight:700;margin-top:4px}
-  .fc-actions{display:flex;gap:70px;align-items:flex-start}
-  .fc-col{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;color:#9fb0c8;font-weight:700}
-  .fc-decl,.fc-acc{width:74px;height:74px;border-radius:50%;border:none;font-size:28px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center}
-  .fc-decl{background:linear-gradient(145deg,#ef4444,#b91c1c);box-shadow:0 6px 24px rgba(239,68,68,.45)}
-  .fc-acc{background:linear-gradient(145deg,#22c55e,#15803d);box-shadow:0 6px 24px rgba(34,197,94,.5);animation:fcpulse 1.5s infinite}
-  @keyframes fcpulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 22px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-  .fc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 26px;margin-bottom:26px}
-  .fc-g{display:flex;flex-direction:column;align-items:center;gap:6px;color:#cfe3ff;font-size:11px;font-weight:700}
-  .fc-g span{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.09);display:flex;align-items:center;justify-content:center;font-size:22px}
-  #screentorch{position:fixed;inset:0;background:#fff;z-index:500;display:none;cursor:pointer}
-  /* native app mode — website jaisa kuch nahi dikhega */
-  body.native .statusbar{display:none}
-  body.native #installCard{display:none}
+  .container{max-width:880px;margin:0 auto}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .backlink{color:var(--teal);text-decoration:none;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px}
+  .backlink:hover{color:#fff}
+  .brand{font-size:16px;font-weight:800;color:var(--pink)}
+  .hero{background:linear-gradient(145deg,#200e3a,#120922);border:1px solid var(--purple);border-radius:24px;padding:30px 24px;margin-bottom:28px;text-align:center;box-shadow:0 0 35px rgba(139,92,246,.2)}
+  .hero h1{font-size:28px;color:#fff;font-weight:900;margin-bottom:8px}
+  .hero p{color:var(--dim);font-size:15px;max-width:640px;margin:0 auto}
+  .search-box{margin:20px auto 0;max-width:500px}
+  .search-box input{width:100%;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:#0c0617;color:#fff;font-size:15px;outline:none;font-family:inherit}
+  .search-box input:focus{border-color:var(--purple)}
+  .cat-title{font-size:20px;color:var(--yellow);font-weight:800;margin:32px 0 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:650px){.grid{grid-template-columns:1fr}}
+  .article-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:.2s}
+  .article-card:hover{transform:translateY(-3px);border-color:var(--purple);box-shadow:0 8px 24px rgba(139,92,246,.25)}
+  .badge{display:inline-block;align-self:flex-start;padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:800;background:rgba(34,211,238,.12);color:var(--teal);border:1px solid #0e7490}
+  .badge.pink{background:rgba(255,45,106,.12);color:var(--pink);border-color:#be1857}
+  .badge.amber{background:rgba(245,158,11,.12);color:var(--amber);border-color:#b45309}
+  .badge.green{background:rgba(52,211,153,.12);color:var(--green);border-color:#065f46}
+  .badge.red{background:rgba(255,23,68,.12);color:var(--red);border-color:#9f1239}
+  .badge.purple{background:rgba(139,92,246,.12);color:var(--violet);border-color:#5b21b6}
+  .article-card h2{font-size:16.5px;font-weight:800;color:#fff;line-height:1.4}
+  .article-card p{font-size:13px;color:var(--dim);margin:0;line-height:1.5}
+  .meta{font-size:12px;color:var(--teal);font-weight:700;margin-top:auto;display:flex;justify-content:space-between;align-items:center}
+  footer{text-align:center;margin-top:50px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+  footer a{color:var(--violet);text-decoration:none;margin:0 8px}
+  footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-<div id="flash"></div>
-<div class="phone">
+<div class="container">
+  <div class="topbar">
+    <a href="../index.html" class="backlink">← मुख्य रक्षा-गार्ड ऐप पर लौटें</a>
+    <span class="brand">🛡️ रक्षा-गार्ड (Raksha-Guard)</span>
+  </div>
 
-  <!-- status bar -->
-  <div class="statusbar">
-    <span id="clock">--:--</span>
-    <div class="island"><span class="cam"></span><span class="dot"></span></div>
-    <div class="sb-right">
-      <svg width="16" height="14" viewBox="0 0 16 14" fill="#e5e7eb"><rect x="0" y="9" width="3" height="5" rx="1"/><rect x="4" y="6" width="3" height="8" rx="1"/><rect x="8" y="3" width="3" height="11" rx="1"/><rect x="12" y="0" width="3" height="14" rx="1"/></svg>
-      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#e5e7eb" stroke-width="1.6" stroke-linecap="round"><path d="M1 4a10 10 0 0 1 14 0"/><path d="M3.5 6.8a6.5 6.5 0 0 1 9 0"/><path d="M6 9.4a3 3 0 0 1 4 0"/><circle cx="8" cy="11" r="1" fill="#e5e7eb" stroke="none"/></svg>
-      <span id="battPct">100%</span>
-      <svg width="24" height="13" viewBox="0 0 24 13"><rect x="0.8" y="0.8" width="19" height="11.4" rx="3" fill="none" stroke="#34d399" stroke-width="1.4"/><rect x="2.6" y="2.6" width="15.4" height="7.8" rx="1.6" fill="#34d399"/><rect x="21" y="4" width="2.4" height="5" rx="1.2" fill="#34d399"/></svg>
+  <div class="hero">
+    <h1>📚 सुरक्षा ज्ञान केंद्र (Safety Knowledge Hub)</h1>
+    <p>रक्षा-गार्ड इमरजेंसी प्रोटेक्शन OS टूल्स, 51+ राष्ट्रीय व 36 राज्य हेल्पलाइन और 50+ प्रमाणित जीवन-रक्षक सुरक्षा गाइड्स।</p>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 कोई भी रक्षा-गार्ड टूल, कानून या हेल्पलाइन खोजें..." oninput="filterArticles()">
     </div>
   </div>
 
-  <!-- header -->
-  <header class="apphead">
-    <div class="logo">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9.4-8 11-4.5-1.6-8-6-8-11V5l8-3z"/><path d="M12 8v4"/><circle cx="12" cy="15.5" r="0.6" fill="#fff"/></svg>
-    </div>
-    <div class="titles">
-      <h1 data-i18n="appName">रक्षा-गार्ड</h1>
-      <p data-i18n="appSub">Emergency Protection OS</p>
-    </div>
-    <div class="chips">
-      <span class="chip teal" id="netChip"></span>
-      <span class="chip green" id="battChip">🔋 100%</span>
-      <button class="chip pink" id="langBtn" title="Language">EN</button>
-      <button class="chip purple" id="editBtn" title="Edit contacts">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="7" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6 1.2 0 2.3.3 3.2.8"/><path d="M14.5 18.5l5-5 2 2-5 5h-2v-2z"/></svg>
-      </button>
-    </div>
-  </header>
+  <!-- Category 0: Raksha-Guard Official Guides -->
+  <div class="cat-title">⚡ रक्षा-गार्ड ऑल-कंडीशन मास्टर सुरक्षा प्रणाली</div>
+  <div class="grid">
+    <a href="raksha-guard-all-condition-emergency-system-guide.html" class="article-card" style="border-color:#ff2d6a;grid-column:1/-1">
+      <span class="badge pink">मास्टर सुरक्षा प्रणाली</span>
+      <h2>रक्षा-गार्ड ऑल-कंडीशन इमरजेंसी सिस्टम — हर परिस्थिति में तत्काल सहायता कैसे प्राप्त करें?</h2>
+      <p>मूक आपातकाल (Silent SOS), लाउड सायरन, 110 BPM सीपीआर मेट्रोनोम, नाइट ट्रेवल गार्ड, साइबर 1930 शील्ड और रेस्क्यू मोर्स बीकन का संपूर्ण विवरण।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी मास्टर गाइड पढ़ें →</span></div>
+    </a>
+  </div>
 
-  <main>
-    <!-- ============ SOS VIEW ============ -->
-    <section class="view active" id="view-sos">
-      <div class="tipbar">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fde047" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 1 6 6c0 2.2-1.2 3.6-2.4 4.8-.7.7-1.1 1.3-1.1 2.2h-5c0-.9-.4-1.5-1.1-2.2C7.2 12.6 6 11.2 6 9a6 6 0 0 1 6-6z"/></svg>
-        <span class="t" data-i18n="dailyTip">दैनिक सुरक्षा सलाह</span>
-        <button class="btn amber small" id="rulesBtn" data-i18n="viewRules">50+ सुरक्षा सलाह देखें →</button>
-      </div>
+  <!-- Category 1: Raksha-Guard Core Features -->
+  <div class="cat-title">🛡️ 1. रक्षा-गार्ड कोर टूल्स व फीचर्स (Raksha-Guard Core Tools)</div>
+  <div class="grid">
+    <a href="raksha-guard-features-how-to-use-guide.html" class="article-card" style="border-color:#be1857">
+      <span class="badge pink">आधिकारिक ऐप गाइड</span>
+      <h2>रक्षा-गार्ड का उपयोग कैसे करें? — संपूर्ण यूजर मैनुअल</h2>
+      <p>1-टच SOS, वॉइस ट्रिगर, फेक कॉल, टॉर्च और लोकेशन शेयरिंग टूल्स के उपयोग की पूरी गाइड।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div class="card purpleline" id="installCard">
-        <div class="ctitle" style="margin-bottom:10px">📲 <span>असली ऐप की तरह इंस्टॉल करें <small style="color:var(--dim);font-weight:600">/ Install like a real app</small></span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <button class="btn pink" id="installBtn">📥 ऐप इंस्टॉल करें</button>
-          <a class="btn purple" style="text-decoration:none" href="RakshaGuard.apk" download>🤖 Android APK डाउनलोड</a>
-        </div>
-        <div class="netnote">APK: SMS अनुमति से सिम द्वारा सीधे संदेश • PWA: ब्राउज़र में प्री-फिल्ड संदेश तुरंत तैयार</div>
-      </div>
+    <a href="raksha-guard-siren-alarm-system-guide.html" class="article-card">
+      <span class="badge red">सायरन व अलार्म</span>
+      <h2>रक्षा-गार्ड लाउड सायरन और फ्लैशलाइट अलार्म सिस्टम</h2>
+      <p>हाई-डेसिबल वेब ऑडियो सायरन और विजुअल फ्लैशर से हमलावर को भगाने की तकनीक।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div class="card purpleline" style="background:linear-gradient(145deg,#1c0e33,#120922);border-color:#5b21b6">
-        <div class="rowline">
-          <div class="ctitle">📚 <span>सुरक्षा ज्ञान केंद्र <small style="color:var(--yellow);font-weight:700">/ Knowledge Hub</small></span></div>
-          <a class="btn amber small" style="text-decoration:none" href="articles/index.html">50+ गाइड्स पढ़ें →</a>
-        </div>
-        <p style="font-size:12.5px;color:var(--dim);margin-top:8px;line-height:1.5">साइबर फ्रॉड 1930, डिजिटल अरेस्ट बचाव, महिला सुरक्षा कानून, फर्स्ट एड CPR व आपदा प्रबंधन की प्रमाणित गाइड्स।</p>
-      </div>
+    <a href="raksha-guard-gps-live-location-sms-guide.html" class="article-card">
+      <span class="badge green">GPS व SMS अलर्ट</span>
+      <h2>रक्षा-गार्ड लाइव GPS लोकेशन और ऑटो-SMS अलर्ट सिस्टम</h2>
+      <p>सैटेलाइट जीपीएस प्री-वार्मिंग और परिजनों को गूगल मैप्स लिंक के साथ अलर्ट डिलीवरी।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div>
-        <div class="banner" data-i18n="offlineBanner">📶 सायरन व कॉल ऑफलाइन भी चलेंगे — SMS/WhatsApp हेतु नेटवर्क जरूरी</div>
-        <div class="netnote" id="netNote"></div>
-      </div>
+    <a href="raksha-guard-voice-trigger-bachao-sos.html" class="article-card">
+      <span class="badge purple">वॉइस ट्रिगर SOS</span>
+      <h2>रक्षा-गार्ड हैंड्स-फ्री वॉइस ट्रिगर ("बचाओ" SOS)</h2>
+      <p>फोन को छुए बिना ऑन-डिवाइस वॉयस AI से इमरजेंसी अलार्म सक्रिय करने की विधि।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div class="card purpleline">
-        <div class="rowline">
-          <div class="ctitle">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#ff8fab" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg>
-            <span data-i18n="contactsTitle">आपकी इमरजेंसी संपर्क संख्याएं (1-4):</span>
-          </div>
-          <span class="chip teal" id="dataChip">मोबाइल डेटा (4G)</span>
-          <span class="chip green" id="locChip">📍 …</span>
-        </div>
-        <div class="cgrid" id="cgrid"></div>
-      </div>
+    <a href="raksha-guard-fake-call-escape-tool-guide.html" class="article-card">
+      <span class="badge amber">फेक कॉल एस्केप</span>
+      <h2>रक्षा-गार्ड फेक कॉल टूल — असहज स्थिति से सुरक्षित कैसे निकलें?</h2>
+      <p>नकली पुलिस या परिजनों की कॉल स्क्रीन से संदिग्ध व्यक्तियों से पीछा छुड़ाने का तरीका।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div class="card redline">
-        <div class="vrow">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff8fab" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></svg>
-          <div class="vtxt">
-            <span id="voiceState" data-i18n="voiceOn">स्वचालित वॉइस ट्रिगर चालू है:</span>
-            <span class="say" data-i18n="voiceSay">बोलें: "बचाओ", "Bachao" या "Help"</span>
-          </div>
-          <button class="btn dark small" id="micBtn" data-i18n="micOn">माइक ऑन करें</button>
-        </div>
-        <div class="netnote" id="voiceLive" style="display:none;text-align:left"></div>
-        <div class="vbtns">
-          <button class="btn purple" id="voiceTestBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
-            <span data-i18n="voiceTest">वॉइस टेस्ट करें ("बचाओ")</span>
-          </button>
-          <button class="btn pink" id="sendNowBtn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            <span data-i18n="sendNow">तुरंत SMS व व्हाट्सएप भेजें</span>
-          </button>
-        </div>
-      </div>
+    <a href="raksha-guard-checkin-timer-travel-safety.html" class="article-card">
+      <span class="badge">चेक-इन टाइमर</span>
+      <h2>रक्षा-गार्ड चेक-इन टाइमर — रात में अकेले सफर में ऑटो-अलार्म</h2>
+      <p>सफर के दौरान ऑटो-सेफ्टी टाइमर सेट करने और समय पर सुरक्षित न बताने पर SOS।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <!-- ============ ALL-CONDITION EMERGENCY MATRIX ============ -->
-      <div class="card purpleline" style="background:linear-gradient(180deg,#1c0e33,#120924);border-color:#7c3aed">
-        <div class="ctitle" style="margin-bottom:8px">
-          ⚡ <span>हर स्थिति में तुरंत सहायता <small style="color:var(--yellow);font-weight:700">/ All-Condition Emergency</small></span>
-        </div>
-        <p style="font-size:12px;color:var(--dim);margin-bottom:12px">अपनी स्थिति चुनें — रक्षा-गार्ड बिना देरी के सबसे उपयुक्त सुरक्षा मोड चालू करेगा:</p>
-        
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <button class="btn dark small" id="silentSosBtn" style="border-color:#38bdf8;text-align:left;justify-content:flex-start">
-            <span style="font-size:18px">🤫</span>
-            <div><b style="color:#7dd3fc">मूक आपातकाल</b><small style="display:block;font-size:10px;color:var(--dim)">बिना आवाज़/सायरन गुप्त SMS</small></div>
-          </button>
-          
-          <button class="btn dark small" id="medCprBtn" style="border-color:#ef4444;text-align:left;justify-content:flex-start">
-            <span style="font-size:18px">🏥</span>
-            <div><b style="color:#fca5a5">चिकित्सा व CPR</b><small style="display:block;font-size:10px;color:var(--dim)">108 कॉल + 110 BPM बीट</small></div>
-          </button>
+    <a href="raksha-guard-shake-sos-motion-trigger.html" class="article-card">
+      <span class="badge pink">शेक SOS सेंसर</span>
+      <h2>रक्षा-गार्ड शेक-SOS मोशन सेंसर — फोन हिलाकर तुरंत अलर्ट</h2>
+      <p>हार्डवेयर एक्सेलेरोमीटर से जेब में फोन हिलाते ही इमरजेंसी अलार्म चालू करने की गाइड।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-          <button class="btn dark small" id="travelModeBtn" style="border-color:#34d399;text-align:left;justify-content:flex-start">
-            <span style="font-size:18px">🚗</span>
-            <div><b style="color:#6ee7b7">नाइट ट्रेवल गार्ड</b><small style="display:block;font-size:10px;color:var(--dim)">ऑटो टाइमर + फेक कॉल</small></div>
-          </button>
+    <a href="raksha-guard-torch-strobe-flashlight-guide.html" class="article-card">
+      <span class="badge amber">टॉर्च व स्क्रीन लाइट</span>
+      <h2>रक्षा-गार्ड टॉर्च और स्क्रीन लाइट टूल कैसे काम करता है?</h2>
+      <p>अंधेरे में आपातकालीन सिग्नल देने और विजिबिलिटी के लिए हार्डवेयर फ्लैशलाइट तकनीक।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-          <button class="btn dark small" id="cyberModeBtn" style="border-color:#f59e0b;text-align:left;justify-content:flex-start">
-            <span style="font-size:18px">💻</span>
-            <div><b style="color:#fde047">साइबर 1930 शील्ड</b><small style="display:block;font-size:10px;color:var(--dim)">बैंक फ्रॉड रिपोर्टिंग व गाइड</small></div>
-          </button>
+    <a href="raksha-guard-whistle-emergency-sound-tool.html" class="article-card">
+      <span class="badge green">डिजिटल सीटी अलार्म</span>
+      <h2>रक्षा-गार्ड डिजिटल सीटी (Whistle) टूल गाइड</h2>
+      <p>भीड़ में बिना थके 2800Hz तेज सीटी बजाने और पुलिस व गार्ड का ध्यान आकर्षित करने का तरीका।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-          <button class="btn dark small" id="beaconBtn" style="border-color:#ec4899;text-align:left;justify-content:flex-start">
-            <span style="font-size:18px">📡</span>
-            <div><b style="color:#f472b6">रेस्क्यू बीकन</b><small style="display:block;font-size:10px;color:var(--dim)">S-O-S मोर्स कोड लाइट/ध्वनि</small></div>
-          </button>
+    <a href="raksha-guard-offline-pwa-apk-installation.html" class="article-card">
+      <span class="badge green">PWA व APK इंस्टॉल</span>
+      <h2>रक्षा-गार्ड को फोन पर असली ऐप (PWA / APK) की तरह कैसे इंस्टॉल करें?</h2>
+      <p>होम स्क्रीन पर बिना स्पेस ऐप जैसा आइकन बनाने और ऑफलाइन चलाने की प्रक्रिया।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-          <button class="btn dark small" id="iceCardBtn" style="border-color:#a855f7;text-align:left;justify-content:flex-start">
-            <span style="font-size:18px">📋</span>
-            <div><b style="color:#c084fc">ICE स्वास्थ्य कार्ड</b><small style="display:block;font-size:10px;color:var(--dim)">ब्लड ग्रुप व इमरजेंसी इन्फो</small></div>
-          </button>
-        </div>
-      </div>
+    <a href="raksha-guard-sim-offline-features-guide.html" class="article-card">
+      <span class="badge">ऑफलाइन सुरक्षा</span>
+      <h2>रक्षा-गार्ड ऑफलाइन मोड — बिना इंटरनेट कौन-से फीचर्स काम करते हैं?</h2>
+      <p>शून्य डेटा और कमजोर नेटवर्क में सायरन, 50+ हेल्पलाइन और फेक कॉल चलाने की तकनीक।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div class="card purpleline">
-        <div class="ctitle" style="margin-bottom:10px">🧰 <span>सुरक्षा टूल्स <small style="color:var(--dim);font-weight:600">/ Safety Tools</small></span></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <button class="btn dark small" id="torchBtn">🔦 टॉर्च / Torch</button>
-          <button class="btn dark small" id="fakeCallBtn">📞 नकली कॉल / Fake Call</button>
-          <button class="btn dark small" id="checkinBtn">⏱ चेक-इन टाइमर</button>
-          <button class="btn dark small" id="shakeBtn">📳 शेक SOS: बंद</button>
-          <button class="btn dark small" id="whistleBtn">📢 आपात सीटी / Whistle</button>
-          <button class="btn dark small" id="guardBtn" style="display:none">🛡️ बैकग्राउंड गार्ड: चालू</button>
-          <button class="btn dark small" id="fcEditBtn">✏️ नकली कॉल एडिट (नाम/नंबर/पुलिस/पिता)</button>
-        </div>
-        <div class="netnote" id="checkinState"></div>
-      </div>
+    <a href="raksha-guard-battery-saving-emergency-mode.html" class="article-card">
+      <span class="badge green">बैटरी सेवर मोड</span>
+      <h2>रक्षा-गार्ड बैटरी सेवर व लो-बैटरी सुरक्षा तकनीक</h2>
+      <p>15% बैटरी में भी AMOLED डार्क थीम के साथ लाइफ-सेविंग SOS कैसे एक्टिव रहता है।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-      <div class="soswrap">
-        <button class="sos" id="sosBtn">
-          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9.4-8 11-4.5-1.6-8-6-8-11V5l8-3z"/><path d="M12 8v5"/><circle cx="12" cy="16.2" r="0.7" fill="#fff"/></svg>
-          <span class="big">SOS</span>
-          <span class="sub" id="sosSub" data-i18n="sosPress">मदद के लिए दबाएं</span>
-          <span class="cd" id="cdNum">5</span>
-        </button>
-      </div>
-      <div class="netnote" style="margin-top:-6px" data-i18n="sosAuto">🚨 पहला अलर्ट दबाते ही तुरंत जाता है; 5 सेकंड सायरन के बाद लोकेशन अपडेट</div>
-      <div class="netnote">© 2026 Pawan Verma • PAWANGAMINGSTUDIO 🇮🇳</div>
-    </section>
+    <a href="raksha-guard-emergency-contacts-privacy-guide.html" class="article-card">
+      <span class="badge purple">डेटा प्राइवेसी</span>
+      <h2>रक्षा-गार्ड इमरजेंसी कॉन्टैक्ट्स और डेटा प्राइवेसी सुरक्षा</h2>
+      <p>जीरो-सर्वर स्टोरेज सिद्धांत: आपका डेटा केवल आपके फोन में कैसे सुरक्षित रहता है।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
 
-    <!-- ============ TIPS VIEW ============ -->
-    <section class="view" id="view-tips">
-      <div class="h2">💡 <span data-i18n="navTips">सुरक्षा सलाह</span></div>
-      <div class="tiphero" id="tipHero"></div>
-      <div class="h2" style="margin-top:4px">🛡️ <span data-i18n="rulesTitle">7 जरूरी नियम + 50+ सलाह</span></div>
-      <div id="rulesList" style="display:flex;flex-direction:column;gap:10px"></div>
-      <div class="h2" style="margin-top:6px">📚 <span>50+ सुरक्षा सलाह (A to Z)</span></div>
-      <div id="allTips" style="display:flex;flex-direction:column;gap:10px"></div>
-    </section>
+  <!-- Category 2: Helpline Directories -->
+  <div class="cat-title">📞 2. राष्ट्रीय व राज्य हेल्पलाइन निर्देशिका (Helpline Directories)</div>
+  <div class="grid">
+    <a href="emergency-helpline-numbers-india-directory.html" class="article-card" style="border-color:#065f46">
+      <span class="badge green">राष्ट्रीय हेल्पलाइन निर्देशिका</span>
+      <h2>भारत के सभी 51+ आपातकालीन हेल्पलाइन नंबरों की आधिकारिक सूची</h2>
+      <p>112, 100, 1091, 1930, 108, 1098, 139 और 14416 का सम्पूर्ण विवरण व 1-टच कॉलिंग।</p>
+      <div class="meta"><span>📖 8 मिनट पढ़ें</span><span>पूरी निर्देशिका पढ़ें →</span></div>
+    </a>
 
-    <!-- ============ HELP NUMBERS VIEW ============ -->
-    <section class="view" id="view-help">
-      <div class="h2">🚨 <span data-i18n="navHelp">50+ हेल्प नंबर</span></div>
-      <input class="search" id="helpSearch" data-i18n-ph="searchPh" placeholder="नंबर या नाम खोजें...">
-      <div id="helpList"></div>
-    </section>
+    <a href="all-india-states-emergency-helpline-directory.html" class="article-card" style="border-color:#5b21b6">
+      <span class="badge purple">राज्य व UT निर्देशिका (36 States & UTs)</span>
+      <h2>भारत के सभी 28 राज्यों व 8 केंद्र शासित प्रदेशों के आधिकारिक हेल्पलाइन नंबर</h2>
+      <p>राजस्थान, यूपी, दिल्ली, बिहार सहित 36 राज्यों/UTs के पुलिस, महिला, आपदा SDMA नंबर।</p>
+      <div class="meta"><span>📖 12 मिनट पढ़ें</span><span>सभी 36 राज्यों की सूची देखें →</span></div>
+    </a>
 
-    <!-- ============ CREATOR VIEW ============ -->
-    <section class="view" id="view-creator">
-      <div class="h2">👨‍💻 <span>क्रिएटर के बारे में</span></div>
-      <div class="card purpleline" style="text-align:center">
-        <img class="avatar" src="data:image/jpeg;base64,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" alt="पवन वर्मा — Pawan Verma">
-        <h3 style="justify-content:center;margin:12px 0 4px;font-size:19px">पवन वर्मा</h3>
-        <div style="color:var(--dim);font-size:12px;font-weight:700;letter-spacing:.5px">Pawan Verma • Founder, PAWANGAMINGSTUDIO</div>
-        <div style="display:flex;justify-content:center;gap:8px;margin:10px 0 4px;flex-wrap:wrap">
-          <span class="chip pink">🎮 PAWANGAMINGSTUDIO</span>
-          <span class="chip teal">🇮🇳 भरतपुर, राजस्थान</span>
-        </div>
-        <div style="text-align:left;margin-top:10px" class="para">
-          <p>नमस्कार!</p>
-          <p>मैं पवन वर्मा हूँ। मेरा जन्म 15 जुलाई 2007 को ग्राम खोह, तहसील डीग, जिला भरतपुर, राजस्थान में हुआ।</p>
-          <p>मैंने अपनी प्रारम्भिक शिक्षा कक्षा 1 से 8 तक श्री कृष्णा आदर्श विद्या मंदिर, खोह (प्राइवेट स्कूल) से प्राप्त की। इसके बाद कक्षा 9 से 12 तक की पढ़ाई राजकीय उच्च माध्यमिक विद्यालय, खोह, डीग (भरतपुर), राजस्थान से पूरी की। उच्च शिक्षा के लिए मैंने Maharaja Surajmal Brij University, भरतपुर से बी.ए. (Bachelor of Arts) की डिग्री प्राप्त की।</p>
-          <p>वर्तमान में मेरी आयु 19 वर्ष है। मुझे आर्टिफिशियल इंटेलिजेंस (AI), वेब डेवलपमेंट, डिजिटल टेक्नोलॉजी, नवाचार और नई तकनीकों को सीखने तथा उनके माध्यम से उपयोगी समाधान तैयार करने में विशेष रुचि है।</p>
-          <p>यह मेरा पहला वेब ऐप/वेबसाइट प्रोजेक्ट है। इस परियोजना का उद्देश्य केवल एक वेबसाइट बनाना नहीं, बल्कि ऐसा डिजिटल प्लेटफ़ॉर्म तैयार करना है जो लोगों के लिए वास्तव में उपयोगी, भरोसेमंद और सरल हो। मेरा विश्वास है कि सही सोच और आधुनिक तकनीक के माध्यम से समाज और देश के विकास में सार्थक योगदान दिया जा सकता है।</p>
-          <p>मेरा सपना भारत के लिए ऐसे डिजिटल प्लेटफ़ॉर्म, टूल्स और एप्लिकेशन विकसित करना है जो शिक्षा, सुरक्षा, जानकारी और जनसेवा के क्षेत्र में लाखों लोगों की सहायता करें। मैं निरंतर सीखने, नई तकनीकों को अपनाने और देशहित में उपयोगी डिजिटल समाधान विकसित करने के लिए समर्पित हूँ।</p>
-          <div class="quote">"मेरा लक्ष्य केवल सफलता प्राप्त करना नहीं, बल्कि ऐसी तकनीक विकसित करना है जो लोगों के जीवन को बेहतर बनाए और देश के विकास में अपना योगदान दे।"<br>— पवन वर्मा</div>
-        </div>
-      </div>
-    </section>
+    <a href="raksha-guard-national-emergency-112-erss-guide.html" class="article-card">
+      <span class="badge red">112 राष्ट्रीय ERSS</span>
+      <h2>रक्षा-गार्ड से 112 ERSS पर कॉल कैसे करें? — एक नंबर, सभी आपात सेवाएं</h2>
+      <p>पुलिस, एम्बुलेंस और फायर को एक साथ जोड़ने वाले राष्ट्रीय ERSS 112 का उपयोग।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
 
-    <!-- ============ MORE VIEW ============ -->
-    <section class="view" id="view-more">
-      <div class="h2">📑 <span data-i18n="moreTitle">अन्य उपयोगी पेज व नीतियां</span></div>
-      <a class="moreitem" href="articles/index.html"><span>📚</span><span>सुरक्षा ज्ञान केंद्र (Knowledge Hub)<small>50+ कानूनी, साइबर फ्रॉड 1930 व जीवन-रक्षक गाइड्स</small></span><span class="ar">›</span></a>
-      <a class="moreitem" href="about-us.html"><span>👨‍💻</span><span>हमारे बारे में (About Us)<small>पवन वर्मा — PAWANGAMINGSTUDIO (भरतपुर, राजस्थान)</small></span><span class="ar">›</span></a>
-      <a class="moreitem" href="privacy-policy.html"><span>🔒</span><span>गोपनीयता नीति (Privacy Policy)<small>डेटा सुरक्षा, कुकीज व AdSense नीतियां</small></span><span class="ar">›</span></a>
-      <a class="moreitem" href="terms-conditions.html"><span>📜</span><span>नियम व शर्तें (Terms & Conditions)<small>उपयोग नियम, कॉपीराइट व कानूनी शर्तें</small></span><span class="ar">›</span></a>
-      <a class="moreitem" href="disclaimer.html"><span>⚠️</span><span>अस्वीकरण (Safety Disclaimer)<small>112 राष्ट्रीय आपातकालीन प्राथमिकता सूचना</small></span><span class="ar">›</span></a>
-      <a class="moreitem" href="contact-us.html"><span>✉️</span><span>संपर्क करें (Contact Us)<small>डेवलपर ईमेल, पता व प्रतिक्रिया फॉर्म</small></span><span class="ar">›</span></a>
-      <button class="moreitem goto" data-goto="view-trust"><span>🛡️</span><span data-i18n="navTrust">विश्वास व डेटा सुरक्षा — Privacy & Trust<small>Trust & Safety: na paisa kate, na galat message</small></span><span class="ar">›</span></button>
-      <button class="moreitem goto" data-goto="view-guide"><span>📘</span><span data-i18n="navGuide">कैसे उपयोग करें? (FAQ)<small>How to Use / FAQ</small></span><span class="ar">›</span></button>
-      <div class="netnote">© 2026 Pawan Verma • PAWANGAMINGSTUDIO 🇮🇳</div>
-    </section>
+  <!-- Category 3: Cyber Security -->
+  <div class="cat-title">💻 3. साइबर अपराध व 1930 फ्रॉड शील्ड (Cyber Security)</div>
+  <div class="grid">
+    <a href="cyber-crime-1930-complaint-guide.html" class="article-card">
+      <span class="badge">साइबर क्राइम 1930</span>
+      <h2>ऑनलाइन वित्तीय धोखाधड़ी होने पर 1930 पर शिकायत कैसे दर्ज करें?</h2>
+      <p>बैंक फ्रॉड या यूपीआई स्कैम होने पर 'गोल्डन ऑवर' में खाता फ्रीज कराने की पूरी प्रक्रिया।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-    <!-- ============ TRUST VIEW ============ -->
-    <section class="view" id="view-trust">
-      <div class="h2">🛡️ <span data-i18n="navTrust">विश्वास व डेटा सुरक्षा — Privacy & Trust</span></div>
-      <div class="card purpleline para" id="trustBox"></div>
-    </section>
+    <a href="digital-arrest-fraud-safety-tips.html" class="article-card">
+      <span class="badge pink">स्कैम अलर्ट 2026</span>
+      <h2>नकली CBI/ED 'डिजिटल अरेस्ट' स्कैम क्या है और इससे कैसे बचें?</h2>
+      <p>वीडियो कॉल पर पुलिस वर्दी पहनकर डराने वाले ठगों की पहचान और सुप्रीम कोर्ट के नियम।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-    <!-- ============ ABOUT VIEW ============ -->
-    <section class="view" id="view-about">
-      <div class="h2">ℹ️ <span data-i18n="navAbout">ऐप के बारे में</span></div>
-      <div class="card purpleline para" id="aboutBox"></div>
-      <button class="moreitem goto" data-goto="view-creator"><span>👨💻</span><span>क्रिएटर से मिलिए — पवन वर्मा<small>Meet the Creator — PAWANGAMINGSTUDIO</small></span><span class="ar">›</span></button>
-    </section>
+    <a href="fake-job-loan-app-fraud-prevention.html" class="article-card">
+      <span class="badge amber">लोन व जॉब फ्रॉड</span>
+      <h2>फर्जी लोन ऐप्स और टेलीग्राम पार्ट-टाइम जॉब स्कैम से कैसे बचें?</h2>
+      <p>ब्लैकमेलिंग से बचाव, खतरनाक अनुमतियों की पहचान और आरबीआई की गाइडलाइंस।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-    <!-- ============ PRIVACY VIEW ============ -->
-    <section class="view" id="view-privacy">
-      <div class="h2">🔒 <span data-i18n="navPriv">गोपनीयता नीति</span></div>
-      <div class="card pinkline para" id="privBox"></div>
-    </section>
+    <a href="atm-card-cloning-upi-safety-rules.html" class="article-card">
+      <span class="badge green">बैंकिंग सुरक्षा</span>
+      <h2>ATM कार्ड स्किमिंग और UPI फ्रॉड से बचने के 7 व्यावहारिक नियम</h2>
+      <p>कार्ड क्लोनिंग पहचान, पिन सुरक्षा और सुरक्षित डिजिटल बैंकिंग की संपूर्ण चेकलिस्ट।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-    <!-- ============ TERMS VIEW ============ -->
-    <section class="view" id="view-terms">
-      <div class="h2">📜 <span data-i18n="navTerms">नियम व शर्तें + अस्वीकरण</span></div>
-      <div class="card pinkline para" id="termsBox"></div>
-    </section>
+    <a href="social-media-privacy-photo-safety.html" class="article-card">
+      <span class="badge purple">सोशल प्राइवेसी</span>
+      <h2>सोशल मीडिया प्राइवेसी और फोटो सुरक्षा गाइड (डीपफेक से बचाव)</h2>
+      <p>फेसबुक-इंस्टाग्राम पर 2FA सुरक्षा, प्रोफाइल लॉक और फोटो मिसयूज पर आईटी एक्ट शिकायत।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
 
-    <!-- ============ GUIDE VIEW ============ -->
-    <section class="view" id="view-guide">
-      <div class="h2">📘 <span data-i18n="navGuide">कैसे उपयोग करें? (FAQ)</span></div>
-      <div id="guideList" style="display:flex;flex-direction:column;gap:10px"></div>
-    </section>
-  </main>
+    <a href="lost-mobile-ceir-portal-block-guide.html" class="article-card">
+      <span class="badge">मोबाइल सुरक्षा</span>
+      <h2>मोबाइल चोरी होने पर CEIR पोर्टल से तुरंत IMEI ब्लॉक व ट्रैक कैसे करें?</h2>
+      <p>दूरसंचार विभाग के आधिकारिक CEIR पोर्टल से फोन को सुरक्षित रूप से ब्लॉक करने की विधि।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
 
-  <!-- bottom nav -->
-  <nav class="bottomnav">
-    <button class="nb active" data-view="view-sos">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l8 3v6c0 5-3.5 9.4-8 11-4.5-1.6-8-6-8-11V5l8-3z"/><path d="M12 8v5"/><circle cx="12" cy="16" r="0.7" fill="currentColor"/></svg>
-      <span data-i18n="navSos">मुख्य SOS</span>
-    </button>
-    <button class="nb" data-view="view-tips">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 1 6 6c0 2.2-1.2 3.6-2.4 4.8-.7.7-1.1 1.3-1.1 2.2h-5c0-.9-.4-1.5-1.1-2.2C7.2 12.6 6 11.2 6 9a6 6 0 0 1 6-6z"/></svg>
-      <span data-i18n="navTips">सुरक्षा सलाह</span>
-    </button>
-    <button class="nb" data-view="view-help">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 1 6 6v3l1.5 3h-15L6 12V9a6 6 0 0 1 6-6z"/><path d="M10 18a2 2 0 0 0 4 0"/><path d="M12 0.8v1.4M4 4l1 1M20 4l-1 1"/></svg>
-      <span data-i18n="navHelp">50+ हेल्प नंबर</span>
-    </button>
-    <button class="nb" data-view="view-creator">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5"/></svg>
-      <span data-i18n="navCreator">क्रिएटर</span>
-    </button>
-    <button class="nb" data-view="view-more">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
-      <span data-i18n="navMore">अन्य पेज</span>
-    </button>
-  </nav>
+  <!-- Category 4: Legal & Women Safety -->
+  <div class="cat-title">⚖️ 4. कानूनी अधिकार व महिला-छात्र सुरक्षा (Legal & Safety Rights)</div>
+  <div class="grid">
+    <a href="women-safety-laws-rights-india.html" class="article-card">
+      <span class="badge pink">महिला सुरक्षा कानून</span>
+      <h2>भारतीय कानून में महिलाओं के 7 सबसे शक्तिशाली कानूनी अधिकार</h2>
+      <p>Zero FIR, रात में गिरफ्तारी से सुरक्षा, पहचान की गोपनीयता और 1091 हेल्पलाइन की शक्तियां।</p>
+      <div class="meta"><span>📖 7 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-women-night-commute-safety-os.html" class="article-card">
+      <span class="badge pink">नाइट कम्यूट मोड</span>
+      <h2>रक्षा-गार्ड महिला नाइट कम्यूट मोड — रात में सुरक्षित घर वापसी वर्कफ्लो</h2>
+      <p>कामकाजी महिलाओं व छात्राओं के लिए रात में 4-चरणीय सुरक्षा और 1091/112 इंटीग्रेशन।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-college-student-campus-safety.html" class="article-card">
+      <span class="badge">कॉलेज व हॉस्टल सुरक्षा</span>
+      <h2>रक्षा-गार्ड कॉलेज व हॉस्टल छात्र सुरक्षा गाइड</h2>
+      <p>एंटी-रैगिंग 1800-180-5522, हॉस्टल इमरजेंसी और रूममेट अलर्ट सिस्टम।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="child-safety-1098-pocso-guide.html" class="article-card">
+      <span class="badge">बाल सुरक्षा 1098</span>
+      <h2>चाइल्डलाइन 1098 और बाल सुरक्षा (Good Touch - Bad Touch) गाइड</h2>
+      <p>बच्चों को सुरक्षित रखने के नियम, POCSO एक्ट के प्रावधान और चाइल्डलाइन सहायता।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="good-samaritan-law-road-accidents.html" class="article-card">
+      <span class="badge green">सड़क सुरक्षा कानून</span>
+      <h2>सड़क दुर्घटना में घायल की मदद करने वाले नागरिक के कानूनी अधिकार (Good Samaritan Law)</h2>
+      <p>सुप्रीम कोर्ट के निर्देश: मददगार नागरिक से पुलिस पूछताछ व अस्पताल शुल्क से छूट।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="senior-citizen-banking-fraud-safety.html" class="article-card">
+      <span class="badge amber">वरिष्ठ नागरिक सुरक्षा</span>
+      <h2>बुजुर्गों को पेंशन व बैंकिंग फ्रॉड से बचाने के 10 आसान सुरक्षा उपाय</h2>
+      <p>वरिष्ठ नागरिकों के लिए हेल्पलाइन 14567, OTP सुरक्षा, और सुरक्षित जीवन प्रमाण पत्र के नियम।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-voter-utility-1950-guide.html" class="article-card">
+      <span class="badge">मतदाता अधिकार 1950</span>
+      <h2>रक्षा-गार्ड 1950 राष्ट्रीय मतदाता हेल्पलाइन (ECI) गाइड</h2>
+      <p>वोटर आईडी कार्ड, पोलिंग बूथ और नागरिक चुनावी अधिकारों की पूरी जानकारी।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <!-- Category 5: Emergency Health, Disaster & Travel -->
+  <div class="cat-title">🏥 5. आपातकालीन स्वास्थ्य, आपदा, हाईवे व यात्रा सुरक्षा (Emergency Life Saving)</div>
+  <div class="grid">
+    <a href="emergency-first-aid-cpr-guide.html" class="article-card">
+      <span class="badge red">प्राथमिक उपचार CPR</span>
+      <h2>एम्बुलेंस आने से पहले CPR और प्राथमिक उपचार देने का सही तरीका</h2>
+      <p>हार्ट अटैक और बेहोशी में जीवन बचाने वाली हैंड्स-ओनली सीपीआर तकनीक और ब्लीडिंग कंट्रोल।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-poison-control-1066-aiims-guide.html" class="article-card">
+      <span class="badge red">जहर नियंत्रण 1066</span>
+      <h2>रक्षा-गार्ड 1066 जहर नियंत्रण केंद्र (AIIMS नई दिल्ली) गाइड</h2>
+      <p>कीटनाशक, रसायन या गलत दवा निगलने पर आपातकालीन विष मारक (Antidote) सलाह।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-fire-brigade-101-rescue-guide.html" class="article-card">
+      <span class="badge red">अग्निशमन 101</span>
+      <h2>रक्षा-गार्ड 101 अग्निशमन (Fire Brigade) बचाव गाइड</h2>
+      <p>घर व दफ्तर में आग लगने पर आपातकालीन बचाव और 101/112 पर 1-टच कॉलिंग।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-highway-accident-1033-nhai-guide.html" class="article-card">
+      <span class="badge green">हाईवे सुरक्षा 1033</span>
+      <h2>रक्षा-गार्ड 1033 नेशनल हाईवे हेल्पलाइन — एक्सप्रेसवे आपात सहायता</h2>
+      <p>NHAI पेट्रोलिंग, क्रेन, टोइंग और हाईवे एम्बुलेंस से त्वरित सहायता पाने की गाइड।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="mental-health-tele-manas-14416.html" class="article-card">
+      <span class="badge green">मानसिक स्वास्थ्य</span>
+      <h2>टेली-मानस (14416) — भारत सरकार की 24x7 मुफ्त मानसिक स्वास्थ्य सेवा</h2>
+      <p>तनाव, डिप्रेशन और मनोवैज्ञानिक संकट में मुफ्त फोन काउंसलिंग और परामर्श प्रक्रिया।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="blood-bank-emergency-1910-search.html" class="article-card">
+      <span class="badge red">ब्लड बैंक 1910</span>
+      <h2>आपातकालीन ब्लड बैंक (1910) और e-RaktKosh पोर्टल गाइड</h2>
+      <p>दुर्घटना व सर्जरी में तुरंत रक्त उपलब्धता खोजने के लिए सरकारी ई-रक्तकोष और 1910 हेल्पलाइन।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="disaster-preparedness-earthquake-flood.html" class="article-card">
+      <span class="badge amber">आपदा प्रबंधन</span>
+      <h2>भूकंप, बाढ़ और प्राकृतिक आपदाओं में जीवन-रक्षा गाइड (NDMA 1078)</h2>
+      <p>ड्रॉप-कवर-होल्ड तकनीक, बाढ़ सुरक्षा और एनडीएमए 1078 आपातकालीन दिशानिर्देश।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="train-travel-safety-139-rpf-guide.html" class="article-card">
+      <span class="badge green">रेलवे सुरक्षा</span>
+      <h2>ट्रेन में सफर करते समय 139 रेल मदद और RPF सुरक्षा हेल्पलाइन गाइड</h2>
+      <p>चलती ट्रेन में संकट के समय सहायता, 'मेरी सहेली' पहल और नशाखुरानी से बचाव।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="cab-auto-travel-night-safety-tips.html" class="article-card">
+      <span class="badge">कैब व ऑटो सुरक्षा</span>
+      <h2>रात में ऑटो/कैब में सुरक्षित सफर की 5-सूत्रीय चेकलिस्ट</h2>
+      <p>चाइल्ड लॉक जांच, लाइव लोकेशन शेयरिंग और संदिग्ध परिस्थितियों में तुरंत आपात कॉल।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="gas-leak-fire-safety-1906-rules.html" class="article-card">
+      <span class="badge red">गैस लीक 1906</span>
+      <h2>रसोई गैस (LPG) लीक होने पर क्या करें और क्या कभी न करें?</h2>
+      <p>विस्फोट से बचाव के नियम, स्विच न छूने की सावधानी और राष्ट्रीय 1906 आपातकालीन नंबर।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="android-power-button-sos-setup.html" class="article-card">
+      <span class="badge">स्मार्टफोन सेटिंग्स</span>
+      <h2>हर एंड्रॉइड फोन में पावर बटन 3-बार दबाकर SOS भेजने की सेटिंग कैसे करें?</h2>
+      <p>Samsung, Xiaomi, OnePlus, Realme, Vivo, Oppo में इन-बिल्ट इमरजेंसी SOS कॉन्फ़िगरेशन।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="self-defense-techniques-everyday-objects.html" class="article-card">
+      <span class="badge pink">आत्मरक्षा तकनीक</span>
+      <h2>दैनिक उपयोग की वस्तुओं (चाबी, पेन, बैग) से आत्मरक्षा की तकनीकें</h2>
+      <p>हमले के समय संवेदनशील शारीरिक बिंदुओं पर वार करके भागने का समय प्राप्त करने के नियम।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <footer>
+    <p>© 2026 <b>पवन वर्मा (PAWANGAMINGSTUDIO)</b>. सर्वाधिकार सुरक्षित।</p>
+    <p style="margin-top:8px">
+      <a href="../index.html">मुख्य ऐप</a> |
+      <a href="../about-us.html">About Us</a> |
+      <a href="../privacy-policy.html">Privacy Policy</a> |
+      <a href="../terms-conditions.html">Terms & Conditions</a> |
+      <a href="../disclaimer.html">Disclaimer</a> |
+      <a href="../contact-us.html">Contact Us</a> |
+      <a href="index.html">सुरक्षा ज्ञान केंद्र</a>
+    </p>
+  </footer>
 </div>
-
-<!-- ============ MEDICAL & CPR MODAL ============ -->
-<div class="modal" id="modalMedCPR">
-  <div class="sheet">
-    <h3 style="color:#ef4444">🏥 आपातकालीन चिकित्सा व CPR गाइड <button class="xbtn" data-close="modalMedCPR">✕</button></h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-      <a class="btn pink small" style="text-decoration:none" href="tel:108">📞 108 एम्बुलेंस</a>
-      <a class="btn purple small" style="text-decoration:none" href="tel:112">📞 112 ERSS</a>
-    </div>
-
-    <!-- Live CPR Metronome -->
-    <div class="card" style="background:#180a10;border-color:#ef4444;text-align:center;padding:16px;margin-bottom:12px">
-      <div id="cprHeart" style="font-size:42px;display:inline-block;transition:.1s">❤️</div>
-      <div style="font-size:16px;font-weight:800;color:#fca5a5;margin-top:6px">CPR चेस्ट कम्प्रेशन बीट (110 BPM)</div>
-      <p style="font-size:12px;color:var(--dim);margin:4px 0 10px">इस दिल की धड़कन की ताल पर मरीज के सीने के बीच 2 इंच गहरा दबाएं</p>
-      <button class="btn pink small" id="cprBeepBtn" style="width:100%">🔊 CPR ऑडियो बीट शुरू करें</button>
-    </div>
-
-    <div style="display:flex;gap:8px;flex-direction:column">
-      <a class="btn dark small" style="text-decoration:none;border-color:#f59e0b;color:var(--yellow)" href="tel:1910">🩸 1910 ब्लड बैंक उपलब्धता</a>
-      <a class="btn dark small" style="text-decoration:none;border-color:#065f46;color:var(--green)" href="tel:1066">🧪 1066 AIIMS जहर नियंत्रण</a>
-    </div>
-  </div>
-</div>
-
-<!-- ============ ICE MEDICAL CARD MODAL ============ -->
-<div class="modal" id="modalICE">
-  <div class="sheet">
-    <h3 style="color:#c084fc">📋 ICE आपातकालीन स्वास्थ्य कार्ड <button class="xbtn" data-close="modalICE">✕</button></h3>
-    <p class="netnote" style="margin-bottom:10px;text-align:left">बेहोशी या दुर्घटना में डॉक्टर व पुलिस इस कार्ड से आपका ब्लड ग्रुप व संपर्क तुरंत देख सकते हैं।</p>
-    
-    <div class="fld"><label>रक्त समूह (Blood Group)</label>
-      <input id="iceBlood" placeholder="उदा. O+, B+, A+, AB+" maxlength="6">
-    </div>
-    <div class="fld"><label>एलर्जी या बीमारी (Allergies / Conditions)</label>
-      <input id="iceAllergy" placeholder="उदा. डायबिटीज, पेनिसिलिन एलर्जी, अस्थमा" maxlength="50">
-    </div>
-    <div class="fld"><label>आपातकालीन डॉक्टर या परिजन फोन</label>
-      <input id="iceDocPhone" inputmode="tel" placeholder="उदा. 98XXXXXXXX" maxlength="15">
-    </div>
-    <button class="btn purple" style="width:100%" id="saveIce">💾 ICE स्वास्थ्य कार्ड सेव करें</button>
-  </div>
-</div>
-
-<!-- ============ CYBER 1930 SHIELD MODAL ============ -->
-<div class="modal" id="modalCyberShield">
-  <div class="sheet">
-    <h3 style="color:#fde047">💻 साइबर 1930 फ्रॉड शील्ड <button class="xbtn" data-close="modalCyberShield">✕</button></h3>
-    <p class="netnote" style="margin-bottom:12px;text-align:left">बैंक फ्रॉड, यूपीआई स्कैम या डिजिटल अरेस्ट में पहले 2 घंटे 'गोल्डन ऑवर' होते हैं।</p>
-    <a class="btn pink" style="width:100%;text-decoration:none;margin-bottom:12px" href="tel:1930">📞 1930 राष्ट्रीय साइबर हेल्पलाइन डायल करें</a>
-    
-    <div class="card" style="background:#130c26;border-color:#f59e0b;padding:12px;margin-bottom:12px">
-      <b style="color:var(--yellow);font-size:13px;display:block;margin-bottom:4px">📋 तुरंत करने योग्य 3 कदम:</b>
-      <ol style="font-size:12px;color:#dcd6f0;margin-left:18px;line-height:1.6">
-        <li>1930 पर कॉल करके UTR नंबर और बैंक खाता दर्ज कराएं।</li>
-        <li>अपने बैंक ऐप से एटीएम व यूपीआई को 'Lock' करें।</li>
-        <li>cybercrime.gov.in पर औपचारिक ई-एफआईआर दर्ज करें।</li>
-      </ol>
-    </div>
-    <a class="btn dark small" style="width:100%;text-decoration:none;text-align:center" href="articles/cyber-crime-1930-complaint-guide.html">📖 1930 पैसा वापसी की पूरी गाइड पढ़ें →</a>
-  </div>
-</div>
-
-<!-- ============ RESCUE BEACON MODAL ============ -->
-<div class="modal" id="modalBeacon">
-  <div class="sheet">
-    <h3 style="color:#f472b6">📡 रेस्क्यू बीकन (S-O-S Morse Beacon) <button class="xbtn" data-close="modalBeacon">✕</button></h3>
-    <p class="netnote" style="margin-bottom:12px;text-align:left">मलबे में फंसने, अंधेरे, आग या आपदा में राहत दलों को अंतर्राष्ट्रीय S-O-S मोर्स कोड सिग्नल (`... --- ...`) भेजें।</p>
-    
-    <div class="card" style="background:#1a0818;border-color:#ec4899;text-align:center;padding:18px;margin-bottom:14px">
-      <div id="beaconIcon" style="font-size:44px;display:inline-block;transition:.15s">🚨</div>
-      <div id="beaconText" style="font-size:16px;font-weight:800;color:#f472b6;margin-top:6px">बीकन बंद है</div>
-      <div id="beaconMorse" style="font-size:18px;letter-spacing:4px;color:var(--yellow);margin-top:4px">··· ─── ···</div>
-    </div>
-    <button class="btn pink" style="width:100%" id="toggleBeaconBtn">📡 S-O-S रेस्क्यू बीकन चालू करें</button>
-  </div>
-</div>
-
-<!-- ============ MODALS ============ -->
-<div class="modal" id="modalContacts">
-  <div class="sheet">
-    <h3><span data-i18n="editTitle">इमरजेंसी संपर्क संपादित करें</span><button class="xbtn" data-close="modalContacts">✕</button></h3>
-    <div id="contactFields"></div>
-    <button class="btn pink" style="width:100%" id="saveContacts" data-i18n="save">💾 सेव करें</button>
-  </div>
-</div>
-
-<div class="modal" id="modalSend">
-  <div class="sheet">
-    <h3><span data-i18n="sendTitle">तुरंत संदेश भेजें</span><button class="xbtn" data-close="modalSend">✕</button></h3>
-    <div class="locbox" id="sendLoc"></div>
-    <button class="btn pink small" style="width:100%;margin-bottom:12px" id="smsAllBtn" data-i18n="smsAll">📨 सभी संपर्कों को एक साथ SMS करें</button>
-    <div id="sendList"></div>
-  </div>
-</div>
-
-<div class="modal" id="modalSOS">
-  <div class="sheet">
-    <h3 style="color:#ff8fab">🚨 SOS ACTIVE <button class="xbtn" data-close="modalSOS">✕</button></h3>
-    <div class="locbox" id="sosStatus" style="border-style:solid;color:var(--yellow)"></div>
-    <div class="locbox" id="sosLoc"></div>
-    <a class="btn pink" style="width:100%;text-decoration:none" href="tel:112">📞 <span data-i18n="call112">112 (नेशनल इमरजेंसी) को कॉल करें</span></a>
-    <button class="btn dark" style="width:100%;margin-top:10px;border-color:#065f46;color:var(--green)" id="safeMsgBtn">✅ मैं सुरक्षित हूं — परिवार को बताएं</button>
-    <div id="sosList"></div>
-    <button class="btn dark alarmstop" id="stopSos" data-i18n="stopAlarm">⏹ अलार्म बंद करें / मैं सुरक्षित हूं</button>
-  </div>
-</div>
-
-<div id="screentorch" title="बंद करने के लिए स्क्रीन छुएं"></div>
-
-<!-- ============ FAKE CALL EDIT MODAL ============ -->
-<div class="modal" id="modalFC">
-  <div class="sheet">
-    <h3>✏️ नकली कॉल सेटिंग <button class="xbtn" data-close="modalFC">✕</button></h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-      <button class="btn dark small fcp" data-t="police">👮 पुलिस</button>
-      <button class="btn dark small fcp" data-t="papa">👨 पिता</button>
-      <button class="btn dark small fcp" data-t="custom">👤 कस्टम</button>
-    </div>
-    <div class="fld"><label>कॉलर का नाम / Caller name</label><input id="fcNameIn" maxlength="25"></div>
-    <div class="fld"><label>कॉलर का नंबर / Caller number</label><input id="fcNumIn" inputmode="tel" maxlength="15"></div>
-    <div class="netnote" style="margin-bottom:10px">कॉल उठाने पर <b>मर्द आवाज़ (male voice)</b> में बात सुनाई देगी + स्क्रीन पर लाइनें दिखेंगी।</div>
-    <button class="btn pink" style="width:100%" id="fcSave">💾 सेव करें — कॉल तुरंत लगेगी</button>
-  </div>
-</div>
-
-<!-- ============ FAKE CALL OVERLAY ============ -->
-<div id="fakecall">
-  <div class="fc-status" id="fcStatus">आ रही कॉल…</div>
-  <div class="fc-mid">
-    <div class="fc-av">👤</div>
-    <div class="fc-name" id="fcName">परिवारजन</div>
-    <div class="fc-num" id="fcNum"></div>
-    <div class="fc-state" id="fcSub">मोबाइल • VoLTE</div>
-  </div>
-  <div id="fcRingActions" class="fc-actions">
-    <div class="fc-col"><button class="fc-decl" id="fcDecl">📵</button><span>अस्वीकारें</span></div>
-    <div class="fc-col"><button class="fc-acc" id="fcAcc">📞</button><span>उत्तर दें</span></div>
-  </div>
-  <div id="fcCallUI" style="display:none;width:100%">
-    <div class="fc-grid">
-      <div class="fc-g"><span>🔇</span>म्यूट</div>
-      <div class="fc-g"><span>🔢</span>कीपैड</div>
-      <div class="fc-g"><span>🔊</span>स्पीकर</div>
-      <div class="fc-g"><span>➕</span>जोड़ें</div>
-      <div class="fc-g"><span>⏸</span>होल्ड</div>
-      <div class="fc-g"><span>🎥</span>वीडियो</div>
-    </div>
-    <div class="fc-actions" style="justify-content:center"><div class="fc-col"><button class="fc-decl" id="fcEnd">📵</button><span>कॉल समाप्त</span></div></div>
-  </div>
-</div>
-
-<!-- ============ CHECK-IN MODAL ============ -->
-<div class="modal" id="modalCheckin">
-  <div class="sheet">
-    <h3>⏱ चेक-इन टाइमर <button class="xbtn" data-close="modalCheckin">✕</button></h3>
-    <p class="netnote" style="margin-bottom:12px">समय पूरा होने तक "मैं सुरक्षित हूं" न दबाने पर SOS अपने आप चालू होगा।<br><small>If you don't mark yourself safe in time, SOS auto-triggers.</small></p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <button class="btn dark ci" data-min="10">10 मिनट</button>
-      <button class="btn dark ci" data-min="15">15 मिनट</button>
-      <button class="btn dark ci" data-min="30">30 मिनट</button>
-      <button class="btn dark ci" data-min="60">60 मिनट</button>
-    </div>
-    <button class="btn pink" style="width:100%;margin-top:12px" id="ciSafe">✅ मैं सुरक्षित हूं / I am safe</button>
-  </div>
-</div>
-
-<!-- ============ ONBOARDING (permissions + login) ============ -->
-<div id="onboard">
-  <div class="ob-card" id="obPage1">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="logo"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9.4-8 11-4.5-1.6-8-6-8-11V5l8-3z"/><path d="M12 8v4"/><circle cx="12" cy="15.5" r="0.6" fill="#fff"/></svg></div>
-      <div><h1 style="font-size:20px">रक्षा-गार्ड</h1><div style="color:var(--dim);font-size:12px;font-weight:700">Emergency Protection OS • by PAWANGAMINGSTUDIO</div></div>
-    </div>
-    <div class="ob-t">🙏 नमस्ते! आपकी सुरक्षा के लिए हर बटन दबाकर अनुमति दें:<small>Please tap each button to grant permissions for your safety:</small></div>
-    <button class="moreitem" id="permLoc"><span>📍</span><span>लोकेशन भेजने की अनुमति<small>Location — live location in SOS message</small></span><span class="ar" id="stLoc">›</span></button>
-    <button class="moreitem" id="permMic"><span>🎤</span><span>माइक — वॉइस ट्रिगर हेतु<small>Microphone — for "बचाओ" voice trigger</small></span><span class="ar" id="stMic">›</span></button>
-    <button class="moreitem" id="permNot"><span>🔔</span><span>सूचनाएं / Notifications<small>Alerts & notifications</small></span><span class="ar" id="stNot">›</span></button>
-    <button class="btn pink" id="obNext" style="width:100%">लॉगिन पेज पर जाएं → <small style="font-weight:600">Next</small></button>
-  </div>
-  <div class="ob-card" id="obPage2" style="display:none">
-    <h3 style="justify-content:center">🔐 लॉगिन / प्रोफ़ाइल बनाएं</h3>
-    <div class="fld"><label>आपका नाम / Your Name</label><input id="obName" maxlength="30" placeholder="नाम लिखें"></div>
-    <div class="ob-t" style="font-size:12.5px">⚠️ इमरजेंसी संपर्क — <b style="color:var(--yellow)">कम से कम 1 नंबर जरूरी</b>, अधिकतम 4। इन्हीं पर आपकी लोकेशन व संदेश भेजे जाएंगे।<small>At least 1 emergency number is required (max 4). Your location & alerts go to these.</small></div>
-    <div class="fld"><label>1. Family Guardian 1 *</label><input id="obC0" inputmode="tel" maxlength="15" placeholder="e.g. 98XXXXXXXX"></div>
-    <div class="fld"><label>2. Family Guardian 2</label><input id="obC1" inputmode="tel" maxlength="15" placeholder="वैकल्पिक / optional"></div>
-    <div class="fld"><label>3. Police / पुलिस</label><input id="obC2" inputmode="tel" maxlength="15" placeholder="वैकल्पिक / optional"></div>
-    <div class="fld"><label>4. Ambulance / एम्बुलेंस</label><input id="obC3" inputmode="tel" maxlength="15" placeholder="वैकल्पिक / optional"></div>
-    <button class="btn pink" id="obStart" style="width:100%">🚀 ऐप शुरू करें / Start App</button>
-  </div>
-</div>
-
-<div id="toast"></div>
 
 <script>
-'use strict';
-/* ================= helpers ================= */
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-let toastT; function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
-const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:v;}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,v);}catch(e){}}};
-
-/* ================= i18n ================= */
-const I18N={
- hi:{appName:'रक्षा-गार्ड',appSub:'Emergency Protection OS',dailyTip:'दैनिक सुरक्षा सलाह',viewRules:'7 सुरक्षा नियम देखें →',
-  offlineBanner:'📶 सायरन व कॉल ऑफलाइन भी चलेंगे — SMS/WhatsApp हेतु नेटवर्क जरूरी',contactsTitle:'आपकी इमरजेंसी संपर्क संख्याएं (1-4):',
-  voiceOn:'स्वचालित वॉइस ट्रिगर चालू है:',voiceOff:'वॉइस ट्रिगर बंद है:',voiceSay:'बोलें: "बचाओ", "Bachao" या "Help"',
-  micOn:'माइक ऑन करें',micOff:'माइक बंद करें',voiceTest:'वॉइस टेस्ट करें ("बचाओ")',sendNow:'तुरंत SMS व व्हाट्सएप भेजें',
-  sosPress:'मदद के लिए दबाएं',
-  navSos:'मुख्य SOS',navTips:'सुरक्षा सलाह',navHelp:'50+ हेल्प नंबर',navAbout:'ऐप के बारे में',navPriv:'गोपनीयता नीति',
-  navCreator:'क्रिएटर',navMore:'अन्य पेज',moreTitle:'अन्य उपयोगी पेज',navTerms:'नियम व शर्तें + अस्वीकरण',navGuide:'कैसे उपयोग करें? (FAQ)',navTrust:'विश्वास व डेटा सुरक्षा — Privacy & Trust',
-  rulesTitle:'7 जरूरी नियम + 50+ सलाह',searchPh:'नंबर या नाम खोजें...',
-  viewRules:'50+ सुरक्षा सलाह देखें →',
-  c_g1:'1. Family Guardian 1',c_g2:'2. Family Guardian 2',c_pol:'3. Police / पुलिस',c_amb:'4. Ambulance / एम्बुलेंस',
-  empty:'(खाली / Empty)',editTitle:'इमरजेंसी संपर्क संपादित करें',save:'💾 सेव करें',
-  sendTitle:'तुरंत संदेश भेजें',smsAll:'📨 सभी संपर्कों को एक साथ SMS करें',
-  call112:'112 (नेशनल इमरजेंसी) को कॉल करें',stopAlarm:'⏹ अलार्म बंद करें / मैं सुरक्षित हूं',
-  sosStopHint:'रोकने के लिए दोबारा दबाएं',
-  sosAuto:'🚨 पहला अलर्ट दबाते ही तुरंत जाता है; 5 सेकंड सायरन के बाद लोकेशन अपडेट',
-  smsOpened:'📨 SMS ऐप खुल गया — मैसेज व नंबर भरे हुए हैं, बस Send दबाएं (ब्राउज़र सुरक्षा नियम)',
-  netOn:'📶 इंटरनेट चालू — SMS/WhatsApp/लोकेशन उपलब्ध',netOff:'✈️ ऑफलाइन — सायरन, कॉल व हेल्प नंबर चलेंगे; SMS/WhatsApp हेतु नेटवर्क चाहिए',
-  dataOn:'मोबाइल डेटा (4G)',dataOff:'ऑफलाइन मोड',locWait:'📍 लोकेशन प्राप्त हो रही है...',locFail:'📍 लोकेशन उपलब्ध नहीं — बिना लोकेशन के संदेश भेजा जाएगा',
-  call:'कॉल',sms:'SMS',wa:'WhatsApp'},
- en:{appName:'Raksha-Guard',appSub:'Emergency Protection OS',dailyTip:'Daily Safety Tip',viewRules:'View 7 Safety Rules →',
-  offlineBanner:'📶 Siren & calls work offline — SMS/WhatsApp need network',contactsTitle:'Your Emergency Contacts (1-4):',
-  voiceOn:'Auto Voice Trigger is ON:',voiceOff:'Voice Trigger is OFF:',voiceSay:'Say: "Bachao", "बचाओ" or "Help"',
-  micOn:'Mic ON',micOff:'Mic OFF',voiceTest:'Test Voice ("Bachao")',sendNow:'Send SMS & WhatsApp Now',
-  sosPress:'Press for help',
-  navSos:'Main SOS',navTips:'Safety Tips',navHelp:'50+ Help Numbers',navAbout:'About App',navPriv:'Privacy Policy',
-  navCreator:'Creator',navMore:'More Pages',moreTitle:'More Useful Pages',navTerms:'Terms & Disclaimer',navGuide:'How to Use (FAQ)',navTrust:'Trust & Safety — Privacy & Trust',
-  rulesTitle:'7 Key Rules + 50+ Tips',searchPh:'Search number or name...',viewRules:'View 50+ Safety Tips →',
-  c_g1:'1. Family Guardian 1',c_g2:'2. Family Guardian 2',c_pol:'3. Police',c_amb:'4. Ambulance',
-  empty:'(Empty)',editTitle:'Edit Emergency Contacts',save:'💾 Save',
-  sendTitle:'Send Message Now',smsAll:'📨 SMS all contacts at once',
-  call112:'Call 112 (National Emergency)',stopAlarm:'⏹ Stop Alarm / I am safe',
-  sosStopHint:'Tap again to stop',
-  sosAuto:'🚨 First alert goes instantly on press; location update after 5s siren',
-  smsOpened:'📨 SMS app opened — message & numbers pre-filled, just tap Send (browser security rule)',
-  netOn:'📶 Internet ON — SMS/WhatsApp/location available',netOff:'✈️ Offline — siren, calls & helplines work; SMS/WhatsApp need network',
-  dataOn:'Mobile Data (4G)',dataOff:'Offline Mode',locWait:'📍 Fetching location...',locFail:'📍 Location unavailable — message will be sent without location',
-  call:'Call',sms:'SMS',wa:'WhatsApp'}
-};
-let lang=store.get('rg_lang','hi');
-const T=k=>I18N[lang][k]||k;
-
-/* ================= data ================= */
-const CKEYS=['c_g1','c_g2','c_pol','c_amb'];
-let contacts=JSON.parse(store.get('rg_contacts','null'))||['7665627191','','',''];
-
-const RULES=[
- ['अपने फोन में 112 और परिवार के नंबर हमेशा सेव रखें।','Always keep 112 & family numbers saved in your phone.'],
- ['अकेले कहीं जाते समय परिवार को लाइव लोकेशन शेयर करें।','Share live location with family when travelling alone.'],
- ['सुनसान रास्तों पर देर रात चलने से बचें।','Avoid lonely roads late at night.'],
- ['अपने इलाके की पुलिस चौकी व आस-पास के लोगों की जानकारी रखें।','Know your local police station & people around you.'],
- ['छेड़छाड़ या पीछा होने पर तुरंत भीड़ वाली जगह जाएं और जोर से चिल्लाएं।','If harassed or followed, rush to a crowded place & shout loudly.'],
- ['भरोसेमंद ऐप पर परिवार के साथ लोकेशन शेयरिंग चालू रखें।','Keep location sharing ON with family on trusted apps.'],
- ['घबराएं नहीं — SOS दबाएं और मदद आने तक हिम्मत रखें।','Don\'t panic — press SOS and stay strong until help arrives.']
-];
-const TIPS=[
- ['रात में अकेले चलते समय रोशनी व भीड़ वाला रास्ता चुनें, सुनसान शॉर्टकट कभी न लें; परिवार को रास्ता व पहुंचने का समय बताकर निकलें।','At night take lit, crowded routes; inform family of route & time.'],
- ['अकेले सफर में अपनी लाइव लोकेशन परिवार से शेयर करते रहें; पहुंचते ही "पहुंच गया" मैसेज जरूर करें।','Share live location when alone; message on reaching.'],
- ['अनजान कैब/ऑटो में बैठने से पहले गाड़ी नंबर अपनी फोटो सहित परिवार को भेजें और लाइव लोकेशन शेयर करें।','Send vehicle number with photo to family before boarding.'],
- ['कैब ऐप में लाइव ट्रिप शेयर व आपातकालीन बटन की जांच करें; ड्राइवर का नाम व रेटिंग देखकर बैठें।','Use cab app trip-share & SOS button; check driver rating.'],
- ['लिफ्ट में अजनबी के साथ अकेले न जाएं; संदेह हो तो अगली लिफ्ट का इंतजार करें।','Never share a lift alone with a stranger.'],
- ['फोन पर OTP, पासवर्ड या बैंक जानकारी किसी को न बताएं; बैंक/पुलिस कभी फोन पर ऐसी जानकारी नहीं मांगते।','Never share OTP/passwords on calls; banks never ask.'],
- ['सड़क पर चलते समय फोन में खोए नहीं; सतर्क रहें और आस-पास नजर रखें।','Stay alert while walking; don\'t be lost in phone.'],
- ['अपनी दिनचर्या व रास्ते समय-समय पर बदलें ताकि कोई पीछा करने की आदत न बना सके।','Vary routes & routines to avoid being tracked.'],
- ['परिवार के साथ एक "सेफ्टी कोड वर्ड" तय करें; मुसीबत में सामान्य बातचीत में कोड बोलें ताकि संकेत मिले।','Set a family code word as hidden distress signal.'],
- ['भीड़ में खतरा लगे तो जोर से "आग! आग!" या "चोर!" चिल्लाएं — लोग तुरंत ध्यान देते हैं; सिर्फ "बचाओ" से कम प्रतिक्रिया मिलती है।','Shout "Fire/Thief" in crowds for faster response.'],
- ['पीछा महसूस होने पर सीधे घर न जाएं; नजदीकी दुकान, चौकी या गार्ड वाले स्थान पर शरण लें।','If followed, go to a shop or police post, not home.'],
- ['अपने इलाके की पुलिस चौकी, महिला हेल्पलाइन व भरोसेमंद पड़ोसियों के नंबर सेव रखें।','Save local police post & trusted neighbors\' numbers.'],
- ['सोशल मीडिया पर लाइव लोकेशन, टिकट या घर की फोटो सार्वजनिक पोस्ट न करें।','Never post live location or home photos publicly.'],
- ['अनजान लिंक/ऐप इंस्टॉल न करें; वे आपकी लोकेशन व OTP चुरा सकते हैं।','Never install unknown apps or links.'],
- ['रात में सोने से पहले दरवाजे-खिड़कियां लॉक करें; कुंडी व चेन लगाएं।','Lock doors & windows before sleeping.'],
- ['घर में अकेले हों तो अजनबी को दरवाजा न खोलें; डिलीवरी भी बाहर रखवाकर लें।','Don\'t open the door to strangers when alone.'],
- ['गैस लीक की गंध आए तो स्विच न छुएं, खिड़कियां खोलें, बाहर जाकर 1906 पर कॉल करें।','On gas smell: no switches, open windows, call 1906.'],
- ['आग लगने पर लिफ्ट उपयोग न करें; गीला कपड़ा नाक पर रखकर झुककर निकलें, 101 पर कॉल करें।','In fire: avoid lifts, crawl out, call 101.'],
- ['सड़क दुर्घटना देखें तो 108/1073 पर सूचना दें; गुड सैमरिटन कानून आपको सुरक्षा देता है।','Report accidents to 108/1073; law protects helpers.'],
- ['अपना ब्लड ग्रुप व एलर्जी की जानकारी कार्ड पर लिखकर बटुए में रखें।','Keep a blood-group & allergy card in wallet.'],
- ['बाहर जाते समय पहचान पत्र साथ रखें; बच्चों की जेब में घर का पता व नंबर लिखें।','Carry ID; put home address in kids\' pockets.'],
- ['नकदी को एक जगह न रखें; अलग-अलग जेबों में बांटकर रखें।','Split cash across pockets.'],
- ['चाबी की अतिरिक्त कॉपी भरोसेमंद पड़ोसी/रिश्तेदार के पास रखें।','Keep a spare key with someone trusted.'],
- ['देर रात सुनसान बस स्टॉप पर अकेले न रुकें; भीड़ वाले स्थान पर प्रतीक्षा करें।','Avoid lonely bus stops late at night.'],
- ['ट्रेन सफर में अजनबी का दिया खाना-पानी न लें; अपनी वस्तुओं से नजर न हटने दें।','Refuse strangers\' food on trains; watch belongings.'],
- ['रेलवे स्टेशन पर पोर्टर/एजेंट बनकर ठगने वालों से बचें; 139/182 हेल्पलाइन याद रखें।','Beware station touts; remember 139/182.'],
- ['हॉस्टल/PG में कमरे की कुंडी लगाएं; अनजान व्यक्ति को अंदर न आने दें।','Latch hostel rooms; keep strangers out.'],
- ['कॉलेज/ट्यूशन रूट पर दोस्तों के ग्रुप में चलें; अकेले रहने से बचें।','Walk in groups to college/tuition.'],
- ['छेड़छाड़ होने पर चुप न रहें; जोर से विरोध करें, लोगों से मदद मांगें व 1091/112 डायल करें।','Never stay silent on harassment; call 1091/112.'],
- ['स्टॉकर की हर घटना की तारीख-समय नोट करें, स्क्रीनशॉट सुरक्षित रखें; शिकायत में सबूत काम आएंगे।','Document stalking with dates & screenshots.'],
- ['ऑनलाइन दोस्त से मिलने से पहले वीडियो कॉल पर पहचान पक्की करें; पहली मुलाकात भीड़ वाली जगह रखें।','Verify online friends on video call; meet in public.'],
- ['नौकरी/पार्टटाइम के बहाने अनजान जगह अकेले इंटरव्यू न जाएं; कंपनी वेरिफाई करें।','Verify employers; avoid lone unknown interviews.'],
- ['फोन में 112 स्पीड डायल व पावर-बटन SOS सेटिंग ऑन रखें।','Enable 112 speed dial & power-button SOS.'],
- ['बैटरी 30% से नीचे होते ही पावर बैंक लगाएं; खाली बैटरी मुसीबत में सबसे बड़ा जोखिम है।','Charge before 30%; dead battery is the biggest risk.'],
- ['पर्स/फोन छिनने पर पीछा न करें; जान सामान से कीमती है — तुरंत SOS/पुलिस को सूचना दें।','Don\'t chase snatchers; report instantly.'],
- ['एटीएम पर कोई बहुत करीब खड़े तो विनम्र दूरी बनाने को कहें; PIN छिपाकर डालें।','Keep distance at ATMs; shield your PIN.'],
- ['मेले/त्योहार की भीड़ में बच्चों का हाथ पकड़ें; खो जाने पर मिलने की जगह पहले तय करें।','Hold kids\' hands in crowds; pre-decide meeting point.'],
- ['अजनबी के दिए पेय/खाने में कुछ मिलाने से इनकार करें; अपना गिलास कभी अकेला न छोड़ें।','Never leave your drink unattended.'],
- ['पेय पर संदेह हो तो उसे फेंक दें; थोड़ा नुकसान खतरे से बेहतर है।','Discard suspicious drinks without hesitation.'],
- ['रात में लिफ्ट/सीढ़ियों में फंसें तो फोन पर बात करते हुए आत्मविश्वास से चलें।','Walk confidently on a call in lifts/stairs at night.'],
- ['आत्मविश्वास वाली बॉडी लैंग्वेज रखें; सिर झुकाकर न चलें — डरा हुआ दिखना खतरा बढ़ाता है।','Confident body language deters predators.'],
- ['सेल्फ-डिफेंस की बुनियादी तकनीकें सीखें; चाबी/पेन को बचाव हेतु उपयोग करना सीखें।','Learn basic self-defense; use keys for defense.'],
- ['व्हिसल/पेपर स्प्रे साथ रखें; व्हिसल की आवाज दूर तक जाती है और हमलावर घबराता है।','Carry a whistle/pepper spray.'],
- ['खतरे में बैग/किताबें फेंककर भागने का रास्ता बनाएं — सामान बाद में मिल जाएगा।','Drop belongings to escape; things are replaceable.'],
- ['हमलावर से बचकर सड़क/भीड़ की ओर भागें, बंद गली या लिफ्ट की ओर नहीं।','Run towards road/crowd, never dead-ends.'],
- ['कार में अकेले होने पर दरवाजे अंदर से लॉक रखें; संदेह होने पर हॉर्न/हज़ार्ड लगाएं।','Keep car doors locked; horn if suspicious.'],
- ['पार्किंग में कार में बैठते ही पहले लॉक करें; तब फोन देखें।','Lock the car first, then use phone.'],
- ['बच्चों को "अच्छा-बुरा स्पर्श" व "नो-गो-येल" नियम सिखाएं; अजनबी से खाना/लिफ्ट न लेना सिखाएं।','Teach kids good/bad touch & no-go-yell rules.'],
- ['स्कूल वैन नंबर व ड्राइवर की जानकारी रखें; वैन में सीट-व्यवस्था जांचें।','Track school van number & driver details.'],
- ['बुजुर्गों के फोन में बड़े अक्षरों में आपातकालीन नंबर सेव करें; उनसे नियमित बात रखें।','Big-font emergency numbers for elders; call them daily.'],
- ['साइबर ठगी (नकली कॉल/लॉटरी) होते ही 1930 पर शिकायत करें; जितनी जल्दी रिपोर्ट, उतनी रिकवरी।','Report cyber fraud on 1930 immediately.'],
- ['घबराएं नहीं — गहरी सांस लें, रक्षा-गार्ड का SOS दबाएं; मदद मिलने तक हिम्मत रखें, आप अकेले नहीं हैं।','Stay calm, press SOS; help is on the way.']
-];
-const GUIDE=[
- ['✏️ संपर्क सेव करें','ऊपर वाले ✏️ बटन से अपने 4 इमरजेंसी नंबर सेव करें — ये SOS के समय अपने आप उपयोग होते हैं।','Save your 4 emergency numbers via the ✏️ button — they are used automatically during SOS.'],
- ['🚨 SOS दबाएं','SOS दबाते ही 5 सेकंड सायरन बजेगा। न रोका तो लोकेशन + SMS सभी संपर्कों को अपने आप भेज जाएगा।','Press SOS → 5s siren. If not stopped, location + SMS auto-send to all contacts.'],
- ['🎤 वॉइस ट्रिगर','"माइक ऑन" करें और "बचाओ / Bachao / Help" बोलें — SOS अपने आप चालू हो जाएगा।','Turn mic ON and say "Bachao/Help" — SOS starts automatically.'],
- ['📞 हेल्प नंबर','50+ हेल्प नंबर टैब में किसी भी नंबर पर एक tap में कॉल करें।','In 50+ Help Numbers tab, call any helpline with one tap.'],
- ['⚡ ऑटो अलर्ट','5 सेकंड सायरन के बाद लोकेशन सहित SMS/WhatsApp अपने आप खुलकर भरे हुए आते हैं — भेजने का एक tap बाकी रहता है (ब्राउज़र सुरक्षा नियम)। कोई बाहरी सेवा नहीं।','After the 5s siren, SMS/WhatsApp auto-open pre-filled with your location — one tap to send (browser security rule). No external services.'],
- ['🧰 सुरक्षा टूल्स','टॉर्च, नकली कॉल (मुश्किल जगह से निकलने हेतु), चेक-इन टाइमर (समय पर सुरक्षित न बताने पर SOS), फोन जोर से हिलाने पर शेक-SOS।','Torch, Fake Call (to exit risky situations), Check-in Timer (SOS if not marked safe), and Shake-SOS on hard shaking.'],
- ['🌐 GitHub Pages पर live','index.html को GitHub repo में डालकर Settings → Pages से free में live करें — पूरी गाइड README.md में है।','Upload index.html to a GitHub repo and go live free via Settings → Pages — full guide in README.md.']
-];
-const FAQ=[
- ['क्या ऐप बिना इंटरनेट चलता है?','हां — सायरन, कॉल व हेल्प नंबर ऑफलाइन चलते हैं। SMS भेजने व वॉइस ट्रिगर के लिए इंटरनेट/SIM सेवा चाहिए।','Yes — siren, calls & helplines work offline. Sending SMS & voice trigger need internet/SIM service.'],
- ['क्या मेरा डेटा सुरक्षित है?','हां — संपर्क नंबर सिर्फ आपके फोन में सेव होते हैं, किसी सर्वर पर नहीं। कोई cookies/ट्रैकिंग नहीं।','Yes — contacts stay on your device only. No cookies, no tracking.'],
- ['iPhone पर चलेगा?','हां, पर कुछ लिंक (SMS/WhatsApp) iOS पर अलग तरीके से खुल सकते हैं।','Yes, though some SMS/WhatsApp links may open differently on iOS.']
-];
-
-const HELP=[
- {cat:['🚨 आपातकालीन / EMERGENCY',''],items:[
-  ['112','नेशनल इमरजेंसी (पुलिस+एम्बुलेंस+फायर)','National Emergency (ERSS)'],
-  ['100','पुलिस','Police'],
-  ['101','अग्निशमन / फायर ब्रिगेड','Fire Brigade'],
-  ['102','एम्बुलेंस','Ambulance'],
-  ['108','आपातकालीन एम्बुलेंस','Emergency Ambulance'],
-  ['104','मेडिकल हेल्पलाइन','Medical Helpline'],
-  ['1073','सड़क दुर्घटना','Road Accident'],
-  ['1033','नेशनल हाईवे दुर्घटना','National Highway Accident'],
-  ['1072','रेलवे दुर्घटना','Railway Accident'],
-  ['1078','आपदा प्रबंधन (NDMA)','Disaster Management'],
-  ['1070','आपदा राहत आयुक्त','Disaster Relief Commissioner'],
-  ['1077','जिला कंट्रोल रूम','District Control Room'],
-  ['1076','मुख्यमंत्री हेल्पलाइन (UP)','CM Helpline (UP)'],
-  ['1099','दुर्घटना व ट्रॉमा (CATS)','Accident & Trauma'],
-  ['1910','ब्लड बैंक','Blood Bank'],
-  ['1906','गैस लीक आपातकाल','Gas Leakage Emergency'],
-  ['9540161344','एयर एम्बुलेंस (दिल्ली)','Air Ambulance (Delhi)'],
-  ['01124363260','NDRF आपदा प्रतिक्रिया बल','NDRF Disaster Response']]},
- {cat:['🚆 रेलवे / RAILWAY',''],items:[
-  ['139','रेलवे हेल्पलाइन','Railway Helpline'],
-  ['182','रेलवे सुरक्षा बल (RPF)','Railway Protection Force'],
-  ['1512','रेलवे पुलिस (GRP)','Railway Police (GRP)']]},
- {cat:['👩 महिला व बाल सुरक्षा / WOMEN & CHILD',''],items:[
-  ['1091','महिला हेल्पलाइन','Women Helpline'],
-  ['181','महिला हेल्पलाइन (घरेलू हिंसा)','Women Helpline (Domestic Violence)'],
-  ['1098','चाइल्डलाइन','Childline'],
-  ['1094','लापता बालक/महिला','Missing Child or Woman'],
-  ['1090','क्राइम स्टॉपर / महिला (UP)','Crime Stopper / Women (UP)'],
-  ['14567','वरिष्ठ नागरिक हेल्पलाइन','Senior Citizen Helpline'],
-  ['1291','वरिष्ठ नागरिक (वैकल्पिक)','Senior Citizen (Alt)'],
-  ['7827170170','राष्ट्रीय महिला आयोग (NCW)','National Commission for Women']]},
- {cat:['🚦 यातायात / TRAFFIC',''],items:[
-  ['103','ट्रैफिक पुलिस','Traffic Police'],
-  ['1095','ट्रैफिक पुलिस (दिल्ली)','Traffic Police (Delhi)']]},
- {cat:['🏥 स्वास्थ्य व मानसिक / HEALTH & MENTAL',''],items:[
-  ['14416','टेली-मानस (मानसिक स्वास्थ्य)','Tele-MANAS Mental Health'],
-  ['18005990019','किरण मानसिक स्वास्थ्य हेल्पलाइन','KIRAN Mental Health Helpline'],
-  ['08046110007','निमहान्स हेल्पलाइन','NIMHANS Helpline'],
-  ['1066','जहर नियंत्रण केंद्र','Poison Control Centre'],
-  ['1097','एड्स हेल्पलाइन (NACO)','AIDS Helpline (NACO)'],
-  ['14446','मादक पदार्थ दुर्व्यवहार हेल्पलाइन','Drug Abuse Helpline'],
-  ['9820466726','आसरा (आत्महत्या रोकथाम)','AASRA Suicide Prevention'],
-  ['18602662345','वंद्रेवाला फाउंडेशन','Vandrevala Foundation'],
-  ['04424640050','स्नेह (आत्महत्या रोकथाम)','Sneha Suicide Prevention'],
-  ['9152987821','आईकॉल (TISS)','iCall (TISS)']]},
- {cat:['🛠 साइबर व उपयोगिता / CYBER & UTILITY',''],items:[
-  ['1930','साइबर क्राइम रिपोर्टिंग','Cyber Crime Reporting'],
-  ['1912','बिजली आपातकाल','Electricity Emergency'],
-  ['1913','राष्ट्रीय उपभोक्ता हेल्पलाइन','National Consumer Helpline'],
-  ['1909','टेलीकॉम शिकायत (DND)','Telecom Complaints (DND)'],
-  ['1950','मतदाता हेल्पलाइन','Voter Helpline'],
-  ['18001801551','किसान कॉल सेंटर','Kisan Call Center'],
-  ['1800112356','तंबाकू छुड़ाना हेल्पलाइन','Tobacco Cessation Helpline'],
-  ['1800114770','अंग दान (NOTTO)','Organ Donation (NOTTO)'],
-  ['1363','पर्यटक हेल्पलाइन','Tourist Helpline'],
-  ['1800118005','हेल्पएज इंडिया (बुजुर्ग)','HelpAge India (Senior)']]}
-];
-
-/* ================= i18n apply ================= */
-function applyLang(){
-  $$('[data-i18n]').forEach(el=>{el.textContent=T(el.dataset.i18n);});
-  $$('[data-i18n-ph]').forEach(el=>{el.placeholder=T(el.dataset.i18nPh);});
-  $('#langBtn').textContent = lang==='hi' ? 'EN' : 'हिं';
-  renderContacts(); renderTips(); renderHelp($('#helpSearch').value); renderAbout(); renderTerms(); renderGuide(); renderPrivacy(); renderTrust(); updateNet(); updateMicUI();
-}
-$('#langBtn').onclick=()=>{lang=lang==='hi'?'en':'hi';store.set('rg_lang',lang);applyLang();};
-
-/* ================= clock & battery & net ================= */
-function tick(){const d=new Date();$('#clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
-tick(); setInterval(tick,1000);
-if(navigator.getBattery){navigator.getBattery().then(b=>{const f=()=>{const p=Math.round(b.level*100)+'%';$('#battPct').textContent=p;$('#battChip').textContent='🔋 '+p;};f();b.addEventListener('levelchange',f);});}
-function updateNet(){
-  const on=navigator.onLine;
-  $('#netChip').innerHTML=(on?'<svg width="13" height="11" viewBox="0 0 16 14" fill="currentColor"><rect x="0" y="9" width="3" height="5" rx="1"/><rect x="4" y="6" width="3" height="8" rx="1"/><rect x="8" y="3" width="3" height="11" rx="1"/><rect x="12" y="0" width="3" height="14" rx="1"/></svg> 4G':'✈️ OFFLINE');
-  $('#dataChip').textContent=on?T('dataOn'):T('dataOff');
-  $('#netNote').textContent=on?T('netOn'):T('netOff');
-}
-addEventListener('online',updateNet); addEventListener('offline',updateNet);
-
-/* ================= contacts ================= */
-function renderContacts(){
-  const g=$('#cgrid'); g.innerHTML='';
-  contacts.forEach((num,i)=>{
-    const d=document.createElement('div');
-    d.className='ctile '+(num?'filled':'empty');
-    d.innerHTML='<small>'+T(CKEYS[i])+'</small>'+(num
-      ? '<span class="callmini">📞</span><span class="num">'+num+'</span>'
-      : '<span class="num">'+T('empty')+'</span>');
-    d.onclick=e=>{ if(num && e.target.classList.contains('callmini')){location.href='tel:'+num;return;} openContacts(i); };
-    g.appendChild(d);
+function filterArticles(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.article-card').forEach(card=>{
+    const txt=card.innerText.toLowerCase();
+    card.style.display=txt.includes(q)?'flex':'none';
   });
 }
-function openContacts(focus){
-  const box=$('#contactFields'); box.innerHTML='';
-  CKEYS.forEach((k,i)=>{
-    const f=document.createElement('div'); f.className='fld';
-    f.innerHTML='<label>'+T(k)+'</label><input inputmode="tel" maxlength="15" data-i="'+i+'" value="'+(contacts[i]||'')+'" placeholder="e.g. 98XXXXXXXX">';
-    box.appendChild(f);
-  });
-  $('#modalContacts').classList.add('open');
-  if(focus!=null){const inp=box.querySelectorAll('input')[focus]; inp&&inp.focus();}
-}
-$('#editBtn').onclick=()=>openContacts();
-$('#saveContacts').onclick=()=>{
-  const ok=/^[0-9+\-\s]{8,15}$/;
-  let bad=false;
-  $$('#contactFields input').forEach(inp=>{
-    const v=inp.value.trim();
-    if(v&&!ok.test(v)){bad=true;inp.style.borderColor='#ff1744';return;}
-    inp.style.borderColor=''; contacts[+inp.dataset.i]=v;
-  });
-  if(bad){toast('❌ नंबर सही नहीं है (8-15 अंक) / Invalid number');return;}
-  if(!contacts.some(Boolean)){toast('⚠️ कम से कम 1 इमरजेंसी नंबर जरूरी / At least 1 required');return;}
-  store.set('rg_contacts',JSON.stringify(contacts));
-  if(window.RakshaSMS&&window.RakshaSMS.saveNative){try{window.RakshaSMS.saveNative(contacts.join(','),store.get('rg_name',''));}catch(e){}}
-  renderContacts(); $('#modalContacts').classList.remove('open');
-  toast('✅ संपर्क सेव हो गए / Contacts saved');
-};
-$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
-$$('[data-close]').forEach(b=>b.onclick=()=>$('#'+b.dataset.close).classList.remove('open'));
-
-/* ================= tips / rules / help / about / terms / guide ================= */
-function renderTips(){
-  const day=Math.floor(Date.now()/86400000);
-  const t=TIPS[day%TIPS.length];
-  $('#tipHero').innerHTML='<div class="d">'+(lang==='hi'?'आज की सलाह • TODAY\'S TIP':'TODAY\'S TIP')+'</div><div class="t">'+t[0]+'</div><small>'+t[1]+'</small>';
-  $('#rulesList').innerHTML=RULES.map((r,i)=>'<div class="rule"><span class="n">'+(i+1)+'</span><div><b>'+r[0]+'</b><small>'+r[1]+'</small></div></div>').join('');
-  $('#allTips').innerHTML=TIPS.map((r,i)=>'<div class="rule"><span class="n">'+(i+1)+'</span><div><b>'+r[0]+'</b><small>'+r[1]+'</small></div></div>').join('');
-}
-function renderHelp(q){
-  q=(q||'').toLowerCase().trim();
-  let html='';
-  HELP.forEach(cat=>{
-    const items=cat.items.filter(it=>!q||it[0].includes(q)||it[1].toLowerCase().includes(q)||it[2].toLowerCase().includes(q));
-    if(!items.length)return;
-    html+='<div class="cat">'+cat.cat[0]+'</div>';
-    html+=items.map(it=>'<div class="hitem"><div><b>'+it[1]+'</b><small>'+it[2]+'</small></div><a class="callbtn" href="tel:'+it[0]+'">📞 '+it[0]+'</a></div>').join('');
-  });
-  $('#helpList').innerHTML=html||'<div class="netnote">😕 कुछ नहीं मिला / No results</div>';
-}
-$('#helpSearch').oninput=e=>renderHelp(e.target.value);
-function renderAbout(){
-  $('#aboutBox').innerHTML=
-   '<p><b style="color:var(--yellow)">रक्षा-गार्ड v1.0</b> — Emergency Protection OS</p>'+
-   '<ul>'+
-   '<li>🚨 एक टच SOS — 5 सेकंड सायरन, फिर अपने आप लोकेशन + SMS। <small style="color:var(--dim)">One-tap SOS — 5s siren, then auto location + SMS.</small></li>'+
-   '<li>🎤 वॉइस ट्रिगर — "बचाओ / Bachao / Help" बोलते ही SOS। <small style="color:var(--dim)">Voice trigger activates SOS automatically.</small></li>'+
-   '<li>📍 लाइव लोकेशन के साथ SMS व WhatsApp अलर्ट। <small style="color:var(--dim)">SMS & WhatsApp alerts with live location.</small></li>'+
-   '<li>📵 बिना इंटरनेट/SIM के भी कॉल व सायरन काम करते हैं। <small style="color:var(--dim)">Calls & siren work even without internet/SIM.</small></li>'+
-   '<li>📞 50+ सत्यापित हेल्पलाइन नंबर एक जगह। <small style="color:var(--dim)">50+ verified helplines in one place.</small></li>'+
-   '<li>🧰 एडवांस्ड टूल्स — टॉर्च, नकली कॉल, चेक-इन टाइमर, शेक-SOS। <small style="color:var(--dim)">Advanced tools — torch, fake call, check-in timer, shake-SOS.</small></li>'+
-   '<li>📍 हाई-एक्युरेसी GPS लोकेशन, SOS से पहले अपने आप तैयार। <small style="color:var(--dim)">High-accuracy GPS location, auto-refreshed before SOS.</small></li>'+
-   '</ul>'+
-   '<p style="margin-top:10px">👨‍ <b>क्रिएटर:</b> पवन वर्मा — <b style="color:var(--pink)">PAWANGAMINGSTUDIO</b> (ग्राम खोह, डीग, भरतपुर, राजस्थान)</p>'+
-   '<p style="color:var(--dim)">⚠️ <b>अस्वीकरण:</b> गंभीर आपात स्थिति में सबसे पहले 112 पर कॉल करें। यह ऐप सहायता भेजने में मदद करता है।<br><i>Disclaimer: In a serious emergency, always call 112 first.</i></p>';
-}
-function renderTerms(){
-  $('#termsBox').innerHTML='<ul>'+
-  '<li>🚨 यह ऐप आपातकालीन सहायता हेतु है — गंभीर स्थिति में <b>112 पर कॉल</b> करना पहली प्राथमिकता है। <small style="color:var(--dim)">This app assists in emergencies — calling 112 is always the first priority.</small></li>'+
-  '<li>📞 हेल्पलाइन नंबर विश्वसनीय स्रोतों से एकत्रित हैं; कॉल से पहले संख्या स्वयं सत्यापित करें। <small style="color:var(--dim)">Helplines are collected from trusted sources; verify numbers yourself before calling.</small></li>'+
-  '<li>🔒 कोई डेटा सर्वर पर नहीं जाता — संपर्क व सेटिंग्स सिर्फ आपके डिवाइस पर रहती हैं। <small style="color:var(--dim)">No data goes to any server — contacts & settings stay on your device.</small></li>'+
-  '<li>📨 SMS/WhatsApp भेजना फोन/ब्राउज़र नीतियों पर निर्भर है — ऐप संदेश व नंबर अपने आप भरकर खोल देता है; कोई बाहरी सेवा उपयोग नहीं होती। <small style="color:var(--dim)">SMS/WhatsApp delivery depends on phone/browser policies — the app auto-fills & opens them; no external services are used.</small></li>'+
-  '<li>⚖️ झूठा SOS / दुरुपयोग कानूनन दंडनीय अपराध है — ऐप का उपयोग जिम्मेदारी से करें। <small style="color:var(--dim)">False SOS / misuse is a punishable offence — use responsibly.</small></li>'+
-  '<li>🛡️ ऐप "जैसा है" उपलब्ध है; दुरुपयोग या तकनीकी सीमाओं से हुई हानि हेतु क्रिएटर उत्तरदायी नहीं होगा। <small style="color:var(--dim)">The app is provided "as is"; the creator is not liable for misuse or technical limitations.</small></li>'+
-  '<li>©️ कॉपीराइट © 2026 <b>पवन वर्मा (PAWANGAMINGSTUDIO)</b> — बिना अनुमति कॉपी/पुनर्वितरण निषेध। <small style="color:var(--dim)">Copyright © 2026 Pawan Verma (PAWANGAMINGSTUDIO) — copying/redistribution without permission prohibited.</small></li>'+
-  '</ul>';
-}
-function renderGuide(){
-  $('#guideList').innerHTML=
-   GUIDE.map((g,i)=>'<div class="rule"><span class="n">'+(i+1)+'</span><div><b>'+g[0]+' — '+g[1]+'</b><small>'+g[2]+'</small></div></div>').join('')+
-   '<div class="h2" style="margin-top:6px">❓ FAQ</div>'+
-   FAQ.map(f=>'<div class="rule"><span class="n" style="background:linear-gradient(145deg,#22d3ee,#0e7490);color:#04222b">?</span><div><b>'+f[0]+'</b><small>'+f[1]+' '+f[2]+'</small></div></div>').join('');
-}
-
-function renderPrivacy(){
-  $('#privBox').innerHTML='<ul>'+
-  '<li>🔒 <b>डेटा सुरक्षा:</b> संपर्क नंबर, नाम व सेटिंग्स सिर्फ आपके फोन (device storage) में सुरक्षित रहती हैं — किसी सर्वर पर नहीं जातीं। <small style="color:var(--dim)">Contacts, name & settings stay on your device only — never on any server.</small></li>'+
-  '<li>📍 <b>लोकेशन प्राइवेसी:</b> लोकेशन सिर्फ SOS/संदेश भेजते समय उपयोग होती है और सिर्फ आपके अपने सेव किए संपर्कों को भेजी जाती है। <small style="color:var(--dim)">Location is used only when sending SOS alerts, and only to your own saved contacts.</small></li>'+
-  '<li>🎤 <b>माइक प्राइवेसी:</b> माइक तभी चालू होता है जब आप स्वयं "माइक ऑन" दबाएं; आवाज़ सिर्फ "बचाओ" पहचान के लिए डिवाइस पर सुनी जाती है, कहीं भेजी/सेव नहीं होती। <small style="color:var(--dim)">Mic runs only when you enable it; audio is processed on-device for trigger detection.</small></li>'+
-  '<li>📜 <b>मानक नीतियां:</b> सुरक्षा ज्ञान केंद्र के संचालन और रखरखाव हेतु Google AdSense व कुकीज़ नीतियों का पूर्ण अनुपालन किया जाता है। <small style="color:var(--dim)">Complies with standard Google AdSense and cookie disclosures for the safety portal.</small></li>'+
-  '<li>📄 <a href="privacy-policy.html" style="color:var(--teal);font-weight:700">विस्तृत आधिकारिक प्राइवेसी पॉलिसी (Detailed Policy Page) पढ़ें →</a></li>'+
-  '<li>🧑‍💻 सारा सोर्स कोड मौलिक व स्वयं लिखा हुआ है — © 2026 पवन वर्मा (PAWANGAMINGSTUDIO); जन-कल्याण व व्यक्तिगत सुरक्षा हेतु उपयोग में स्वतंत्र। <small style="color:var(--dim)">All source code is original — © 2026 Pawan Verma (PAWANGAMINGSTUDIO).</small></li>'+
-  '</ul>';
-}
-
-function renderTrust(){
-  $('#trustBox').innerHTML=
-  '<p><b style="color:var(--green)">🛡️ रक्षा-गार्ड — खुला, पारदर्शी एवं सुरक्षित सुरक्षा टूल</b> — किसी भी छिपे हुए कोड के बिना, आपकी सुरक्षा के लिए बनाया गया मौलिक प्लेटफॉर्म। <small style="color:var(--dim)">Transparent, open and user-privacy centered emergency protection tool.</small></p>'+
-  '<ul>'+
-  '<li>💰 <b>कोई छिपा हुआ शुल्क नहीं:</b> न कोई इन-ऐप परचेज, न सब्सक्रिप्शन, न प्रीमियम एसएमएस नंबर। एसएमएस सिर्फ आपके अपने मोबाइल प्लान की सामान्य दर से, सिर्फ आपके अपने सेव किए संपर्कों को जाता है; 112 टोल-फ्री है। <small style="color:var(--dim)">No hidden charges or subscription. SMS only to your saved contacts; 112 is toll-free.</small></li>'+
-  '<li>📨 <b>विश्वसनीय संदेश प्रणाली:</b> SOS केवल आपके द्वारा बटन दबाने, आवाज पहचान या शेक ट्रिगर से सक्रिय होता है; 5 सेकंड की कैंसल विंडो मिलती है; अधिकतम 10 लोकेशन अपडेट भेजे जाते हैं। <small style="color:var(--dim)">SOS activated only by your intentional trigger with a 5s cancel safety window.</small></li>'+
-  '<li>📍 <b>सत्यापित लाइव लोकेशन:</b> हर संदेश में Google Maps का वास्तविक लोकेशन लिंक शामिल होता है; जीपीएस न मिलने पर स्पष्ट रूप से स्थिति की सूचना दी जाती है। <small style="color:var(--dim)">Real-time Google Maps link with accurate GPS coordinates.</small></li>'+
-  '<li>🔐 <b>स्पष्ट अनुमतियां:</b> लोकेशन, माइक और एसएमएस की अनुमतियां केवल उनके कार्य हेतु ली जाती हैं; माइक ऑडियो कहीं भी रिकॉर्ड या सेव नहीं किया जाता। <small style="color:var(--dim)">Clear on-demand permissions; no audio or personal data is recorded or stored externally.</small></li>'+
-  '<li>🧾 <b>पारदर्शी क्लाइंट कोड:</b> कोई भी बाहरी ट्रैकिंग स्क्रिप्ट नहीं, व्यक्तिगत संपर्क डेटा केवल आपके डिवाइस की लोकल मेमोरी में रहता है। <small style="color:var(--dim)">Contacts stay in local device storage only.</small></li>'+
-  '<li>🤖 <b>हल्का व अनुकूलित:</b> कोई बैकग्राउंड बैटरी ड्रेन नहीं — ऐप आवश्यकता पड़ने पर तुरंत काम करने के लिए डिज़ाइन किया गया है। <small style="color:var(--dim)">Optimized for battery and performance.</small></li>'+
-  '<li>©️ <b>कॉपीराइट व ओनरशिप:</b> © 2026 पवन वर्मा (PAWANGAMINGSTUDIO) — जन-कल्याण एवं सुरक्षा जागरूकता हेतु। <small style="color:var(--dim)">Created by Pawan Verma for public safety & awareness.</small></li>'+
-  '</ul>'+
-  '<div class="locbox" style="border-style:solid">📨 <b>'+(lang==='hi'?'संदेश का नमूना (बिल्कुल यही जाएगा)':'Exact message sample')+':</b><br>'+sosMsg().replace(/\n/g,'<br>')+'</div>';
-}
-
-/* ================= nav ================= */
-function showView(id){ $$('.view').forEach(v=>v.classList.toggle('active',v.id===id)); scrollTo({top:0}); }
-$$('.nb').forEach(b=>b.onclick=()=>{ $$('.nb').forEach(x=>x.classList.remove('active')); b.classList.add('active'); showView(b.dataset.view); });
-$$('.goto').forEach(b=>b.onclick=()=>showView(b.dataset.goto));
-$('#rulesBtn').onclick=()=>{ $$('.nb')[1].click(); };
-
-/* ================= audio siren / vibration ================= */
-let siren=null, vibInt=null;
-function startSiren(){
-  try{
-    const AC=window.AudioContext||window.webkitAudioContext; const ctx=new AC();
-    const osc=ctx.createOscillator(), gain=ctx.createGain();
-    osc.type='sawtooth'; gain.gain.value=.14;
-    osc.connect(gain); gain.connect(ctx.destination); osc.start();
-    let hi=false; const int=setInterval(()=>{osc.frequency.setTargetAtTime(hi?640:980,ctx.currentTime,.03);hi=!hi;},260);
-    siren={ctx,osc,int};
-  }catch(e){}
-}
-function stopSiren(){ if(siren){clearInterval(siren.int);try{siren.osc.stop();siren.ctx.close();}catch(e){} siren=null;} }
-function startVib(){ if(navigator.vibrate){navigator.vibrate([400,200,400]);vibInt=setInterval(()=>navigator.vibrate([350,150,350]),1100);} }
-function stopVib(){ clearInterval(vibInt); vibInt=null; if(navigator.vibrate)navigator.vibrate(0); }
-
-/* ================= location & message ================= */
-let lastLoc=null;
-function getLoc(){
-  return new Promise(res=>{
-    if(!navigator.geolocation)return res(null);
-    navigator.geolocation.getCurrentPosition(p=>res({lat:p.coords.latitude,lng:p.coords.longitude}),()=>res(null),{enableHighAccuracy:true,timeout:8000,maximumAge:30000});
-  });
-}
-async function getLocRetry(ms){ const end=Date.now()+ms; while(Date.now()<end){ const l=await getLoc(); if(l)return l; await new Promise(r=>setTimeout(r,1500)); } return null; }
-function updateLocChip(){const c=$('#locChip');if(lastLoc){c.textContent='📍 '+(lang==='hi'?'लोकेशन तैयार':'Location ready');c.className='chip green';}else{c.textContent='📍 …';c.className='chip teal';}}
-function warmLoc(){ if(!navigator.geolocation||!(navigator.permissions&&navigator.permissions.query))return; navigator.permissions.query({name:'geolocation'}).then(p=>{ if(p.state==='granted')getLoc().then(l=>{if(l){lastLoc=l;updateLocChip();}}); }).catch(()=>{}); }
-function locLink(l){return l?('https://maps.google.com/?q='+l.lat.toFixed(6)+','+l.lng.toFixed(6)):'';}
-function sosMsg(){
-  const nm=store.get('rg_name','');
-  return (nm?((lang==='hi'?'🙏 मैं ':'I am ')+nm+' — '):'')+
-   (lang==='hi'?'🚨 आपातकालीन! मुझे तुरंत मदद चाहिए!':'🚨 EMERGENCY! I need help right now!')+
-   '\n'+(lang==='hi'?'कृपया तुरंत पहुंचें / पुलिस को सूचित करें।':'Please reach immediately / inform the police.')+
-   (lastLoc?('\n📍 Live Location: '+locLink(lastLoc)):'')+
-   '\n— रक्षा-गार्ड SOS (by Pawan Verma)';
-}
-function waLink(num){let d=num.replace(/\D/g,'');if(d.length===10)d='91'+d;return 'https://wa.me/'+d+'?text='+encodeURIComponent(sosMsg());}
-function smsLink(nums){return 'sms:'+(nums||[]).join(',')+'?&body='+encodeURIComponent(sosMsg());}
-function smsText(){return sosMsg().replace(/\n/g,' ');}
-function safeText(){const nm=store.get('rg_name','');return (lang==='hi'?'✅ मैं सुरक्षित हूं':'✅ I am safe')+(nm?' — '+nm:'')+' • '+(lang==='hi'?'रक्षा-गार्ड':'Raksha-Guard');}
-/* t=0 instant alert — chor phone chhine/phainke tab tak message ja chuka ho */
-function instantAlert(){
-  const nums=contacts.filter(Boolean); if(!nums.length)return;
-  let ok=false;
-  if(window.RakshaSMS&&window.RakshaSMS.sendSms){
-    try{ ok=!!window.RakshaSMS.sendSms(nums.join(','), smsText()); }catch(e){}
-    if(!ok){ try{window.RakshaSMS.askSms();}catch(e){} toast('⚠️ '+(lang==='hi'?'SMS permission Allow करें — Settings खुल रही है':'Allow SMS permission — opening Settings')); }
-  }
-  if(!ok){ try{location.href=smsLink(nums);}catch(e){} }   /* fallback: SMS app khula bhara hua */
-}
-
-/* ================= send modal ================= */
-function contactRows(container){
-  const box=$(container); box.innerHTML='';
-  let any=false;
-  contacts.forEach((n,i)=>{ if(!n)return; any=true;
-    const d=document.createElement('div');
-    d.style.marginBottom='10px';
-    d.innerHTML='<b style="font-size:12.5px;color:var(--dim)\">'+T(CKEYS[i])+' — <span style="color:var(--yellow)\">'+n+'</span></b>'+
-    '<div class="sosrow"><a class="a-call" href="tel:'+n+'">📞 '+T('call')+'</a><a class="a-sms" href="'+smsLink([n])+'">💬 '+T('sms')+'</a><a class="a-wa" target="_blank" rel="noopener" href="'+waLink(n)+'">🟢 '+T('wa')+'</a></div>';
-    box.appendChild(d);
-  });
-  if(!any)box.innerHTML='<div class="netnote">'+(lang==='hi'?'⚠️ पहले संपर्क नंबर सेव करें (ऊपर ✏️ बटन)':'⚠️ Save contact numbers first (✏️ button above)')+'</div>';
-  return any;
-}
-$('#sendNowBtn').onclick=async()=>{
-  $('#sendLoc').textContent=T('locWait');
-  $('#modalSend').classList.add('open');
-  contactRows('#sendList');
-  lastLoc=await getLoc();
-  $('#sendLoc').innerHTML=lastLoc?('📍 <a target="_blank" rel="noopener" href="'+locLink(lastLoc)+'">'+locLink(lastLoc)+'</a>'):T('locFail');
-  contactRows('#sendList');
-};
-$('#smsAllBtn').onclick=()=>{
-  const nums=contacts.filter(Boolean);
-  if(!nums.length){toast('⚠️ पहले संपर्क सेव करें / Save contacts first');return;}
-  location.href=smsLink(nums);
-};
-
-/* ================= SOS (5s auto flow) ================= */
-const sos={active:false,timer:null,cdInt:null};
-const sosBtn=$('#sosBtn');
-sosBtn.onclick=()=>{ if(sos.active){cancelSOS();} else {beginSOS();} };
-
-function beginSOS(){
-  sos.active=true; document.body.classList.add('alarm');
-  if(rec&&micOn){try{rec.stop();}catch(e){}} /* Pause voice recognition during siren */
-  startSiren(); startVib();
-  $('#sosSub').textContent=T('sosStopHint');
-  let n=5; sosBtn.classList.add('counting'); $('#cdNum').textContent=n;
-  sos.cdInt=setInterval(()=>{n--; if(n>0)$('#cdNum').textContent=n;},1000);
-  sos.rep=0;   /* location-update SMS counter (max 10 — balance bachane hetu) */
-  sos.locP=getLoc().then(l=>{if(l){lastLoc=l;updateLocChip();}});  /* location turant shuru */
-  instantAlert();   /* pehla SMS/Alert TURANT — 5s ka intezaar nahi */
-  sos.timer=setTimeout(fireSOS,5000);       /* 5s me na roka to auto send */
-  toast('🚨 '+(lang==='hi'?'सायरन चालू! न रोका तो 5 सेकंड में SMS अपने आप जाएगा':'Siren ON! SMS auto-sends in 5s unless stopped'));
-}
-function cancelSOS(){
-  clearTimeout(sos.timer); clearInterval(sos.cdInt);
-  sos.active=false; document.body.classList.remove('alarm');
-  stopSiren(); stopVib(); sosBtn.classList.remove('counting');
-  $('#sosSub').textContent=T('sosPress');
-  /* APK mode: pehla SMS ja chuka ho to "main surakshit hun" bhi turant bhejo */
-  if(sos.sentAPK&&window.RakshaSMS&&window.RakshaSMS.sendSms){
-    try{window.RakshaSMS.sendSms(contacts.filter(Boolean).join(','), safeText());}catch(e){}
-  }
-  toast('✅ '+(lang==='hi'?'SOS रद्द — आप सुरक्षित हैं':'SOS cancelled — you are safe'));
-  if(micOn){setTimeout(()=>{if(micOn&&!sos.active&&rec){try{rec.start();}catch(e){}}},2500);}
-}
-function fireSOS(){
-  clearTimeout(sos.timer); clearInterval(sos.cdInt);
-  sos.active=false; sosBtn.classList.remove('counting');
-  stopSiren(); stopVib(); document.body.classList.remove('alarm');
-  $('#sosSub').textContent=T('sosPress');
-  if(micOn){setTimeout(()=>{if(micOn&&!sos.active&&rec){try{rec.start();}catch(e){}}},3000);}
-  (async()=>{
-    /* ASLI live location pakki karne ke liye 9s tak retry — kabhi jhoothi location nahi */
-    if(!lastLoc){ lastLoc=await getLocRetry(9000); updateLocChip(); }
-    autoSend();
-  })();
-}
-async function autoSend(){
-  $('#modalSOS').classList.add('open');
-  $('#sosLoc').innerHTML=lastLoc?('📍 <a target="_blank" rel="noopener" href="'+locLink(lastLoc)+'">'+locLink(lastLoc)+'</a>'):T('locFail');
-  contactRows('#sosList');
-  const st=$('#sosStatus');
-  const nums=contacts.filter(Boolean);
-  if(!nums.length){st.textContent=lang==='hi'?'⚠️ कोई संपर्क सेव नहीं — नीचे 112 को कॉल करें':'⚠️ No contacts saved — call 112 below';return;}
-  /* ANDROID APP MODE: background SMS + har 60s nayi location repeat */
-  if(window.RakshaSMS&&window.RakshaSMS.sendSms){
-    try{
-      if(window.RakshaSMS.smsAllowed&&!window.RakshaSMS.smsAllowed()){ try{window.RakshaSMS.askSms();}catch(e){} toast('⚠️ '+(lang==='hi'?'SMS permission Allow करें':'Allow SMS permission')); }
-      const ok=window.RakshaSMS.sendSms(nums.join(','), smsText());
-      if(ok){
-        try{window.RakshaSMS.openWhatsApp(nums[0], smsText());}catch(e){}  /* WhatsApp auto-open best-effort */
-        st.textContent=lang==='hi'?'✅ SMS भेज दिया + WhatsApp खुला — अधिकतम 10 लोकेशन अपडेट':'✅ SMS sent + WhatsApp opened — up to 10 location updates';
-        clearInterval(sos.repInt);
-        sos.repInt=setInterval(()=>{
-          if((sos.rep=(sos.rep||0)+1)>10){clearInterval(sos.repInt);return;}   /* paisa bachane hetu cap */
-          getLoc().then(l=>{ if(l){lastLoc=l;updateLocChip(); try{window.RakshaSMS.sendSms(nums.join(','), smsText());}catch(e){} } });
-        },60000);
-        return;
-      }
-    }catch(e){}
-  }
-  try{location.href=smsLink(nums);}catch(e){}
-  st.textContent=T('smsOpened');
-  setTimeout(()=>{try{window.open(waLink(nums[0]),'_blank');}catch(e){}},900);
-}
-$('#stopSos').onclick=()=>{clearInterval(sos.repInt);sos.repInt=null;$('#modalSOS').classList.remove('open');toast('✅ '+(lang==='hi'?'मैं सुरक्षित हूं':'I am safe'));};
-$('#safeMsgBtn').onclick=()=>{
-  const nums=contacts.filter(Boolean);
-  if(!nums.length){toast('⚠️ '+(lang==='hi'?'कोई संपर्क सेव नहीं':'No contacts saved'));return;}
-  if(window.RakshaSMS&&window.RakshaSMS.sendSms){try{window.RakshaSMS.sendSms(nums.join(','), safeText());}catch(e){}}
-  else{try{location.href='sms:'+nums.join(',')+'?&body='+encodeURIComponent(safeText());}catch(e){}}
-  clearInterval(sos.repInt); sos.repInt=null;
-  $('#modalSOS').classList.remove('open');
-  toast('✅ '+(lang==='hi'?'परिवार को बता दिया — आप सुरक्षित हैं':'Family informed — you are safe'));
-};
-
-/* ================= voice trigger ================= */
-/* ================= voice trigger ================= */
-let rec=null, micOn=false, lastVoiceTrigger=0, isVoiceTesting=false, restartTimeout=null;
-
-function isEmergencyTrigger(text){
-  if(!text)return false;
-  const clean=text.toLowerCase().trim();
-  /* Accurately match specific emergency commands without false triggering on noisy substrings */
-  return /\b(बचाओ|bachao|मदद\s*करो|help\s*me|save\s*me|emergency|इमरजेंसी)\b/i.test(clean) ||
-         clean.includes('बचाओ') || clean.includes('bachao');
-}
-
-function makeRec(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR)return null;
-  if(rec){try{rec.abort();}catch(e){}}
-  rec=new SR();
-  rec.continuous=true;
-  rec.interimResults=false; /* Eliminates noisy rapid false interim alarms */
-  rec.maxAlternatives=1;
-  rec.lang=lang==='hi'?'hi-IN':'en-IN';
-
-  rec.onresult=e=>{
-    if(!micOn||sos.active)return;
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      const t=(e.results[i][0].transcript||'').trim();
-      if(!t)continue;
-      const lv=$('#voiceLive');
-      if(lv){
-        lv.style.display='block';
-        lv.textContent='🎤 '+(lang==='hi'?'सुना गया':'heard')+': "'+t+'"';
-      }
-
-      /* Test Mode: safely validates mic without triggering loud siren */
-      if(isVoiceTesting){
-        if(isEmergencyTrigger(t)){
-          toast('✅ '+(lang==='hi'?'टेस्ट सफल! आवाज़ पहचानी गई: "'+t+'"' : 'Test Passed! Recognized: "'+t+'"'));
-          isVoiceTesting=false;
-          $('#voiceTestBtn').classList.remove('pink');
-          $('#voiceTestBtn').classList.add('purple');
-        }
-        return;
-      }
-
-      /* Normal Live Mode: triggers SOS with 10s cooldown and pauses mic */
-      const now=Date.now();
-      if(isEmergencyTrigger(t)){
-        if(now-lastVoiceTrigger<10000)return; /* 10s cooldown to prevent repeated sounds */
-        lastVoiceTrigger=now;
-        toast('🎤 "'+t+'" '+(lang==='hi'?'पहचाना गया! SOS शुरू हो रहा है...':'detected! Starting SOS...'));
-        try{rec.stop();}catch(err){}
-        setTimeout(beginSOS,300);
-        break;
-      }
-    }
-  };
-
-  rec.onend=()=>{
-    if(micOn&&!sos.active){
-      clearTimeout(restartTimeout);
-      restartTimeout=setTimeout(()=>{
-        if(micOn&&!sos.active){try{rec.start();}catch(e){}}
-      },600); /* Smooth debounce restart without beeping loop */
-    }
-  };
-
-  rec.onerror=ev=>{
-    if(ev.error==='not-allowed'||ev.error==='service-not-allowed'){
-      micOn=false; updateMicUI();
-      toast('🎤 '+(lang==='hi'?'माइक अनुमति नहीं मिली':'Mic permission denied'));
-    }
-  };
-  return rec;
-}
-
-function updateMicUI(){
-  const b=$('#micBtn');
-  b.textContent=micOn?T('micOff'):T('micOn');
-  b.className='btn small '+(micOn?'pink':'dark');
-  $('#voiceState').textContent=micOn?T('voiceOn'):T('voiceOff');
-  if(!micOn){const lv=$('#voiceLive');if(lv){lv.style.display='none';lv.textContent='';}}
-}
-
-$('#micBtn').onclick=()=>{
-  if(!rec&&!makeRec()){toast('😔 '+(lang==='hi'?'इस ब्राउज़र में वॉइस सपोर्ट नहीं':'Voice not supported in this browser'));return;}
-  micOn=!micOn;
-  if(micOn){
-    try{rec.start();}catch(e){}
-    toast('🎤 '+(lang==='hi'?'माइक चालू — "बचाओ" या "Help" बोलें':'Mic ON — Say "Bachao" or "Help"'));
-  }else{
-    try{rec.stop();}catch(e){}
-    isVoiceTesting=false;
-    $('#voiceTestBtn').classList.remove('pink');
-    $('#voiceTestBtn').classList.add('purple');
-    toast('🔇 '+(lang==='hi'?'माइक बंद':'Mic OFF'));
-  }
-  updateMicUI();
-};
-
-$('#voiceTestBtn').onclick=()=>{
-  if(!micOn){
-    $('#micBtn').click(); /* Turn mic on */
-  }
-  isVoiceTesting=true;
-  $('#voiceTestBtn').classList.remove('purple');
-  $('#voiceTestBtn').classList.add('pink');
-  toast('🎤 '+(lang==='hi'?'टेस्ट मोड: फोन के पास "बचाओ" बोलें (सायरन नहीं बजेगा)':'Test Mode: Say "Bachao" near your phone (Safe test)'));
-};
-
-/* ================= advanced safety tools ================= */
-/* -- torch (hardware + screen-light fallback) -- */
-let torchStream=null, screenTorchOn=false;
-function torchLabel(){return '🔦 '+(lang==='hi'?'टॉर्च / Torch':'Torch');}
-function setScreenTorch(on){screenTorchOn=on;$('#screentorch').style.display=on?'block':'none';if(on&&navigator.vibrate)navigator.vibrate(50);$('#torchBtn').textContent=on?('🔦 '+(lang==='hi'?'लाइट बंद करें':'Light OFF')):torchLabel();}
-$('#screentorch').onclick=()=>setScreenTorch(false);
-$('#torchBtn').onclick=async()=>{
-  if(torchStream){torchStream.getTracks().forEach(t=>t.stop());torchStream=null;$('#torchBtn').textContent=torchLabel();return;}
-  if(screenTorchOn){setScreenTorch(false);return;}
-  let hw=false;
-  try{
-    const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
-    const tr=st.getVideoTracks()[0];
-    const caps=tr.getCapabilities?tr.getCapabilities():{};
-    if(caps.torch){await tr.applyConstraints({advanced:[{torch:true}]});torchStream=st;hw=true;$('#torchBtn').textContent='🔦 '+(lang==='hi'?'टॉर्च बंद करें':'Torch OFF');}
-    else st.getTracks().forEach(t=>t.stop());
-  }catch(e){}
-  if(!hw){setScreenTorch(true);toast('🔦 '+(lang==='hi'?'हार्डवेयर टॉर्च नहीं मिली — स्क्रीन लाइट चालू (स्क्रीन छूकर बंद करें)':'No hardware torch — screen light ON (tap to off)'));}
-};
-/* -- fake call (editable + male voice) -- */
-let fcConn=false, fcRingInt=null, fcRingCtx=null, fcTick=null, fcSec=0, fcType='police', pendingFcType='police';
-const FCSCRIPT={
- police:['हां जी मैडम, हमें आपकी लाइव लोकेशन मिल चुकी है।','हमारी गाड़ी निकल चुकी है, बस दो मिनट में पहुंचने वाली है।','आप घबराइए मत, जहां हैं वहां सुरक्षित खड़ी रहिए।','फोन मत काटिएगा, हम लाइव सुन रहे हैं।'],
- papa:['हां बेटी, मैं आ रहा हूं तुझे लेने।','बस पांच मिनट में पहुंच जाऊंगा, तू जहां है वहीं रुक।','घबरा मत, फोन पर बात कर, मैं सुन रहा हूं।'],
- custom:['हां, मैं आ रहा हूं, बस थोड़ी देर में पहुंच जाऊंगा।','तू घबरा मत, जहां है वहीं सुरक्षित रह।']
-};
-function fcMaleSpeak(lines){
- try{
-  speechSynthesis.cancel();
-  const vs=speechSynthesis.getVoices();
-  const v=vs.find(x=>/hi/i.test(x.lang)&&/male/i.test(x.name))||vs.find(x=>/hi/i.test(x.lang))||null;
-  lines.forEach(ln=>{
-    const u=new SpeechSynthesisUtterance(ln); u.lang='hi-IN'; if(v)u.voice=v; u.pitch=0.6; u.rate=0.95;
-    u.onstart=()=>{$('#fcSub').textContent='🗣 '+ln;};
-    speechSynthesis.speak(u);
-  });
- }catch(e){}
-}
-function fcRingStart(){
-  try{
-    const AC=window.AudioContext||window.webkitAudioContext; fcRingCtx=new AC();
-    fcRingInt=setInterval(()=>{
-      if(!fcRingCtx)return;
-      const o=fcRingCtx.createOscillator(),g=fcRingCtx.createGain();
-      o.type='sine';g.gain.value=.12;
-      o.connect(g);g.connect(fcRingCtx.destination);
-      const t=fcRingCtx.currentTime;
-      o.frequency.setValueAtTime(425,t);o.frequency.setValueAtTime(480,t+.4);o.frequency.setValueAtTime(425,t+.8);
-      o.start();o.stop(t+1.2);
-      if(navigator.vibrate)navigator.vibrate([600,300,600]);
-    },2000);
-  }catch(e){}
-}
-function fcRingStop(){clearInterval(fcRingInt);fcRingInt=null;if(fcRingCtx){try{fcRingCtx.close();}catch(e){}fcRingCtx=null;}if(navigator.vibrate)navigator.vibrate(0);}
-function fcEnd(){fcConn=false;clearInterval(fcTick);fcTick=null;fcRingStop();try{speechSynthesis.cancel();}catch(e){}$('#fakecall').classList.remove('on');if(document.fullscreenElement){try{document.exitFullscreen().catch(()=>{});}catch(e){}}}
-function startFakeCall(){
-  fcConn=false;fcSec=0;
-  const cfg=JSON.parse(store.get('rg_fc','null'))||{name:lang==='hi'?'पुलिस कंट्रोल रूम':'Police Control Room',num:'100',type:'police'};
-  fcType=cfg.type||'police';
-  $('#fcName').textContent=cfg.name;
-  $('#fcNum').textContent=cfg.num||'';
-  $('#fcSub').textContent=lang==='hi'?'मोबाइल • VoLTE':'Mobile • VoLTE';
-  $('#fcStatus').textContent=lang==='hi'?'आ रही कॉल…':'Incoming call…';
-  $('#fcRingActions').style.display='flex';
-  $('#fcCallUI').style.display='none';
-  $('#fakecall').classList.add('on');
-  if(navigator.vibrate)navigator.vibrate([700,400,700]);
-  if(document.documentElement.requestFullscreen){try{document.documentElement.requestFullscreen().catch(()=>{});}catch(e){}}
-  fcRingStart();
-}
-$('#fakeCallBtn').onclick=startFakeCall;
-$('#fcAcc').onclick=()=>{
-  fcConn=true;fcRingStop();
-  $('#fcRingActions').style.display='none';
-  $('#fcCallUI').style.display='block';
-  if(navigator.vibrate)navigator.vibrate(200);
-  fcTick=setInterval(()=>{fcSec++;$('#fcStatus').textContent=(lang==='hi'?'कॉल जारी ':'Ongoing ')+Math.floor(fcSec/60)+':'+String(fcSec%60).padStart(2,'0');},1000);
-  $('#fcStatus').textContent=(lang==='hi'?'कॉल जारी ':'Ongoing ')+'00:00';
-  fcMaleSpeak(FCSCRIPT[fcType]||FCSCRIPT.custom);
-};
-$('#fcDecl').onclick=fcEnd;
-$('#fcEnd').onclick=fcEnd;
-/* fake call edit modal */
-$('#fcEditBtn').onclick=()=>{
-  const cfg=JSON.parse(store.get('rg_fc','null'))||{name:'पुलिस कंट्रोल रूम',num:'100',type:'police'};
-  pendingFcType=cfg.type||'police';
-  $('#fcNameIn').value=cfg.name||''; $('#fcNumIn').value=cfg.num||'';
-  $('#modalFC').classList.add('open');
-};
-$$('.fcp').forEach(b=>b.onclick=()=>{
-  pendingFcType=b.dataset.t;
-  if(b.dataset.t==='police'){$('#fcNameIn').value=lang==='hi'?'पुलिस कंट्रोल रूम':'Police Control Room';$('#fcNumIn').value='100';}
-  else if(b.dataset.t==='papa'){$('#fcNameIn').value=lang==='hi'?'पापा':'Papa';$('#fcNumIn').value=contacts[0]||'';}
-  else if(!$('#fcNameIn').value){$('#fcNameIn').value=lang==='hi'?'परिवारजन':'Family';$('#fcNumIn').value=contacts[0]||'';}
-});
-$('#fcSave').onclick=()=>{
-  const name=$('#fcNameIn').value.trim()||(lang==='hi'?'परिवारजन':'Family');
-  const num=$('#fcNumIn').value.trim();
-  store.set('rg_fc',JSON.stringify({name,num,type:pendingFcType}));
-  $('#modalFC').classList.remove('open');
-  toast('💾 '+(lang==='hi'?'सेव हो गया — कॉल लग रही है…':'Saved — calling now…'));
-  setTimeout(startFakeCall,400);
-};
-/* -- check-in timer -- */
-let ciEnd=0, ciTick=null;
-$('#checkinBtn').onclick=()=>$('#modalCheckin').classList.add('open');
-$$('.ci').forEach(b=>b.onclick=()=>{
-  const min=+b.dataset.min;
-  ciEnd=Date.now()+min*60000;
-  clearInterval(ciTick); ciTick=setInterval(ciUpdate,1000); ciUpdate();
-  $('#modalCheckin').classList.remove('open');
-  toast('⏱ '+(lang==='hi'?'चेक-इन चालू':'Check-in started')+': '+min+' '+(lang==='hi'?'मिनट':'min'));
-});
-function ciUpdate(){
-  const left=ciEnd-Date.now();
-  if(left<=0){clearInterval(ciTick);ciTick=null;$('#checkinState').textContent='';if(!sos.active)beginSOS();return;}
-  const m=Math.floor(left/60000), s=Math.floor(left%60000/1000);
-  $('#checkinState').textContent='⏱ '+(lang==='hi'?'चेक-इन':'Check-in')+': '+m+':'+String(s).padStart(2,'0')+' '+(lang==='hi'?'बचा':'left');
-}
-$('#ciSafe').onclick=()=>{clearInterval(ciTick);ciTick=null;$('#checkinState').textContent='';$('#modalCheckin').classList.remove('open');toast('✅ '+(lang==='hi'?'शाबाश! आप सुरक्षित हैं':'Great! You are safe'));};
-/* -- emergency whistle (bina kisi bahari seva ke) -- */
-let whistleInt=null, whistleCtx=null;
-function stopWhistle(){clearInterval(whistleInt);whistleInt=null;if(whistleCtx){try{whistleCtx.close();}catch(e){}whistleCtx=null;}$('#whistleBtn').textContent='📢 '+(lang==='hi'?'आपात सीटी / Whistle':'Whistle');}
-$('#whistleBtn').onclick=()=>{
-  if(whistleCtx){stopWhistle();return;}
-  try{
-    const AC=window.AudioContext||window.webkitAudioContext; whistleCtx=new AC();
-    const o=whistleCtx.createOscillator(),g=whistleCtx.createGain();
-    o.type='square';g.gain.value=.22;o.frequency.value=2400;
-    o.connect(g);g.connect(whistleCtx.destination);o.start();
-    let hi=false;whistleInt=setInterval(()=>{o.frequency.setValueAtTime(hi?2100:2750,whistleCtx.currentTime,.02);hi=!hi;},170);
-    $('#whistleBtn').textContent='📢 '+(lang==='hi'?'सीटी बंद करें':'Stop whistle');
-    if(navigator.vibrate)navigator.vibrate([300,150,300]);
-    setTimeout(stopWhistle,4000);
-  }catch(e){toast('😔 '+(lang==='hi'?'सीटी उपलब्ध नहीं':'Whistle unavailable'));}
-};
-
-/* -- shake SOS -- */
-let shakeOn=false, lastShake=0, shakeCount=0, lastShakeTrigger=0;
-function onMotion(e){
-  const a=e.acceleration||e.accelerationIncludingGravity; if(!a||a.x==null)return;
-  const mag=Math.sqrt(a.x*a.x+a.y*a.y+a.z*a.z);
-  const now=Date.now();
-  if(mag>22){                       /* sirf ZOR ka hilana (chalna/normal use trigger nahi hoga) */
-    if(now-lastShake>1000)shakeCount=0;
-    lastShake=now; shakeCount++;
-    if(navigator.vibrate)navigator.vibrate(60);   /* har shake par halka feedback */
-    if(shakeCount>=4 && now-lastShakeTrigger>30000){   /* 4 zordar shakes + 30s cooldown = galat trigger nahi */
-      shakeCount=0; lastShakeTrigger=now;
-      if(!sos.active){
-        toast('📳 '+(lang==='hi'?'शेक-SOS! संदेश भेजा गया + नकली कॉल लग रही है':'Shake-SOS! Alert sent + fake call'));
-        beginSOS();
-        setTimeout(()=>{ if(!$('#fakecall').classList.contains('on')) startFakeCall(); },1500);
-      }
-    }
-  }
-}
-$('#shakeBtn').onclick=async()=>{
-  if(!shakeOn){
-    if(typeof DeviceMotionEvent!=='undefined'&&DeviceMotionEvent.requestPermission){
-      try{const p=await DeviceMotionEvent.requestPermission();if(p!=='granted'){toast('⚠️ '+(lang==='hi'?'अनुमति नहीं मिली':'Permission denied'));return;}}catch(e){}
-    }
-    addEventListener('devicemotion',onMotion); shakeOn=true;
-    $('#shakeBtn').textContent='📳 '+(lang==='hi'?'शेक SOS: चालू':'Shake SOS: ON');
-    toast('📳 '+(lang==='hi'?'शेक-SOS चालू — अब फोन को 3-4 बार जोर से हिलाकर टेस्ट करें':'Shake-SOS ON — test by shaking hard 3-4 times'));
-  }else{
-    removeEventListener('devicemotion',onMotion); shakeOn=false;
-    $('#shakeBtn').textContent='📳 '+(lang==='hi'?'शेक SOS: बंद':'Shake SOS: OFF');
-  }
-};
-
-/* ================= onboarding (permissions + login) ================= */
-function setPerm(id,ok){const el=$('#'+id);el.textContent=ok?'✅':'❌';el.classList.toggle('perm-ok',ok);}
-if(store.get('rg_onboarded','0')==='1'){
-  $('#onboard').style.display='none';
-}else{
-  let micGranted=false;
-  $('#permLoc').onclick=()=>{ if(!navigator.geolocation){setPerm('stLoc',false);return;} navigator.geolocation.getCurrentPosition(()=>{setPerm('stLoc',true);warmLoc();updateLocChip();},()=>setPerm('stLoc',false),{timeout:8000,enableHighAccuracy:true}); };
-  $('#permMic').onclick=()=>{ if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{st.getTracks().forEach(t=>t.stop());setPerm('stMic',true);micGranted=true;}).catch(()=>setPerm('stMic',false)); } else setPerm('stMic',false); };
-  $('#permNot').onclick=()=>{ if('Notification' in window){ Notification.requestPermission().then(p=>setPerm('stNot',p==='granted')); } else setPerm('stNot',false); };
-  $('#obNext').onclick=()=>{ $('#obPage1').style.display='none'; $('#obPage2').style.display='flex'; };
-  $('#obStart').onclick=()=>{
-    const ok=/^[0-9+\-\s]{8,15}$/;
-    const vals=[$('#obC0').value.trim(),$('#obC1').value.trim(),$('#obC2').value.trim(),$('#obC3').value.trim()];
-    let bad=false;
-    vals.forEach((v,i)=>{ const el=$('#obC'+i); if(v&&!ok.test(v)){bad=true;el.style.borderColor='#ff1744';} else el.style.borderColor=''; });
-    if(bad){toast('❌ नंबर सही नहीं (8-15 अंक) / Invalid number');return;}
-    if(!vals.some(Boolean)){toast('⚠️ कम से कम 1 इमरजेंसी नंबर जरूरी है / At least 1 number required');return;}
-    contacts=vals; store.set('rg_contacts',JSON.stringify(contacts));
-    store.set('rg_name',$('#obName').value.trim());
-    store.set('rg_onboarded','1');
-    if(window.RakshaSMS){ try{ window.RakshaSMS.saveNative(contacts.join(','),store.get('rg_name','')); window.RakshaSMS.startGuard(); }catch(e){} }
-    renderContacts();
-    $('#onboard').style.display='none';
-    const nm=store.get('rg_name','');
-    toast('🙏 '+(lang==='hi'?'नमस्ते':'Welcome')+(nm?', '+nm:'')+' — '+(lang==='hi'?'रक्षा-गार्ड तैयार है!':'Raksha-Guard is ready!'));
-    /* mic permission pehle se mili hai to voice trigger turant chalu */
-    if(micGranted){ if(!rec)makeRec(); if(rec){micOn=true;try{rec.start();}catch(e){} updateMicUI();} }
-    warmLoc(); updateLocChip();
-  };
-}
-
-/* PWA service worker (app-like install + offline shell) */
-if('serviceWorker' in navigator){ addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
-
-/* ================= install (PWA + APK) ================= */
-let deferredPrompt=null;
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
-$('#installBtn').onclick=async()=>{
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    const r=await deferredPrompt.userChoice;
-    deferredPrompt=null;
-    toast(r.outcome==='accepted'?'✅ '+(lang==='hi'?'इंस्टॉल हो गया! Home screen पर देखें':'Installed! Check home screen'):'ℹ️ '+(lang==='hi'?'कोई बात नहीं — APK भी उपलब्ध है':'No problem — APK available too'));
-  }else{
-    toast('ℹ️ '+(lang==='hi'?'Chrome menu (⋮) → "Add to Home Screen / Install app" दबाएं, या APK डाउनलोड करें':'Chrome menu → Add to Home Screen, or download the APK'));
-  }
-};
-
-/* ================= native app mode + background guard ================= */
-let guardOn=false;
-if(window.RakshaSMS){
-  document.body.classList.add('native');
-  $('#guardBtn').style.display='';
-  if(store.get('rg_onboarded','0')==='1'){ try{window.RakshaSMS.startGuard();}catch(e){} guardOn=true; }
-}
-$('#guardBtn').onclick=()=>{
-  if(!window.RakshaSMS)return;
-  guardOn=!guardOn;
-  try{ if(guardOn)window.RakshaSMS.startGuard(); else window.RakshaSMS.stopGuard(); }catch(e){}
-  $('#guardBtn').textContent='🛡️ '+(lang==='hi'?'बैकग्राउंड गार्ड: ':'Guard: ')+(guardOn?(lang==='hi'?'चालू':'ON'):(lang==='hi'?'बंद':'OFF'));
-  toast(guardOn?'🛡️ '+(lang==='hi'?'गार्ड चालू — लॉक स्क्रीन पर भी "बचाओ" सुनेगा':'Guard ON — listens even on lock screen'):'🛡️ '+(lang==='hi'?'गार्ड बंद':'Guard OFF'));
-};
-
-/* ================= ALL-CONDITION EMERGENCY MATRIX HANDLERS ============ */
-/* 1. Silent SOS (No Siren, No Strobe, Secret Delivery) */
-$('#silentSosBtn').onclick=async()=>{
-  const nums=contacts.filter(Boolean);
-  if(!nums.length){toast('⚠️ पहले संपर्क सेव करें / Save contacts first');return;}
-  toast('🤫 '+(lang==='hi'?'मूक SOS: गुप्त संदेश तैयार हो रहा है...':'Silent SOS: preparing discreet alert...'));
-  lastLoc=await getLoc();
-  if(window.RakshaSMS&&window.RakshaSMS.sendSms){
-    try{window.RakshaSMS.sendSms(nums.join(','), '🤫 SILENT SOS! ' + smsText());}catch(e){}
-  }else{
-    try{location.href=smsLink(nums);}catch(e){}
-  }
-  toast('✅ '+(lang==='hi'?'मूक SOS: बिना आवाज़ के परिजनों को अलर्ट भेजा गया':'Silent SOS alert sent discreetly'));
-};
-
-/* 2. Medical & CPR Metronome (110 BPM) */
-let cprInt=null, cprCtx=null;
-$('#medCprBtn').onclick=()=>{ $('#modalMedCPR').classList.add('open'); };
-$('#cprBeepBtn').onclick=()=>{
-  const btn=$('#cprBeepBtn'), heart=$('#cprHeart');
-  if(cprInt){
-    clearInterval(cprInt); cprInt=null;
-    if(cprCtx){try{cprCtx.close();}catch(e){} cprCtx=null;}
-    btn.textContent='🔊 '+(lang==='hi'?'CPR ऑडियो बीट शुरू करें':'Start CPR Audio Beat');
-    btn.className='btn pink small';
-    heart.style.transform='scale(1)';
-    return;
-  }
-  try{
-    const AC=window.AudioContext||window.webkitAudioContext; cprCtx=new AC();
-    btn.textContent='⏹ '+(lang==='hi'?'CPR बीट बंद करें':'Stop CPR Beat');
-    btn.className='btn dark small';
-    let beat=false;
-    /* 110 BPM = 545ms interval */
-    cprInt=setInterval(()=>{
-      if(!cprCtx)return;
-      heart.style.transform=beat?'scale(1.3)':'scale(0.9)';
-      beat=!beat;
-      const osc=cprCtx.createOscillator(), g=cprCtx.createGain();
-      osc.type='sine'; osc.frequency.value=800;
-      g.gain.setValueAtTime(0.15,cprCtx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001,cprCtx.currentTime+0.08);
-      osc.connect(g); g.connect(cprCtx.destination);
-      osc.start(); osc.stop(cprCtx.currentTime+0.08);
-    },545);
-  }catch(e){}
-};
-
-/* 3. Night Travel Mode */
-$('#travelModeBtn').onclick=()=>{ $('#modalCheckin').classList.add('open'); };
-
-/* 4. Cyber Shield */
-$('#cyberModeBtn').onclick=()=>{ $('#modalCyberShield').classList.add('open'); };
-
-/* 5. Rescue Morse Beacon (... --- ...) */
-let beaconActive=false, beaconTimeout=null, beaconAudioCtx=null;
-$('#beaconBtn').onclick=()=>{ $('#modalBeacon').classList.add('open'); };
-function playMorseSignal(freq, duration){
-  return new Promise(res=>{
-    if(!beaconActive)return res();
-    try{
-      if(!beaconAudioCtx){const AC=window.AudioContext||window.webkitAudioContext; beaconAudioCtx=new AC();}
-      const osc=beaconAudioCtx.createOscillator(), g=beaconAudioCtx.createGain();
-      osc.type='sawtooth'; osc.frequency.value=freq;
-      g.gain.value=0.15; osc.connect(g); g.connect(beaconAudioCtx.destination);
-      osc.start();
-      $('#screentorch').style.display='block';
-      setTimeout(()=>{
-        try{osc.stop();}catch(e){}
-        $('#screentorch').style.display='none';
-        setTimeout(res,120);
-      },duration);
-    }catch(e){res();}
-  });
-}
-async function runMorseSequence(){
-  while(beaconActive){
-    /* S: 3 short (180ms) */
-    for(let i=0;i<3&&beaconActive;i++){ await playMorseSignal(900,180); }
-    await new Promise(r=>setTimeout(r,350));
-    /* O: 3 long (500ms) */
-    for(let i=0;i<3&&beaconActive;i++){ await playMorseSignal(700,500); }
-    await new Promise(r=>setTimeout(r,350));
-    /* S: 3 short (180ms) */
-    for(let i=0;i<3&&beaconActive;i++){ await playMorseSignal(900,180); }
-    await new Promise(r=>setTimeout(r,1200)); /* Repeat gap */
-  }
-}
-$('#toggleBeaconBtn').onclick=()=>{
-  beaconActive=!beaconActive;
-  const b=$('#toggleBeaconBtn'), txt=$('#beaconText'), ico=$('#beaconIcon');
-  if(beaconActive){
-    b.textContent='⏹ '+(lang==='hi'?'रेस्क्यू बीकन बंद करें':'Stop Rescue Beacon');
-    b.className='btn dark';
-    txt.textContent=lang==='hi'?'📡 S-O-S सिग्नल सक्रिय (प्रकाश व ध्वनि)':'📡 S-O-S Signal Active';
-    ico.textContent='🚨';
-    toast('📡 '+(lang==='hi'?'S-O-S मोर्स कोड बीकन सक्रिय':'S-O-S Morse Beacon Active'));
-    runMorseSequence();
-  }else{
-    b.textContent='📡 '+(lang==='hi'?'S-O-S रेस्क्यू बीकन चालू करें':'Start S-O-S Beacon');
-    b.className='btn pink';
-    txt.textContent=lang==='hi'?'बीकन बंद है':'Beacon is OFF';
-    ico.textContent='💤';
-    $('#screentorch').style.display='none';
-    if(beaconAudioCtx){try{beaconAudioCtx.close();}catch(e){} beaconAudioCtx=null;}
-  }
-};
-
-/* 6. ICE Medical Profile Storage */
-function loadIce(){
-  try{
-    const ice=JSON.parse(store.get('rg_ice','{}'));
-    if(ice.blood)$('#iceBlood').value=ice.blood;
-    if(ice.allergy)$('#iceAllergy').value=ice.allergy;
-    if(ice.phone)$('#iceDocPhone').value=ice.phone;
-  }catch(e){}
-}
-$('#iceCardBtn').onclick=()=>{ loadIce(); $('#modalICE').classList.add('open'); };
-$('#saveIce').onclick=()=>{
-  const ice={
-    blood:$('#iceBlood').value.trim(),
-    allergy:$('#iceAllergy').value.trim(),
-    phone:$('#iceDocPhone').value.trim()
-  };
-  store.set('rg_ice',JSON.stringify(ice));
-  $('#modalICE').classList.remove('open');
-  toast('✅ '+(lang==='hi'?'ICE स्वास्थ्य कार्ड सुरक्षित हो गया':'ICE Medical Card Saved'));
-};
-
-/* ================= init ================= */
-applyLang();
-updateLocChip();
-warmLoc();
-setInterval(warmLoc,60000);   /* har minute location refresh — SOS ke liye asli location taiyaar rahe */
 </script>
 </body>
 </html>
