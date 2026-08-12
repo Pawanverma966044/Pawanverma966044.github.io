@@ -1,5 +1,5 @@
 /* रक्षा-गार्ड service worker — offline shell (original code © 2026 Pawan Verma / PAWANGAMINGSTUDIO) */
-const CACHE = 'raksha-guard-v1';
+const CACHE = 'raksha-guard-v2';
 const ASSETS = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
