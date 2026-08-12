@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0614">
+<meta name="author" content="Pawan Verma — PAWANGAMINGSTUDIO">
+<meta name="description" content="सुरक्षा ज्ञान केंद्र (Safety Knowledge Hub) — रक्षा-गार्ड इमरजेंसी OS टूल्स, 51+ राष्ट्रीय व 36 राज्य हेल्पलाइन्स और 50+ प्रमाणित सुरक्षा गाइड्स।">
+<title>सुरक्षा ज्ञान केंद्र (Safety Knowledge Hub) — रक्षा-गार्ड</title>
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+  :root{
+    --bg:#070310; --panel:#120b20; --card:#161027; --card2:#1c1433;
+    --line:#2c2148; --txt:#f4f1ff; --dim:#9a8fc0;
+    --pink:#ff2d6a; --red:#ff1744; --purple:#8b5cf6; --violet:#a78bfa;
+    --teal:#22d3ee; --green:#34d399; --amber:#f59e0b; --yellow:#fde047;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,'Noto Sans Devanagari',sans-serif;
+    color:var(--txt); background:radial-gradient(1200px 600px at 50% -10%, #1a0f33 0%, #070310 60%);
+    min-height:100vh; line-height:1.7; padding:20px 14px 60px;
+  }
+  .container{max-width:880px;margin:0 auto}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .backlink{color:var(--teal);text-decoration:none;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px}
+  .backlink:hover{color:#fff}
+  .brand{font-size:16px;font-weight:800;color:var(--pink)}
+  .hero{background:linear-gradient(145deg,#200e3a,#120922);border:1px solid var(--purple);border-radius:24px;padding:30px 24px;margin-bottom:28px;text-align:center;box-shadow:0 0 35px rgba(139,92,246,.2)}
+  .hero h1{font-size:28px;color:#fff;font-weight:900;margin-bottom:8px}
+  .hero p{color:var(--dim);font-size:15px;max-width:640px;margin:0 auto}
+  .search-box{margin:20px auto 0;max-width:500px}
+  .search-box input{width:100%;padding:14px 18px;border-radius:14px;border:1px solid var(--line);background:#0c0617;color:#fff;font-size:15px;outline:none;font-family:inherit}
+  .search-box input:focus{border-color:var(--purple)}
+  .cat-title{font-size:20px;color:var(--yellow);font-weight:800;margin:32px 0 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:650px){.grid{grid-template-columns:1fr}}
+  .article-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:.2s}
+  .article-card:hover{transform:translateY(-3px);border-color:var(--purple);box-shadow:0 8px 24px rgba(139,92,246,.25)}
+  .badge{display:inline-block;align-self:flex-start;padding:4px 10px;border-radius:8px;font-size:11.5px;font-weight:800;background:rgba(34,211,238,.12);color:var(--teal);border:1px solid #0e7490}
+  .badge.pink{background:rgba(255,45,106,.12);color:var(--pink);border-color:#be1857}
+  .badge.amber{background:rgba(245,158,11,.12);color:var(--amber);border-color:#b45309}
+  .badge.green{background:rgba(52,211,153,.12);color:var(--green);border-color:#065f46}
+  .badge.red{background:rgba(255,23,68,.12);color:var(--red);border-color:#9f1239}
+  .badge.purple{background:rgba(139,92,246,.12);color:var(--violet);border-color:#5b21b6}
+  .article-card h2{font-size:16.5px;font-weight:800;color:#fff;line-height:1.4}
+  .article-card p{font-size:13px;color:var(--dim);margin:0;line-height:1.5}
+  .meta{font-size:12px;color:var(--teal);font-weight:700;margin-top:auto;display:flex;justify-content:space-between;align-items:center}
+  footer{text-align:center;margin-top:50px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+  footer a{color:var(--violet);text-decoration:none;margin:0 8px}
+  footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <a href="index.html" class="backlink">← मुख्य रक्षा-गार्ड ऐप पर लौटें</a>
+    <span class="brand">🛡️ रक्षा-गार्ड (Raksha-Guard)</span>
+  </div>
+
+  <div class="hero">
+    <h1>📚 सुरक्षा ज्ञान केंद्र (Safety Knowledge Hub)</h1>
+    <p>रक्षा-गार्ड इमरजेंसी प्रोटेक्शन OS टूल्स, 51+ राष्ट्रीय व 36 राज्य हेल्पलाइन और 50+ प्रमाणित जीवन-रक्षक सुरक्षा गाइड्स।</p>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 कोई भी रक्षा-गार्ड टूल, कानून या हेल्पलाइन खोजें..." oninput="filterArticles()">
+    </div>
+  </div>
+
+  <!-- Category 0: Raksha-Guard Official Guides -->
+  <div class="cat-title">⚡ रक्षा-गार्ड ऑल-कंडीशन मास्टर सुरक्षा प्रणाली</div>
+  <div class="grid">
+    <a href="raksha-guard-all-condition-emergency-system-guide.html" class="article-card" style="border-color:#ff2d6a;grid-column:1/-1">
+      <span class="badge pink">मास्टर सुरक्षा प्रणाली</span>
+      <h2>रक्षा-गार्ड ऑल-कंडीशन इमरजेंसी सिस्टम — हर परिस्थिति में तत्काल सहायता कैसे प्राप्त करें?</h2>
+      <p>मूक आपातकाल (Silent SOS), लाउड सायरन, 110 BPM सीपीआर मेट्रोनोम, नाइट ट्रेवल गार्ड, साइबर 1930 शील्ड और रेस्क्यू मोर्स बीकन का संपूर्ण विवरण।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी मास्टर गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <!-- Category 1: Raksha-Guard Core Features -->
+  <div class="cat-title">🛡️ 1. रक्षा-गार्ड कोर टूल्स व फीचर्स (Raksha-Guard Core Tools)</div>
+  <div class="grid">
+    <a href="raksha-guard-features-how-to-use-guide.html" class="article-card" style="border-color:#be1857">
+      <span class="badge pink">आधिकारिक ऐप गाइड</span>
+      <h2>रक्षा-गार्ड का उपयोग कैसे करें? — संपूर्ण यूजर मैनुअल</h2>
+      <p>1-टच SOS, वॉइस ट्रिगर, फेक कॉल, टॉर्च और लोकेशन शेयरिंग टूल्स के उपयोग की पूरी गाइड।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-siren-alarm-system-guide.html" class="article-card">
+      <span class="badge red">सायरन व अलार्म</span>
+      <h2>रक्षा-गार्ड लाउड सायरन और फ्लैशलाइट अलार्म सिस्टम</h2>
+      <p>हाई-डेसिबल वेब ऑडियो सायरन और विजुअल फ्लैशर से हमलावर को भगाने की तकनीक।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-gps-live-location-sms-guide.html" class="article-card">
+      <span class="badge green">GPS व SMS अलर्ट</span>
+      <h2>रक्षा-गार्ड लाइव GPS लोकेशन और ऑटो-SMS अलर्ट सिस्टम</h2>
+      <p>सैटेलाइट जीपीएस प्री-वार्मिंग और परिजनों को गूगल मैप्स लिंक के साथ अलर्ट डिलीवरी।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-voice-trigger-bachao-sos.html" class="article-card">
+      <span class="badge purple">वॉइस ट्रिगर SOS</span>
+      <h2>रक्षा-गार्ड हैंड्स-फ्री वॉइस ट्रिगर ("बचाओ" SOS)</h2>
+      <p>फोन को छुए बिना ऑन-डिवाइस वॉयस AI से इमरजेंसी अलार्म सक्रिय करने की विधि।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-fake-call-escape-tool-guide.html" class="article-card">
+      <span class="badge amber">फेक कॉल एस्केप</span>
+      <h2>रक्षा-गार्ड फेक कॉल टूल — असहज स्थिति से सुरक्षित कैसे निकलें?</h2>
+      <p>नकली पुलिस या परिजनों की कॉल स्क्रीन से संदिग्ध व्यक्तियों से पीछा छुड़ाने का तरीका।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-checkin-timer-travel-safety.html" class="article-card">
+      <span class="badge">चेक-इन टाइमर</span>
+      <h2>रक्षा-गार्ड चेक-इन टाइमर — रात में अकेले सफर में ऑटो-अलार्म</h2>
+      <p>सफर के दौरान ऑटो-सेफ्टी टाइमर सेट करने और समय पर सुरक्षित न बताने पर SOS।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-shake-sos-motion-trigger.html" class="article-card">
+      <span class="badge pink">शेक SOS सेंसर</span>
+      <h2>रक्षा-गार्ड शेक-SOS मोशन सेंसर — फोन हिलाकर तुरंत अलर्ट</h2>
+      <p>हार्डवेयर एक्सेलेरोमीटर से जेब में फोन हिलाते ही इमरजेंसी अलार्म चालू करने की गाइड।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-torch-strobe-flashlight-guide.html" class="article-card">
+      <span class="badge amber">टॉर्च व स्क्रीन लाइट</span>
+      <h2>रक्षा-गार्ड टॉर्च और स्क्रीन लाइट टूल कैसे काम करता है?</h2>
+      <p>अंधेरे में आपातकालीन सिग्नल देने और विजिबिलिटी के लिए हार्डवेयर फ्लैशलाइट तकनीक।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-whistle-emergency-sound-tool.html" class="article-card">
+      <span class="badge green">डिजिटल सीटी अलार्म</span>
+      <h2>रक्षा-गार्ड डिजिटल सीटी (Whistle) टूल गाइड</h2>
+      <p>भीड़ में बिना थके 2800Hz तेज सीटी बजाने और पुलिस व गार्ड का ध्यान आकर्षित करने का तरीका।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-offline-pwa-apk-installation.html" class="article-card">
+      <span class="badge green">PWA व APK इंस्टॉल</span>
+      <h2>रक्षा-गार्ड को फोन पर असली ऐप (PWA / APK) की तरह कैसे इंस्टॉल करें?</h2>
+      <p>होम स्क्रीन पर बिना स्पेस ऐप जैसा आइकन बनाने और ऑफलाइन चलाने की प्रक्रिया।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-sim-offline-features-guide.html" class="article-card">
+      <span class="badge">ऑफलाइन सुरक्षा</span>
+      <h2>रक्षा-गार्ड ऑफलाइन मोड — बिना इंटरनेट कौन-से फीचर्स काम करते हैं?</h2>
+      <p>शून्य डेटा और कमजोर नेटवर्क में सायरन, 50+ हेल्पलाइन और फेक कॉल चलाने की तकनीक।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-battery-saving-emergency-mode.html" class="article-card">
+      <span class="badge green">बैटरी सेवर मोड</span>
+      <h2>रक्षा-गार्ड बैटरी सेवर व लो-बैटरी सुरक्षा तकनीक</h2>
+      <p>15% बैटरी में भी AMOLED डार्क थीम के साथ लाइफ-सेविंग SOS कैसे एक्टिव रहता है।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-emergency-contacts-privacy-guide.html" class="article-card">
+      <span class="badge purple">डेटा प्राइवेसी</span>
+      <h2>रक्षा-गार्ड इमरजेंसी कॉन्टैक्ट्स और डेटा प्राइवेसी सुरक्षा</h2>
+      <p>जीरो-सर्वर स्टोरेज सिद्धांत: आपका डेटा केवल आपके फोन में कैसे सुरक्षित रहता है।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <!-- Category 2: Helpline Directories -->
+  <div class="cat-title">📞 2. राष्ट्रीय व राज्य हेल्पलाइन निर्देशिका (Helpline Directories)</div>
+  <div class="grid">
+    <a href="emergency-helpline-numbers-india-directory.html" class="article-card" style="border-color:#065f46">
+      <span class="badge green">राष्ट्रीय हेल्पलाइन निर्देशिका</span>
+      <h2>भारत के सभी 51+ आपातकालीन हेल्पलाइन नंबरों की आधिकारिक सूची</h2>
+      <p>112, 100, 1091, 1930, 108, 1098, 139 और 14416 का सम्पूर्ण विवरण व 1-टच कॉलिंग।</p>
+      <div class="meta"><span>📖 8 मिनट पढ़ें</span><span>पूरी निर्देशिका पढ़ें →</span></div>
+    </a>
+
+    <a href="all-india-states-emergency-helpline-directory.html" class="article-card" style="border-color:#5b21b6">
+      <span class="badge purple">राज्य व UT निर्देशिका (36 States & UTs)</span>
+      <h2>भारत के सभी 28 राज्यों व 8 केंद्र शासित प्रदेशों के आधिकारिक हेल्पलाइन नंबर</h2>
+      <p>राजस्थान, यूपी, दिल्ली, बिहार सहित 36 राज्यों/UTs के पुलिस, महिला, आपदा SDMA नंबर।</p>
+      <div class="meta"><span>📖 12 मिनट पढ़ें</span><span>सभी 36 राज्यों की सूची देखें →</span></div>
+    </a>
+
+    <a href="raksha-guard-national-emergency-112-erss-guide.html" class="article-card">
+      <span class="badge red">112 राष्ट्रीय ERSS</span>
+      <h2>रक्षा-गार्ड से 112 ERSS पर कॉल कैसे करें? — एक नंबर, सभी आपात सेवाएं</h2>
+      <p>पुलिस, एम्बुलेंस और फायर को एक साथ जोड़ने वाले राष्ट्रीय ERSS 112 का उपयोग।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <!-- Category 3: Cyber Security -->
+  <div class="cat-title">💻 3. साइबर अपराध व 1930 फ्रॉड शील्ड (Cyber Security)</div>
+  <div class="grid">
+    <a href="cyber-crime-1930-complaint-guide.html" class="article-card">
+      <span class="badge">साइबर क्राइम 1930</span>
+      <h2>ऑनलाइन वित्तीय धोखाधड़ी होने पर 1930 पर शिकायत कैसे दर्ज करें?</h2>
+      <p>बैंक फ्रॉड या यूपीआई स्कैम होने पर 'गोल्डन ऑवर' में खाता फ्रीज कराने की पूरी प्रक्रिया।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="digital-arrest-fraud-safety-tips.html" class="article-card">
+      <span class="badge pink">स्कैम अलर्ट 2026</span>
+      <h2>नकली CBI/ED 'डिजिटल अरेस्ट' स्कैम क्या है और इससे कैसे बचें?</h2>
+      <p>वीडियो कॉल पर पुलिस वर्दी पहनकर डराने वाले ठगों की पहचान और सुप्रीम कोर्ट के नियम।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="fake-job-loan-app-fraud-prevention.html" class="article-card">
+      <span class="badge amber">लोन व जॉब फ्रॉड</span>
+      <h2>फर्जी लोन ऐप्स और टेलीग्राम पार्ट-टाइम जॉब स्कैम से कैसे बचें?</h2>
+      <p>ब्लैकमेलिंग से बचाव, खतरनाक अनुमतियों की पहचान और आरबीआई की गाइडलाइंस।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="atm-card-cloning-upi-safety-rules.html" class="article-card">
+      <span class="badge green">बैंकिंग सुरक्षा</span>
+      <h2>ATM कार्ड स्किमिंग और UPI फ्रॉड से बचने के 7 व्यावहारिक नियम</h2>
+      <p>कार्ड क्लोनिंग पहचान, पिन सुरक्षा और सुरक्षित डिजिटल बैंकिंग की संपूर्ण चेकलिस्ट।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="social-media-privacy-photo-safety.html" class="article-card">
+      <span class="badge purple">सोशल प्राइवेसी</span>
+      <h2>सोशल मीडिया प्राइवेसी और फोटो सुरक्षा गाइड (डीपफेक से बचाव)</h2>
+      <p>फेसबुक-इंस्टाग्राम पर 2FA सुरक्षा, प्रोफाइल लॉक और फोटो मिसयूज पर आईटी एक्ट शिकायत।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="lost-mobile-ceir-portal-block-guide.html" class="article-card">
+      <span class="badge">मोबाइल सुरक्षा</span>
+      <h2>मोबाइल चोरी होने पर CEIR पोर्टल से तुरंत IMEI ब्लॉक व ट्रैक कैसे करें?</h2>
+      <p>दूरसंचार विभाग के आधिकारिक CEIR पोर्टल से फोन को सुरक्षित रूप से ब्लॉक करने की विधि।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <!-- Category 4: Legal & Women Safety -->
+  <div class="cat-title">⚖️ 4. कानूनी अधिकार व महिला-छात्र सुरक्षा (Legal & Safety Rights)</div>
+  <div class="grid">
+    <a href="women-safety-laws-rights-india.html" class="article-card">
+      <span class="badge pink">महिला सुरक्षा कानून</span>
+      <h2>भारतीय कानून में महिलाओं के 7 सबसे शक्तिशाली कानूनी अधिकार</h2>
+      <p>Zero FIR, रात में गिरफ्तारी से सुरक्षा, पहचान की गोपनीयता और 1091 हेल्पलाइन की शक्तियां।</p>
+      <div class="meta"><span>📖 7 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-women-night-commute-safety-os.html" class="article-card">
+      <span class="badge pink">नाइट कम्यूट मोड</span>
+      <h2>रक्षा-गार्ड महिला नाइट कम्यूट मोड — रात में सुरक्षित घर वापसी वर्कफ्लो</h2>
+      <p>कामकाजी महिलाओं व छात्राओं के लिए रात में 4-चरणीय सुरक्षा और 1091/112 इंटीग्रेशन।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-college-student-campus-safety.html" class="article-card">
+      <span class="badge">कॉलेज व हॉस्टल सुरक्षा</span>
+      <h2>रक्षा-गार्ड कॉलेज व हॉस्टल छात्र सुरक्षा गाइड</h2>
+      <p>एंटी-रैगिंग 1800-180-5522, हॉस्टल इमरजेंसी और रूममेट अलर्ट सिस्टम।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="child-safety-1098-pocso-guide.html" class="article-card">
+      <span class="badge">बाल सुरक्षा 1098</span>
+      <h2>चाइल्डलाइन 1098 और बाल सुरक्षा (Good Touch - Bad Touch) गाइड</h2>
+      <p>बच्चों को सुरक्षित रखने के नियम, POCSO एक्ट के प्रावधान और चाइल्डलाइन सहायता।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="good-samaritan-law-road-accidents.html" class="article-card">
+      <span class="badge green">सड़क सुरक्षा कानून</span>
+      <h2>सड़क दुर्घटना में घायल की मदद करने वाले नागरिक के कानूनी अधिकार (Good Samaritan Law)</h2>
+      <p>सुप्रीम कोर्ट के निर्देश: मददगार नागरिक से पुलिस पूछताछ व अस्पताल शुल्क से छूट।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="senior-citizen-banking-fraud-safety.html" class="article-card">
+      <span class="badge amber">वरिष्ठ नागरिक सुरक्षा</span>
+      <h2>बुजुर्गों को पेंशन व बैंकिंग फ्रॉड से बचाने के 10 आसान सुरक्षा उपाय</h2>
+      <p>वरिष्ठ नागरिकों के लिए हेल्पलाइन 14567, OTP सुरक्षा, और सुरक्षित जीवन प्रमाण पत्र के नियम।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-voter-utility-1950-guide.html" class="article-card">
+      <span class="badge">मतदाता अधिकार 1950</span>
+      <h2>रक्षा-गार्ड 1950 राष्ट्रीय मतदाता हेल्पलाइन (ECI) गाइड</h2>
+      <p>वोटर आईडी कार्ड, पोलिंग बूथ और नागरिक चुनावी अधिकारों की पूरी जानकारी।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <!-- Category 5: Emergency Health, Disaster & Travel -->
+  <div class="cat-title">🏥 5. आपातकालीन स्वास्थ्य, आपदा, हाईवे व यात्रा सुरक्षा (Emergency Life Saving)</div>
+  <div class="grid">
+    <a href="emergency-first-aid-cpr-guide.html" class="article-card">
+      <span class="badge red">प्राथमिक उपचार CPR</span>
+      <h2>एम्बुलेंस आने से पहले CPR और प्राथमिक उपचार देने का सही तरीका</h2>
+      <p>हार्ट अटैक और बेहोशी में जीवन बचाने वाली हैंड्स-ओनली सीपीआर तकनीक और ब्लीडिंग कंट्रोल।</p>
+      <div class="meta"><span>📖 6 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-poison-control-1066-aiims-guide.html" class="article-card">
+      <span class="badge red">जहर नियंत्रण 1066</span>
+      <h2>रक्षा-गार्ड 1066 जहर नियंत्रण केंद्र (AIIMS नई दिल्ली) गाइड</h2>
+      <p>कीटनाशक, रसायन या गलत दवा निगलने पर आपातकालीन विष मारक (Antidote) सलाह।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-fire-brigade-101-rescue-guide.html" class="article-card">
+      <span class="badge red">अग्निशमन 101</span>
+      <h2>रक्षा-गार्ड 101 अग्निशमन (Fire Brigade) बचाव गाइड</h2>
+      <p>घर व दफ्तर में आग लगने पर आपातकालीन बचाव और 101/112 पर 1-टच कॉलिंग।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="raksha-guard-highway-accident-1033-nhai-guide.html" class="article-card">
+      <span class="badge green">हाईवे सुरक्षा 1033</span>
+      <h2>रक्षा-गार्ड 1033 नेशनल हाईवे हेल्पलाइन — एक्सप्रेसवे आपात सहायता</h2>
+      <p>NHAI पेट्रोलिंग, क्रेन, टोइंग और हाईवे एम्बुलेंस से त्वरित सहायता पाने की गाइड।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="mental-health-tele-manas-14416.html" class="article-card">
+      <span class="badge green">मानसिक स्वास्थ्य</span>
+      <h2>टेली-मानस (14416) — भारत सरकार की 24x7 मुफ्त मानसिक स्वास्थ्य सेवा</h2>
+      <p>तनाव, डिप्रेशन और मनोवैज्ञानिक संकट में मुफ्त फोन काउंसलिंग और परामर्श प्रक्रिया।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="blood-bank-emergency-1910-search.html" class="article-card">
+      <span class="badge red">ब्लड बैंक 1910</span>
+      <h2>आपातकालीन ब्लड बैंक (1910) और e-RaktKosh पोर्टल गाइड</h2>
+      <p>दुर्घटना व सर्जरी में तुरंत रक्त उपलब्धता खोजने के लिए सरकारी ई-रक्तकोष और 1910 हेल्पलाइन।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="disaster-preparedness-earthquake-flood.html" class="article-card">
+      <span class="badge amber">आपदा प्रबंधन</span>
+      <h2>भूकंप, बाढ़ और प्राकृतिक आपदाओं में जीवन-रक्षा गाइड (NDMA 1078)</h2>
+      <p>ड्रॉप-कवर-होल्ड तकनीक, बाढ़ सुरक्षा और एनडीएमए 1078 आपातकालीन दिशानिर्देश।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="train-travel-safety-139-rpf-guide.html" class="article-card">
+      <span class="badge green">रेलवे सुरक्षा</span>
+      <h2>ट्रेन में सफर करते समय 139 रेल मदद और RPF सुरक्षा हेल्पलाइन गाइड</h2>
+      <p>चलती ट्रेन में संकट के समय सहायता, 'मेरी सहेली' पहल और नशाखुरानी से बचाव।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="cab-auto-travel-night-safety-tips.html" class="article-card">
+      <span class="badge">कैब व ऑटो सुरक्षा</span>
+      <h2>रात में ऑटो/कैब में सुरक्षित सफर की 5-सूत्रीय चेकलिस्ट</h2>
+      <p>चाइल्ड लॉक जांच, लाइव लोकेशन शेयरिंग और संदिग्ध परिस्थितियों में तुरंत आपात कॉल।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="gas-leak-fire-safety-1906-rules.html" class="article-card">
+      <span class="badge red">गैस लीक 1906</span>
+      <h2>रसोई गैस (LPG) लीक होने पर क्या करें और क्या कभी न करें?</h2>
+      <p>विस्फोट से बचाव के नियम, स्विच न छूने की सावधानी और राष्ट्रीय 1906 आपातकालीन नंबर।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="android-power-button-sos-setup.html" class="article-card">
+      <span class="badge">स्मार्टफोन सेटिंग्स</span>
+      <h2>हर एंड्रॉइड फोन में पावर बटन 3-बार दबाकर SOS भेजने की सेटिंग कैसे करें?</h2>
+      <p>Samsung, Xiaomi, OnePlus, Realme, Vivo, Oppo में इन-बिल्ट इमरजेंसी SOS कॉन्फ़िगरेशन।</p>
+      <div class="meta"><span>📖 4 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+
+    <a href="self-defense-techniques-everyday-objects.html" class="article-card">
+      <span class="badge pink">आत्मरक्षा तकनीक</span>
+      <h2>दैनिक उपयोग की वस्तुओं (चाबी, पेन, बैग) से आत्मरक्षा की तकनीकें</h2>
+      <p>हमले के समय संवेदनशील शारीरिक बिंदुओं पर वार करके भागने का समय प्राप्त करने के नियम।</p>
+      <div class="meta"><span>📖 5 मिनट पढ़ें</span><span>पूरी गाइड पढ़ें →</span></div>
+    </a>
+  </div>
+
+  <footer>
+    <p>© 2026 <b>पवन वर्मा (PAWANGAMINGSTUDIO)</b>. सर्वाधिकार सुरक्षित।</p>
+    <p style="margin-top:8px">
+      <a href="index.html">मुख्य ऐप</a> |
+      <a href="about-us.html">About Us</a> |
+      <a href="privacy-policy.html">Privacy Policy</a> |
+      <a href="terms-conditions.html">Terms & Conditions</a> |
+      <a href="disclaimer.html">Disclaimer</a> |
+      <a href="contact-us.html">Contact Us</a> |
+      <a href="articles.html">सुरक्षा ज्ञान केंद्र</a>
+    </p>
+  </footer>
+</div>
+
+<script>
+function filterArticles(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.article-card').forEach(card=>{
+    const txt=card.innerText.toLowerCase();
+    card.style.display=txt.includes(q)?'flex':'none';
+  });
+}
+</script>
+</body>
+</html>
