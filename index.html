@@ -187,6 +187,18 @@
   .fc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px 26px;margin-bottom:26px}
   .fc-g{display:flex;flex-direction:column;align-items:center;gap:6px;color:#cfe3ff;font-size:11px;font-weight:700}
   .fc-g span{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.09);display:flex;align-items:center;justify-content:center;font-size:22px}
+  /* stealth disguise calculator */
+  #disguiseCalc{position:fixed;inset:0;z-index:600;background:#000;display:none;flex-direction:column;justify-content:flex-end;padding:20px 16px calc(24px + env(safe-area-inset-bottom));color:#fff;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',Roboto,sans-serif}
+  #disguiseCalc.on{display:flex}
+  .calc-top{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;color:#737373;font-size:12px}
+  .calc-screen{text-align:right;font-size:54px;font-weight:300;padding:10px 12px 16px;word-break:break-all;color:#fff;min-height:85px;display:flex;align-items:flex-end;justify-content:flex-end}
+  .calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .calc-btn{aspect-ratio:1;border-radius:50%;border:none;font-size:26px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.1s}
+  .calc-btn:active{filter:brightness(1.4)}
+  .calc-btn.gray{background:#a5a5a5;color:#000}
+  .calc-btn.dark{background:#333333;color:#fff}
+  .calc-btn.orange{background:#ff9f0a;color:#fff}
+  .calc-btn.zero{grid-column:span 2;aspect-ratio:auto;border-radius:999px;justify-content:flex-start;padding-left:28px}
   #screentorch{position:fixed;inset:0;background:#fff;z-index:500;display:none;cursor:pointer}
   /* native app mode — website jaisa kuch nahi dikhega */
   body.native .statusbar{display:none}
@@ -241,7 +253,7 @@
         <div class="ctitle" style="margin-bottom:10px">📲 <span>असली ऐप की तरह इंस्टॉल करें <small style="color:var(--dim);font-weight:600">/ Install like a real app</small></span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <button class="btn pink" id="installBtn">📥 ऐप इंस्टॉल करें</button>
-          <a class="btn purple" style="text-decoration:none" href="RakshaGuard.apk" download>🤖 Android APK डाउनलोड</a>
+          <a class="btn purple" style="text-decoration:none" href="download.html">🤖 Android APK डाउनलोड</a>
         </div>
         <div class="netnote">APK: SMS अनुमति से सिम द्वारा सीधे संदेश • PWA: ब्राउज़र में प्री-फिल्ड संदेश तुरंत तैयार</div>
       </div>
@@ -334,15 +346,20 @@
       </div>
 
       <div class="card purpleline">
-        <div class="ctitle" style="margin-bottom:10px">🧰 <span>सुरक्षा टूल्स <small style="color:var(--dim);font-weight:600">/ Safety Tools</small></span></div>
+        <div class="ctitle" style="margin-bottom:10px">🧰 <span>अल्ट्रा सुरक्षा टूल्स <small style="color:var(--dim);font-weight:600">/ Ultra Safety Tools</small></span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           <button class="btn dark small" id="torchBtn">🔦 टॉर्च / Torch</button>
           <button class="btn dark small" id="fakeCallBtn">📞 नकली कॉल / Fake Call</button>
           <button class="btn dark small" id="checkinBtn">⏱ चेक-इन टाइमर</button>
           <button class="btn dark small" id="shakeBtn">📳 शेक SOS: बंद</button>
           <button class="btn dark small" id="whistleBtn">📢 आपात सीटी / Whistle</button>
-          <button class="btn dark small" id="guardBtn" style="display:none">🛡️ बैकग्राउंड गार्ड: चालू</button>
-          <button class="btn dark small" id="fcEditBtn">✏️ नकली कॉल एडिट (नाम/नंबर/पुलिस/पिता)</button>
+          <button class="btn dark small" id="policeStrobeBtn" style="border-color:#3b82f6">🚨 पुलिस स्ट्रोब लाइट</button>
+          <button class="btn dark small" id="stealthCalcBtn" style="border-color:#ec4899">🧮 सीक्रेट कैलकुलेटर</button>
+          <button class="btn dark small" id="audioRecordBtn" style="border-color:#ef4444">🎙️ ऑडियो ब्लैक बॉक्स</button>
+          <button class="btn dark small" id="dogRepelBtn" style="border-color:#eab308">🐕 डॉग रिपेलर (20kHz)</button>
+          <button class="btn dark small" id="compassBtn" style="border-color:#38bdf8">🧭 डिजिटल कम्पास</button>
+          <button class="btn dark small" id="guardBtn" style="display:none">🛡️ बैकग्राउंड गार्ड</button>
+          <button class="btn dark small" id="fcEditBtn">✏️ नकली कॉल एडिट</button>
         </div>
         <div class="netnote" id="checkinState"></div>
       </div>
@@ -371,7 +388,48 @@
 
     <!-- ============ HELP NUMBERS VIEW ============ -->
     <section class="view" id="view-help">
-      <div class="h2">🚨 <span data-i18n="navHelp">50+ हेल्प नंबर</span></div>
+      <div class="h2">🚨 <span data-i18n="navHelp">50+ हेल्प नंबर व 36 राज्य डायरेक्टरी</span></div>
+      <div style="display:flex;gap:8px;margin:8px 0 10px">
+        <select id="stateFilter" style="width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#100a1e;color:var(--yellow);font-weight:700;font-size:13px;outline:none">
+          <option value="all">🇮🇳 सभी 51+ राष्ट्रीय आपातकालीन नंबर</option>
+          <option value="rajasthan">📍 राजस्थान (Rajasthan)</option>
+          <option value="up">📍 उत्तर प्रदेश (UP)</option>
+          <option value="mp">📍 मध्य प्रदेश (MP)</option>
+          <option value="bihar">📍 बिहार (Bihar)</option>
+          <option value="maharashtra">📍 महाराष्ट्र (Maharashtra)</option>
+          <option value="delhi">📍 दिल्ली (Delhi NCR)</option>
+          <option value="haryana">📍 हरियाणा (Haryana)</option>
+          <option value="punjab">📍 पंजाब (Punjab)</option>
+          <option value="gujarat">📍 गुजरात (Gujarat)</option>
+          <option value="westbengal">📍 पश्चिम बंगाल (WB)</option>
+          <option value="tamilnadu">📍 तमिलनाडु (Tamil Nadu)</option>
+          <option value="karnataka">📍 कर्नाटक (Karnataka)</option>
+          <option value="telangana">📍 तेलंगाना (Telangana)</option>
+          <option value="andhra">📍 आंध्र प्रदेश (Andhra Pradesh)</option>
+          <option value="kerala">📍 केरल (Kerala)</option>
+          <option value="odisha">📍 ओडिशा (Odisha)</option>
+          <option value="jharkhand">📍 झारखंड (Jharkhand)</option>
+          <option value="chhattisgarh">📍 छत्तीसगढ़ (CG)</option>
+          <option value="assam">📍 असम (Assam)</option>
+          <option value="uttarakhand">📍 उत्तराखंड (Uttarakhand)</option>
+          <option value="himachal">📍 हिमाचल प्रदेश (HP)</option>
+          <option value="jk">📍 जम्मू और कश्मीर (J&K)</option>
+          <option value="ladakh">📍 लद्दाख (Ladakh)</option>
+          <option value="goa">📍 गोवा (Goa)</option>
+          <option value="tripura">📍 त्रिपुरा (Tripura)</option>
+          <option value="meghalaya">📍 मेघालय (Meghalaya)</option>
+          <option value="manipur">📍 मणिपुर (Manipur)</option>
+          <option value="nagaland">📍 नागालैंड (Nagaland)</option>
+          <option value="mizoram">📍 मिजोरम (Mizoram)</option>
+          <option value="arunachal">📍 अरुणाचल प्रदेश</option>
+          <option value="sikkim">📍 सिक्किम (Sikkim)</option>
+          <option value="chandigarh">📍 चंडीगढ़ (Chandigarh)</option>
+          <option value="puducherry">📍 पुदुचेरी (Puducherry)</option>
+          <option value="andaman">📍 अंडमान निकोबार</option>
+          <option value="dnhdd">📍 दादरा नगर हवेली & दमन</option>
+          <option value="lakshadweep">📍 लक्षद्वीप (Lakshadweep)</option>
+        </select>
+      </div>
       <input class="search" id="helpSearch" data-i18n-ph="searchPh" placeholder="नंबर या नाम खोजें...">
       <div id="helpList"></div>
     </section>
@@ -470,6 +528,89 @@
   </nav>
 </div>
 
+<!-- ============ AUDIO BLACKBOX RECORDER MODAL ============ -->
+<div class="modal" id="modalAudio">
+  <div class="sheet">
+    <h3 style="color:#ef4444">🎙️ आपातकालीन ऑडियो ब्लैक बॉक्स <button class="xbtn" data-close="modalAudio">✕</button></h3>
+    <p class="netnote" style="margin-bottom:12px;text-align:left">धमकी, विवाद या हमले के समय ऑन-डिवाइस ऑडियो रिकॉर्डिंग करें (कानूनी साक्ष्य हेतु सुरक्षित)।</p>
+    
+    <div class="card" style="background:#180a10;border-color:#ef4444;text-align:center;padding:16px;margin-bottom:12px">
+      <div id="recWave" style="font-size:36px">⏹️</div>
+      <div id="recStatus" style="font-size:15px;font-weight:800;color:#fca5a5;margin-top:4px">रिकॉर्डिंग बंद है</div>
+      <div id="recTimer" style="font-size:24px;font-weight:700;color:#fff;margin:6px 0">00:00</div>
+      <button class="btn pink small" id="toggleRecBtn" style="width:100%">🔴 रिकॉर्डिंग शुरू करें</button>
+    </div>
+    
+    <div id="audioPlayerBox" style="display:none;margin-bottom:10px">
+      <audio id="audioPlayer" controls style="width:100%;margin-bottom:6px"></audio>
+      <a id="downloadAudioLink" class="btn dark small" style="width:100%;text-decoration:none" download="RakshaGuard-Evidence.webm">💾 रिकॉर्डिंग डाउनलोड करें (साक्ष्य)</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DOG & THREAT REPELLER MODAL ============ -->
+<div class="modal" id="modalDog">
+  <div class="sheet">
+    <h3 style="color:#eab308">🐕 अल्ट्रासोनिक डॉग व थ्रेट रिपेलर <button class="xbtn" data-close="modalDog">✕</button></h3>
+    <p class="netnote" style="margin-bottom:12px;text-align:left">रात में सुनसान सड़क पर आक्रामक कुत्तों या जंगली जानवरों को दूर रखने के लिए हाई-फ्रीक्वेंसी साउंड वेव।</p>
+    
+    <div class="card" style="background:#171203;border-color:#eab308;text-align:center;padding:16px;margin-bottom:12px">
+      <div style="font-size:40px" id="dogIcon">🔊</div>
+      <div style="font-size:16px;font-weight:800;color:var(--yellow);margin-top:4px" id="dogStateTxt">रिपेलर बंद है</div>
+      <div style="font-size:12px;color:var(--dim);margin:4px 0 12px">19,500Hz अल्ट्रा-पिच (मानव कान को बहुत धीमी, कुत्तों को असहज)</div>
+      <button class="btn amber small" id="toggleDogBtn" style="width:100%">⚡ 19.5kHz अल्ट्रासोनिक वेव चालू करें</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DIGITAL COMPASS MODAL ============ -->
+<div class="modal" id="modalCompass">
+  <div class="sheet">
+    <h3 style="color:#38bdf8">🧭 डिजिटल ऑफलाइन कम्पास <button class="xbtn" data-close="modalCompass">✕</button></h3>
+    <p class="netnote" style="margin-bottom:12px;text-align:left">जंगल, पहाड़ या नेटवर्क ब्लैकआउट में दिशा खोजने के लिए हार्डवेयर मैग्नेटिक सेंसर।</p>
+    
+    <div class="card" style="background:#041424;border-color:#38bdf8;text-align:center;padding:18px;margin-bottom:12px">
+      <div id="compassDial" style="width:130px;height:130px;border-radius:50%;border:3px dashed #38bdf8;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:48px;transition:.1s">⬆️</div>
+      <div id="compassHeading" style="font-size:22px;font-weight:900;color:#38bdf8;margin-top:10px">उत्तर (North) • 0°</div>
+      <div id="compassCoords" style="font-size:11.5px;color:var(--dim);margin-top:4px">📍 GPS: लाइव कोऑर्डिनेट्स तैयार</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STEALTH DISGUISE CALCULATOR ============ -->
+<div id="disguiseCalc">
+  <div class="calc-top">
+    <button style="background:none;border:none;color:#737373;font-size:16px;cursor:pointer" id="calcExitBtn">✕ बाहर निकलें</button>
+    <span>🔒 सीक्रेट पिन: 999= (मूक SOS)</span>
+  </div>
+  <div class="calc-screen" id="calcDisplay">0</div>
+  <div class="calc-keys">
+    <button class="calc-btn gray" data-c="C">AC</button>
+    <button class="calc-btn gray" data-c="pm">±</button>
+    <button class="calc-btn gray" data-c="%">%</button>
+    <button class="calc-btn orange" data-c="/">÷</button>
+    
+    <button class="calc-btn dark" data-c="7">7</button>
+    <button class="calc-btn dark" data-c="8">8</button>
+    <button class="calc-btn dark" data-c="9">9</button>
+    <button class="calc-btn orange" data-c="*">×</button>
+    
+    <button class="calc-btn dark" data-c="4">4</button>
+    <button class="calc-btn dark" data-c="5">5</button>
+    <button class="calc-btn dark" data-c="6">6</button>
+    <button class="calc-btn orange" data-c="-">−</button>
+    
+    <button class="calc-btn dark" data-c="1">1</button>
+    <button class="calc-btn dark" data-c="2">2</button>
+    <button class="calc-btn dark" data-c="3">3</button>
+    <button class="calc-btn orange" data-c="+">+</button>
+    
+    <button class="calc-btn dark zero" data-c="0">0</button>
+    <button class="calc-btn dark" data-c=".">.</button>
+    <button class="calc-btn orange" data-c="=" id="calcEqualBtn">=</button>
+  </div>
+</div>
+
 <!-- ============ MEDICAL & CPR MODAL ============ -->
 <div class="modal" id="modalMedCPR">
   <div class="sheet">
@@ -510,6 +651,7 @@
       <input id="iceDocPhone" inputmode="tel" placeholder="उदा. 98XXXXXXXX" maxlength="15">
     </div>
     <button class="btn purple" style="width:100%" id="saveIce">💾 ICE स्वास्थ्य कार्ड सेव करें</button>
+    <button class="btn pink small" id="downloadIceImgBtn" style="width:100%;margin-top:8px">🖼️ लॉकस्क्रीन ICE मेडिकल इमेज डाउनलोड करें</button>
   </div>
 </div>
 
@@ -855,6 +997,81 @@ const HELP=[
   ['1800118005','हेल्पएज इंडिया (बुजुर्ग)','HelpAge India (Senior)']]}
 ];
 
+const STATE_HELPLINES = {
+ rajasthan: {name:'राजस्थान (Rajasthan)', items:[
+  ['01412601170','पुलिस / ERSS कंट्रोल रूम (जयपुर)','Police PCR Head Office'],
+  ['1090','गरिमा / महिला सुरक्षा हेल्पलाइन','Garima Women Safety Cell'],
+  ['01412227296','राज्य आपदा प्रबंधन (SDMA)','Disaster Management Dept'],
+  ['181','राजस्थान संपर्क / CM हेल्पलाइन','Citizen Grievance Helpline']
+ ]},
+ up: {name:'उत्तर प्रदेश (Uttar Pradesh)', items:[
+  ['05222207112','UP 112 सेंट्रल कमांड सेंटर (लखनऊ)','UP 112 State Command'],
+  ['1090','विमेन पावर लाइन (WPL)','Women Power Line UP'],
+  ['05222236308','राहत आयुक्त / राज्य आपदा (SDMA)','Relief Commissioner UP'],
+  ['1076','मुख्यमंत्री हेल्पलाइन UP','CM Helpline UP (24x7)']
+ ]},
+ mp: {name:'मध्य प्रदेश (Madhya Pradesh)', items:[
+  ['07552443800','MP पुलिस राज्य कंट्रोल रूम (भोपाल)','MP Police State PCR'],
+  ['1090','महिला सुरक्षा हेल्पलाइन MP','Women Helpline MP'],
+  ['07552441419','MP राज्य आपदा प्रबंधन (SDMA)','Disaster Management MP'],
+  ['181','MP CM हेल्पलाइन (जनसेवा)','CM Helpline MP']
+ ]},
+ bihar: {name:'बिहार (Bihar)', items:[
+  ['06122234000','बिहार पुलिस आपातकालीन केंद्र (पटना)','Bihar Police Control'],
+  ['181','महिला विकास निगम हेल्पलाइन','Women Development Corp'],
+  ['06122547232','आपदा प्रबंधन विभाग बिहार','Disaster Management Bihar'],
+  ['104','बिहार राज्य स्वास्थ्य हेल्पलाइन','Health Consultation Bihar']
+ ]},
+ maharashtra: {name:'महाराष्ट्र (Maharashtra)', items:[
+  ['02222026636','महाराष्ट्र पुलिस कंट्रोल रूम (मुंबई)','Maharashtra Police PCR'],
+  ['103','महिला व बाल सुरक्षा हेल्पलाइन','Mumbai Police Women Cell'],
+  ['02222027990','राज्य आपदा प्रबंधन (SDMA)','State Disaster Authority'],
+  ['104','आरोग्य वार्ता स्वास्थ्य हेल्पलाइन','Health Helpline Maharashtra']
+ ]},
+ delhi: {name:'दिल्ली (Delhi NCR)', items:[
+  ['01123490010','दिल्ली पुलिस सेंट्रल कंट्रोल रूम','Delhi Police PCR'],
+  ['181','दिल्ली महिला आयोग (DCW) हेल्पलाइन','Delhi Commission for Women'],
+  ['1077','दिल्ली आपदा प्रबंधन (DDMA)','Delhi Disaster Authority'],
+  ['1095','दिल्ली ट्रैफिक पुलिस हेल्पलाइन','Traffic Police Delhi']
+ ]},
+ haryana: {name:'हरियाणा (Haryana)', items:[
+  ['01722570070','हरियाणा 112 कमांड सेंटर (पंचकूला)','Haryana 112 State Command'],
+  ['1091','हरियाणा महिला पुलिस हेल्पलाइन','Women Police Helpline'],
+  ['01722740390','राजस्व एवं आपदा प्रबंधन हरियाणा','Disaster Management Haryana'],
+  ['18001802022','CM विंडो / नागरिक सेवा','CM Window Haryana']
+ ]},
+ punjab: {name:'पंजाब (Punjab)', items:[
+  ['01722740298','पंजाब पुलिस मुख्यालय (चंडीगढ़)','Punjab Police PCR'],
+  ['181','पंजाब महिला व बाल हेल्पलाइन','Women & Child Helpline'],
+  ['01722740397','पंजाब आपदा प्रबंधन प्रभाग','Disaster Management Punjab'],
+  ['104','पंजाब स्वास्थ्य हेल्पलाइन','Punjab Health Line']
+ ]},
+ gujarat: {name:'गुजरात (Gujarat)', items:[
+  ['07923254385','गुजरात पुलिस कंट्रोल रूम','Gujarat Police PCR'],
+  ['181','अभयम (Abhayam) महिला हेल्पलाइन','181 Abhayam Rescue'],
+  ['07923259283','गुजरात आपदा प्रबंधन (GSDMA)','Gujarat State Disaster'],
+  ['104','गुजरात स्वास्थ्य परामर्श सेवा','Gujarat Health Helpline']
+ ]},
+ westbengal: {name:'पश्चिम बंगाल (West Bengal)', items:[
+  ['03322145486','नबन्ना राज्य पुलिस कंट्रोल रूम','WB Police Head Office'],
+  ['1091','पश्चिम बंगाल महिला हेल्पलाइन','WB Women Helpline'],
+  ['03322143526','आपदा प्रबंधन विभाग WB','Disaster Management WB'],
+  ['03324330100','स्वास्थ्य भवन टेली-हेल्थ','Health Dept West Bengal']
+ ]},
+ tamilnadu: {name:'तमिलनाडु (Tamil Nadu)', items:[
+  ['04428447701','DGP ऑफिस स्टेट कंट्रोल रूम (चेन्नई)','TN Police PCR'],
+  ['181','कावलन (Kavalan) महिला हेल्पलाइन','Kavalan Women Safety'],
+  ['04428593990','तमिलनाडु राज्य आपदा (TNDMA)','State Disaster Authority'],
+  ['1100','मुख्यमंत्री स्पेशल सेल TN','CM Special Cell']
+ ]},
+ karnataka: {name:'कर्नाटक (Karnataka)', items:[
+  ['08022942222','कर्नाटक पुलिस / Namma 112 (बेंगलुरु)','Namma 112 Bangalore'],
+  ['1091','परिहार (Parihar) महिला हेल्पलाइन','Parihar Women Cell'],
+  ['08022340676','कर्नाटक आपदा प्रबंधन (KSDMA)','State Disaster Center'],
+  ['104','आरोग्यवाणी कर्नाटक (Arogyavani)','Health Advice Helpline']
+ ]}
+};
+
 /* ================= i18n apply ================= */
 function applyLang(){
   $$('[data-i18n]').forEach(el=>{el.textContent=T(el.dataset.i18n);});
@@ -928,16 +1145,27 @@ function renderTips(){
 }
 function renderHelp(q){
   q=(q||'').toLowerCase().trim();
+  const stFilter=$('#stateFilter')?$('#stateFilter').value:'all';
   let html='';
-  HELP.forEach(cat=>{
-    const items=cat.items.filter(it=>!q||it[0].includes(q)||it[1].toLowerCase().includes(q)||it[2].toLowerCase().includes(q));
-    if(!items.length)return;
-    html+='<div class="cat">'+cat.cat[0]+'</div>';
-    html+=items.map(it=>'<div class="hitem"><div><b>'+it[1]+'</b><small>'+it[2]+'</small></div><a class="callbtn" href="tel:'+it[0]+'">📞 '+it[0]+'</a></div>').join('');
-  });
+
+  if(stFilter!=='all'&&STATE_HELPLINES[stFilter]){
+    const st=STATE_HELPLINES[stFilter];
+    html+='<div class="cat" style="color:var(--teal)">📍 '+st.name+'</div>';
+    html+=st.items.map(it=>'<div class="hitem"><div><b>'+it[1]+'</b><small>'+it[2]+'</small></div><a class="callbtn" href="tel:'+it[0]+'">📞 '+it[0]+'</a></div>').join('');
+    html+='<a class="moreitem" style="margin-top:12px;text-align:center" href="all-india-states-emergency-helpline-directory.html"><span>📋</span><span>सभी 36 राज्यों की पूरी डायरेक्टरी देखें →</span></a>';
+  } else {
+    HELP.forEach(cat=>{
+      const items=cat.items.filter(it=>!q||it[0].includes(q)||it[1].toLowerCase().includes(q)||it[2].toLowerCase().includes(q));
+      if(!items.length)return;
+      html+='<div class="cat">'+cat.cat[0]+'</div>';
+      html+=items.map(it=>'<div class="hitem"><div><b>'+it[1]+'</b><small>'+it[2]+'</small></div><a class="callbtn" href="tel:'+it[0]+'">📞 '+it[0]+'</a></div>').join('');
+    });
+    html+='<a class="moreitem" style="margin-top:14px" href="all-india-states-emergency-helpline-directory.html"><span>📍</span><span>भारत के सभी 28 राज्यों व 8 UTs के हेल्पलाइन नंबर देखें →<small>Rajasthan, UP, Delhi, Bihar, Maharashtra...</small></span><span class="ar">›</span></a>';
+  }
   $('#helpList').innerHTML=html||'<div class="netnote">😕 कुछ नहीं मिला / No results</div>';
 }
 $('#helpSearch').oninput=e=>renderHelp(e.target.value);
+if($('#stateFilter')){$('#stateFilter').onchange=()=>{ renderHelp($('#helpSearch').value); };}
 function renderAbout(){
   $('#aboutBox').innerHTML=
    '<p><b style="color:var(--yellow)">रक्षा-गार्ड v1.0</b> — Emergency Protection OS</p>'+
@@ -1066,23 +1294,43 @@ function warmLoc(){
   );
 }
 
-/* 100% Guaranteed Live Trackable Google Maps Navigation Link */
+/* 100% Guaranteed Dual-Location Trackable Links */
 function locLink(l){
   if(!l)return 'https://maps.google.com';
   return 'https://maps.google.com/?q='+l.lat.toFixed(6)+','+l.lng.toFixed(6);
 }
 
+function navLink(l){
+  if(!l)return 'https://maps.google.com';
+  return 'https://www.google.com/maps/dir/?api=1&destination='+l.lat.toFixed(6)+','+l.lng.toFixed(6);
+}
+
+function getTelemetry(){
+  let t = '';
+  const batt = $('#battPct') ? $('#battPct').textContent : '';
+  if(batt && batt !== '--%') t += '\n🔋 फोन बैटरी: ' + batt;
+  if(lastLoc){
+    if(lastLoc.acc) t += '\n🎯 GPS सटीकता: ±' + Math.round(lastLoc.acc) + ' मीटर';
+    if(lastLoc.speed != null && lastLoc.speed > 0) t += '\n🚗 वाहन गति: ' + Math.round(lastLoc.speed * 3.6) + ' km/h';
+  }
+  const d = new Date();
+  t += '\n⏰ समय: ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ' IST';
+  return t;
+}
+
 function sosMsg(){
   const nm=store.get('rg_name','');
-  const locText = lastLoc 
-    ? ('\n\n📍 मेरी सटीक लाइव लोकेशन पर तुरंत पहुंचे (क्लिक करके नेविगेट करें):\n👉 '+locLink(lastLoc))
+  const locBlock = lastLoc 
+    ? ('\n\n📍 1. मेरी वर्तमान पिनपॉइंट स्थिति (Current GPS Spot):\n👉 ' + locLink(lastLoc) + 
+       '\n\n🚗 2. सीधा रास्ता व लाइव नेविगेशन (Start Driving/Walking Route):\n👉 ' + navLink(lastLoc) + 
+       getTelemetry())
     : '\n\n📍 लाइव लोकेशन: https://maps.google.com';
 
   return (nm?((lang==='hi'?'🙏 मैं ':'I am ')+nm+' — '):'')+
    (lang==='hi'?'🚨 आपातकालीन! मुझे तुरंत मदद चाहिए!':'🚨 EMERGENCY! I need help right now!')+
    '\n'+(lang==='hi'?'कृपया तुरंत पहुंचें / पुलिस को सूचित करें।':'Please reach immediately / inform the police.')+
-   locText+
-   '\n\n— रक्षा-गार्ड SOS (by Pawan Verma)';
+   locBlock+
+   '\n\n— रक्षा-गार्ड अल्ट्रा OS (by Pawan Verma)';
 }
 
 function waLink(num){
@@ -1529,8 +1777,8 @@ if(store.get('rg_onboarded','0')==='1'){
     $('#onboard').style.display='none';
     const nm=store.get('rg_name','');
     toast('🙏 '+(lang==='hi'?'नमस्ते':'Welcome')+(nm?', '+nm:'')+' — '+(lang==='hi'?'रक्षा-गार्ड तैयार है!':'Raksha-Guard is ready!'));
-    /* mic permission pehle se mili hai to voice trigger turant chalu */
-    if(micGranted){ if(!rec)makeRec(); if(rec){micOn=true;try{rec.start();}catch(e){} updateMicUI();} }
+    /* mic permission saved, but mic remains OFF until user explicitly turns it on */
+    micOn=false; updateMicUI();
     warmLoc(); updateLocChip();
   };
 }
@@ -1695,6 +1943,259 @@ $('#saveIce').onclick=()=>{
   $('#modalICE').classList.remove('open');
   toast('✅ '+(lang==='hi'?'ICE स्वास्थ्य कार्ड सुरक्षित हो गया':'ICE Medical Card Saved'));
 };
+
+/* ================= STEALTH CALCULATOR DISGUISE ============ */
+let calcVal='0', calcOp=null, calcPrev=null;
+function updateCalc(v){
+  calcVal=String(v).slice(0,10);
+  const disp=$('#calcDisplay');
+  if(disp)disp.textContent=calcVal;
+}
+if($('#stealthCalcBtn')){$('#stealthCalcBtn').onclick=()=>{ $('#disguiseCalc').classList.add('on'); updateCalc('0'); };}
+if($('#calcExitBtn')){$('#calcExitBtn').onclick=()=>{ $('#disguiseCalc').classList.remove('on'); };}
+
+$$('.calc-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    const c=btn.dataset.c;
+    if(!c)return;
+    if(c==='C'){ calcVal='0'; calcOp=null; calcPrev=null; updateCalc('0'); return; }
+    if(c==='pm'){ updateCalc(parseFloat(calcVal)*-1); return; }
+    if(c==='%'){ updateCalc(parseFloat(calcVal)/100); return; }
+    if(c==='+'||c==='-'||c==='*'||c==='/'){ calcPrev=parseFloat(calcVal); calcOp=c; calcVal='0'; return; }
+    if(c==='='){
+      /* SECRET EMERGENCY TRIGGER: 999= or 911= or 112= silently triggers Silent SOS */
+      if(calcVal==='999'||calcVal==='911'||calcVal==='112'){
+        $('#disguiseCalc').classList.remove('on');
+        $('#silentSosBtn').click();
+        return;
+      }
+      if(calcOp&&calcPrev!=null){
+        const cur=parseFloat(calcVal);
+        let res=cur;
+        if(calcOp==='+')res=calcPrev+cur;
+        if(calcOp==='-')res=calcPrev-cur;
+        if(calcOp==='*')res=calcPrev*cur;
+        if(calcOp==='/')res=cur!==0?calcPrev/cur:'Error';
+        calcOp=null; calcPrev=null;
+        updateCalc(res);
+      }
+      return;
+    }
+    if(calcVal==='0'&&c!=='.')calcVal=c;
+    else if(c==='.'&&calcVal.includes('.'))return;
+    else calcVal+=c;
+    updateCalc(calcVal);
+  };
+});
+
+/* ================= ULTRA TOOLS: AUDIO RECORDER, DOG REPELLER, COMPASS ============ */
+/* 1. Evidence Audio Recorder */
+let mediaRec=null, audioChunks=[], recInt=null, recSecs=0;
+if($('#audioRecordBtn')){$('#audioRecordBtn').onclick=()=>{ $('#modalAudio').classList.add('open'); };}
+if($('#toggleRecBtn')){
+  $('#toggleRecBtn').onclick=async()=>{
+    const btn=$('#toggleRecBtn'), stat=$('#recStatus'), wave=$('#recWave'), timer=$('#recTimer'), pBox=$('#audioPlayerBox');
+    if(mediaRec&&mediaRec.state==='recording'){
+      mediaRec.stop();
+      clearInterval(recInt);
+      btn.textContent='🔴 रिकॉर्डिंग शुरू करें';
+      btn.className='btn pink small';
+      stat.textContent='✅ रिकॉर्डिंग पूर्ण — साक्ष्य सुरक्षित';
+      stat.style.color='#34d399';
+      wave.textContent='⏹️';
+      return;
+    }
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      mediaRec=new MediaRecorder(stream);
+      audioChunks=[];
+      mediaRec.ondataavailable=e=>{ if(e.data.size>0)audioChunks.push(e.data); };
+      mediaRec.onstop=()=>{
+        const blob=new Blob(audioChunks,{type:'audio/webm'});
+        const url=URL.createObjectURL(blob);
+        $('#audioPlayer').src=url;
+        $('#downloadAudioLink').href=url;
+        pBox.style.display='block';
+        stream.getTracks().forEach(t=>t.stop());
+      };
+      mediaRec.start();
+      recSecs=0;
+      recInt=setInterval(()=>{
+        recSecs++;
+        const m=String(Math.floor(recSecs/60)).padStart(2,'0');
+        const s=String(recSecs%60).padStart(2,'0');
+        timer.textContent=m+':'+s;
+      },1000);
+      btn.textContent='⏹️ रिकॉर्डिंग रोकें व सेव करें';
+      btn.className='btn dark small';
+      stat.textContent='🔴 ऑडियो रिकॉर्डिंग चालू (लाइव साक्ष्य)...';
+      stat.style.color='#ef4444';
+      wave.textContent='🎙️';
+      pBox.style.display='none';
+    }catch(e){
+      toast('⚠️ माइक अनुमति आवश्यक है / Mic permission needed');
+    }
+  };
+}
+
+/* 2. Ultrasonic Dog & Threat Repeller (19.5kHz) */
+let dogCtx=null, dogOsc=null, dogActive=false;
+if($('#dogRepelBtn')){$('#dogRepelBtn').onclick=()=>{ $('#modalDog').classList.add('open'); };}
+if($('#toggleDogBtn')){
+  $('#toggleDogBtn').onclick=()=>{
+    const btn=$('#toggleDogBtn'), stat=$('#dogStateTxt'), ico=$('#dogIcon');
+    dogActive=!dogActive;
+    if(dogActive){
+      try{
+        const AC=window.AudioContext||window.webkitAudioContext; dogCtx=new AC();
+        dogOsc=dogCtx.createOscillator();
+        const g=dogCtx.createGain();
+        dogOsc.type='sine';
+        dogOsc.frequency.setValueAtTime(19500,dogCtx.currentTime);
+        g.gain.setValueAtTime(0.2,dogCtx.currentTime);
+        dogOsc.connect(g); g.connect(dogCtx.destination);
+        dogOsc.start();
+        btn.textContent='⏹️ अल्ट्रासोनिक वेव बंद करें';
+        btn.className='btn dark small';
+        stat.textContent='⚡ 19.5kHz अल्ट्रा-साउंड सक्रिय (एक्टिव)';
+        stat.style.color='#facc15';
+        ico.textContent='🐕⚡';
+        toast('🐕 अल्ट्रासोनिक वेव सक्रिय (कुत्ते दूर रहेंगे)');
+      }catch(e){}
+    }else{
+      if(dogOsc){try{dogOsc.stop();}catch(e){} dogOsc=null;}
+      if(dogCtx){try{dogCtx.close();}catch(e){} dogCtx=null;}
+      btn.textContent='⚡ 19.5kHz अल्ट्रासोनिक वेव चालू करें';
+      btn.className='btn amber small';
+      stat.textContent='रिपेलर बंद है';
+      stat.style.color='var(--yellow)';
+      ico.textContent='🔊';
+    }
+  };
+}
+
+/* 3. Digital Compass & Telemetry */
+if($('#compassBtn')){
+  $('#compassBtn').onclick=()=>{
+    $('#modalCompass').classList.add('open');
+    if(lastLoc){
+      $('#compassCoords').textContent='📍 GPS: Lat '+lastLoc.lat.toFixed(5)+', Lng '+lastLoc.lng.toFixed(5)+(lastLoc.acc?' (±'+Math.round(lastLoc.acc)+'m)':'');
+    }
+    if(window.DeviceOrientationEvent){
+      window.addEventListener('deviceorientation',e=>{
+        let heading=e.webkitCompassHeading||Math.abs(e.alpha-360);
+        if(heading!=null&&!isNaN(heading)){
+          const deg=Math.round(heading);
+          $('#compassDial').style.transform='rotate('+(-deg)+'deg)';
+          let dir='उत्तर (North)';
+          if(deg>=45&&deg<135)dir='पूर्व (East)';
+          else if(deg>=135&&deg<225)dir='दक्षिण (South)';
+          else if(deg>=225&&deg<315)dir='पश्चिम (West)';
+          $('#compassHeading').textContent=dir+' • '+deg+'°';
+        }
+      });
+    }
+  };
+}
+
+/* 4. Red-Blue Police Strobe Light */
+let strobeInt=null, strobeOn=false;
+if($('#policeStrobeBtn')){
+  $('#policeStrobeBtn').onclick=()=>{
+    const btn=$('#policeStrobeBtn'), st=$('#screentorch');
+    strobeOn=!strobeOn;
+    if(strobeOn){
+      btn.textContent='⏹️ स्ट्रोब बंद करें';
+      btn.className='btn dark small';
+      st.style.display='block';
+      let red=true;
+      strobeInt=setInterval(()=>{
+        st.style.background=red?'#ef4444':'#3b82f6';
+        red=!red;
+      },120);
+      toast('🚨 पुलिस स्ट्रोब लाइट चालू (स्क्रीन छूकर बंद करें)');
+    }else{
+      clearInterval(strobeInt); strobeInt=null;
+      btn.textContent='🚨 पुलिस स्ट्रोब लाइट';
+      btn.className='btn dark small';
+      st.style.display='none';
+      st.style.background='#fff';
+    }
+  };
+}
+
+/* 5. ICE Lockscreen Image Generator (Canvas) */
+if($('#downloadIceImgBtn')){
+  $('#downloadIceImgBtn').onclick=()=>{
+    const name=store.get('rg_name','')||'उपयोगकर्ता (User)';
+    const blood=$('#iceBlood').value.trim()||'A+';
+    const allergy=$('#iceAllergy').value.trim()||'कोई नहीं (None)';
+    const phone=$('#iceDocPhone').value.trim()||'112 / 108';
+    
+    const cv=document.createElement('canvas');
+    cv.width=720; cv.height=1280;
+    const ctx=cv.getContext('2d');
+    
+    /* background */
+    const grad=ctx.createLinearGradient(0,0,0,1280);
+    grad.addColorStop(0,'#170a12'); grad.addColorStop(0.5,'#0d0615'); grad.addColorStop(1,'#040208');
+    ctx.fillStyle=grad; ctx.fillRect(0,0,720,1280);
+    
+    /* border */
+    ctx.strokeStyle='#ef4444'; ctx.lineWidth=12; ctx.strokeRect(24,24,672,1232);
+    
+    /* title */
+    ctx.fillStyle='#ef4444'; ctx.font='bold 44px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('🚨 IN CASE OF EMERGENCY (ICE)', 360, 110);
+    
+    ctx.fillStyle='#fde047'; ctx.font='bold 32px sans-serif';
+    ctx.fillText('आपातकालीन चिकित्सा स्वास्थ्य कार्ड', 360, 160);
+    
+    /* Name */
+    ctx.fillStyle='#94a3b8'; ctx.font='bold 26px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('मरीज का नाम (Name):', 70, 260);
+    ctx.fillStyle='#ffffff'; ctx.font='bold 38px sans-serif';
+    ctx.fillText(name, 70, 310);
+    
+    /* Blood group box */
+    ctx.fillStyle='#7f1d1d'; ctx.fillRect(70, 370, 580, 160);
+    ctx.strokeStyle='#ef4444'; ctx.lineWidth=4; ctx.strokeRect(70, 370, 580, 160);
+    ctx.fillStyle='#fecaca'; ctx.font='bold 28px sans-serif';
+    ctx.fillText('रक्त समूह / BLOOD GROUP:', 100, 420);
+    ctx.fillStyle='#ffffff'; ctx.font='900 68px sans-serif';
+    ctx.fillText(blood, 100, 500);
+    
+    /* Allergies */
+    ctx.fillStyle='#94a3b8'; ctx.font='bold 26px sans-serif';
+    ctx.fillText('एलर्जी व मेडिकल स्थिति (Allergies/Conditions):', 70, 600);
+    ctx.fillStyle='#fde047'; ctx.font='bold 32px sans-serif';
+    ctx.fillText(allergy.slice(0,35), 70, 650);
+    
+    /* Emergency contacts */
+    ctx.fillStyle='#94a3b8'; ctx.font='bold 26px sans-serif';
+    ctx.fillText('आपातकालीन संपर्क (Emergency Contact):', 70, 740);
+    ctx.fillStyle='#34d399'; ctx.font='bold 42px sans-serif';
+    ctx.fillText('📞 ' + phone, 70, 800);
+    
+    /* National Helpline */
+    ctx.fillStyle='#0f172a'; ctx.fillRect(70, 880, 580, 150);
+    ctx.strokeStyle='#38bdf8'; ctx.lineWidth=3; ctx.strokeRect(70, 880, 580, 150);
+    ctx.fillStyle='#38bdf8'; ctx.font='bold 26px sans-serif';
+    ctx.fillText('राष्ट्रीय आपातकालीन नंबर (National Helpline):', 100, 930);
+    ctx.fillStyle='#ffffff'; ctx.font='900 46px sans-serif';
+    ctx.fillText('🚨 112 / 108 / 1091', 100, 990);
+    
+    /* Footer */
+    ctx.fillStyle='#64748b'; ctx.font='bold 22px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('रक्षा-गार्ड Emergency Protection OS • by Pawan Verma', 360, 1180);
+    
+    const url=cv.toDataURL('image/png');
+    const a=document.createElement('a');
+    a.download='ICE-Medical-Wallpaper.png';
+    a.href=url; a.click();
+    toast('🖼️ ICE मेडिकल वॉलपेपर डाउनलोड हो गया — इसे लॉकस्क्रीन पर लगाएं!');
+  };
+}
 
 /* ================= init ================= */
 applyLang();
