@@ -1,6 +1,6 @@
 /* रक्षा-गार्ड service worker — offline shell (original code © 2026 Pawan Verma / PAWANGAMINGSTUDIO) */
-/* v3 — fixed install + offline for all devices */
-const CACHE = 'raksha-guard-v3';
+/* v4 — fixed install + offline for all devices */
+const CACHE = 'raksha-guard-v4';
 const ASSETS = [
   '/',
   '/index.html',
