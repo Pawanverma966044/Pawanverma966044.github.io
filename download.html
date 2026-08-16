@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0614">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="author" content="Pawan Verma — PAWANGAMINGSTUDIO">
 <meta name="robots" content="noindex, nofollow">
@@ -81,12 +82,12 @@
       <p class="sub">पवन वर्मा (PAWANGAMINGSTUDIO) द्वारा निर्मित आधिकारिक एवं सत्यापित सुरक्षा ऐप।<br>Official &amp; verified safety app by Pawan Verma.</p>
       <span class="same-pill">📱 = 🌐 &nbsp;ऐप व वेबसाइट हूबहू समान हैं / App &amp; website are 1:1 identical</span>
 
-      <a class="btn pink" href="RakshaGuard.apk" download="RakshaGuard.apk" type="application/vnd.android.package-archive">
+      <a class="btn pink" id="apkDownloadBtn" href="/RakshaGuard.apk" download="RakshaGuard.apk">
         <span>🤖</span>
         <span>RakshaGuard.apk डाउनलोड करें</span>
       </a>
 
-      <a class="btn green" href="index.html">
+      <a class="btn green" href="/index.html">
         <span>🌐</span>
         <span>मुख्य ऐप ऑनलाइन खोलें →</span>
       </a>
@@ -97,7 +98,15 @@
         <b>💡 1-क्लिक इंस्टॉलेशन निर्देश:</b>
         1. ऊपर 'RakshaGuard.apk डाउनलोड करें' दबाएं।<br>
         2. डाउनलोड होते ही फाइल पर क्लिक करके <b>'Install'</b> दबाएं।<br>
-        3. यह नया v1+v2 हस्ताक्षरित APK बिना किसी एरर के तुरंत इंस्टॉल हो जाएगा!
+        3. अगर "Install from unknown sources" पूछे तो <b>Allow</b> करें।<br>
+        4. यह नया v1+v2 हस्ताक्षरित APK बिना किसी एरर के तुरंत इंस्टॉल हो जाएगा!
+      </div>
+
+      <div class="box" style="margin-top:10px">
+        <b>🌐 PWA इंस्टॉल (बिना APK के):</b>
+        1. <a href="/index.html" style="color:var(--teal)">मुख्य ऐप</a> खोलें।<br>
+        2. Chrome menu (⋮) → <b>"Install app"</b> या <b>"Add to Home Screen"</b> दबाएं।<br>
+        3. iPhone: Safari → Share (□↑) → <b>"Add to Home Screen"</b>।
       </div>
     </div>
   </main>
@@ -106,7 +115,6 @@
 </div>
 
 <script>
-
 function tickClock(){
   const d = new Date();
   const hh = String(d.getHours()).padStart(2,'0');
@@ -114,6 +122,39 @@ function tickClock(){
   document.getElementById('sbTime').textContent = hh + ':' + mm;
 }
 tickClock(); setInterval(tickClock, 15000);
+
+/* Register service worker on download page too */
+if('serviceWorker' in navigator){
+  addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{});
+  });
+}
+
+/* Robust APK download — handles MIME type issues on GitHub Pages */
+document.getElementById('apkDownloadBtn').addEventListener('click', async function(e){
+  try{
+    /* Try fetch-based download to ensure correct file handling */
+    const res = await fetch('/RakshaGuard.apk');
+    if(!res.ok) throw new Error('Download failed');
+    const blob = await res.blob();
+    /* Create proper APK blob with correct MIME type */
+    const apkBlob = new Blob([blob], {type:'application/vnd.android.package-archive'});
+    const url = URL.createObjectURL(apkBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'RakshaGuard.apk';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 1000);
+  }catch(err){
+    /* Fallback to direct link */
+    console.warn('Fetch download failed, using direct link:', err);
+    window.location.href = '/RakshaGuard.apk';
+  }
+});
 </script>
 </body>
 </html>

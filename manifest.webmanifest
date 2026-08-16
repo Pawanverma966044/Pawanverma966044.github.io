@@ -1,14 +1,18 @@
 {
   "name": "रक्षा-गार्ड — Raksha-Guard | PAWANGAMINGSTUDIO Emergency Protection OS",
-  "short_name": "रक्षा-गार्ड • PAWANGAMINGSTUDIO",
+  "short_name": "रक्षा-गार्ड",
   "description": "Current GPS snapshot, user-triggered SMS/WhatsApp sharing, voice trigger and 50+ safety resources. Studio source maintained by PAWANGAMINGSTUDIO.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/index.html",
+  "scope": "/",
+  "id": "/index.html",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
   "background_color": "#070310",
   "theme_color": "#0b0614",
   "lang": "hi",
+  "dir": "ltr",
+  "categories": ["utilities", "lifestyle", "productivity"],
   "icons": [
     {
       "src": "icon-192.png",
@@ -20,7 +24,13 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

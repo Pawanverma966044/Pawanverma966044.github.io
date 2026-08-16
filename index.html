@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0614">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="रक्षा-गार्ड">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="author" content="Pawan Verma — PAWANGAMINGSTUDIO">
 <meta name="description" content="रक्षा-गार्ड — Emergency Protection OS. SOS, voice trigger, 50+ helpline numbers. Created by Pawan Verma (PAWANGAMINGSTUDIO).">
@@ -1249,35 +1253,105 @@ function stopVib(){ clearInterval(vibInt); vibInt=null; if(navigator.vibrate)nav
 
 /* ================= location & message ================= */
 let lastLoc=null;
+let watchId=null;
+let lastAddress='';
+
+/* Start continuous live location tracking using watchPosition */
+function startLiveTracking(){
+  if(!navigator.geolocation || watchId) return;
+  watchId = navigator.geolocation.watchPosition(
+    p=>{
+      lastLoc={
+        lat:p.coords.latitude,
+        lng:p.coords.longitude,
+        acc:p.coords.accuracy,
+        speed:p.coords.speed,
+        heading:p.coords.heading,
+        altitude:p.coords.altitude,
+        timestamp:p.timestamp
+      };
+      updateLocChip();
+      /* Reverse geocode every 30 seconds to save API calls */
+      if(!lastAddress || (Date.now() - (lastLoc.lastGeo||0)) > 30000){
+        getAddress(lastLoc.lat, lastLoc.lng).then(addr=>{
+          if(addr){ lastAddress=addr; lastLoc.lastGeo=Date.now(); }
+        });
+      }
+    },
+    err=>console.warn('Watch position error:', err.message),
+    {enableHighAccuracy:true, timeout:15000, maximumAge:0}
+  );
+}
+
+/* Get single fresh location with high accuracy */
 function getLoc(){
   return new Promise(res=>{
-    if(!navigator.geolocation)return res(null);
+    if(!navigator.geolocation) return res(null);
     navigator.geolocation.getCurrentPosition(
       p=>{
-        const l={lat:p.coords.latitude,lng:p.coords.longitude,acc:p.coords.accuracy};
-        lastLoc=l; updateLocChip();
-        res(l);
+        lastLoc={
+          lat:p.coords.latitude,
+          lng:p.coords.longitude,
+          acc:p.coords.accuracy,
+          speed:p.coords.speed,
+          heading:p.coords.heading,
+          altitude:p.coords.altitude,
+          timestamp:p.timestamp
+        };
+        updateLocChip();
+        res(lastLoc);
       },
-      ()=>res(lastLoc),
-      {enableHighAccuracy:true,timeout:7000,maximumAge:15000}
+      err=>{
+        console.warn('getCurrentPosition error:', err.message);
+        res(lastLoc);
+      },
+      {enableHighAccuracy:true, timeout:15000, maximumAge:0}
     );
   });
 }
 
+/* Retry location fetch multiple times for critical situations */
 async function getLocRetry(ms){
   const end=Date.now()+ms;
   while(Date.now()<end){
     const l=await getLoc();
-    if(l)return l;
+    if(l && l.acc && l.acc < 100) return l; /* Only accept if accuracy < 100m */
     await new Promise(r=>setTimeout(r,800));
   }
   return lastLoc;
 }
 
+/* Reverse geocoding - get address from coordinates using OpenStreetMap Nominatim (FREE) */
+async function getAddress(lat, lng){
+  try{
+    const url=`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=hi,en`;
+    const res=await fetch(url, {headers:{'User-Agent':'RakshaGuard-PWA/1.0'}});
+    if(!res.ok) return '';
+    const data=await res.json();
+    if(data && data.display_name){
+      /* Shorten address to essential parts */
+      const addr=data.address||{};
+      const parts=[
+        addr.road || addr.pedestrian || addr.footway,
+        addr.suburb || addr.neighbourhood || addr.village,
+        addr.city || addr.town,
+        addr.state_district || addr.state,
+        addr.postcode
+      ].filter(Boolean);
+      return parts.join(', ') || data.display_name.split(',').slice(0,4).join(',');
+    }
+    return '';
+  }catch(e){
+    console.warn('Geocoding error:', e);
+    return '';
+  }
+}
+
 function updateLocChip(){
   const c=$('#locChip');
   if(lastLoc){
-    c.textContent='📍 '+(lang==='hi'?'लाइव लोकेशन तैयार':'Location ready');
+    const accText = lastLoc.acc ? ` (±${Math.round(lastLoc.acc)}m)` : '';
+    c.textContent='📍 '+(lang==='hi'?'लाइव लोकेशन तैयार':'Location ready')+accText;
     c.className='chip green';
   }else{
     c.textContent='📍 GPS खोज रहा है…';
@@ -1286,23 +1360,46 @@ function updateLocChip(){
 }
 
 function warmLoc(){
-  if(!navigator.geolocation)return;
+  if(!navigator.geolocation) return;
   navigator.geolocation.getCurrentPosition(
-    p=>{ lastLoc={lat:p.coords.latitude,lng:p.coords.longitude,acc:p.coords.accuracy}; updateLocChip(); },
+    p=>{
+      lastLoc={
+        lat:p.coords.latitude,
+        lng:p.coords.longitude,
+        acc:p.coords.accuracy,
+        speed:p.coords.speed,
+        heading:p.coords.heading,
+        altitude:p.coords.altitude,
+        timestamp:p.timestamp
+      };
+      updateLocChip();
+      /* Also get address for warmLoc */
+      if(!lastAddress){
+        getAddress(lastLoc.lat, lastLoc.lng).then(addr=>{
+          if(addr) lastAddress=addr;
+        });
+      }
+    },
     ()=>{},
-    {enableHighAccuracy:true,timeout:8000,maximumAge:15000}
+    {enableHighAccuracy:true, timeout:15000, maximumAge:0}
   );
 }
 
-/* 100% Guaranteed Dual-Location Trackable Links */
+/* Universal Google Maps link - works on ALL devices (Android, iOS, Desktop) */
 function locLink(l){
-  if(!l)return 'https://maps.google.com';
-  return 'https://maps.google.com/?q='+l.lat.toFixed(6)+','+l.lng.toFixed(6);
+  if(!l) return 'https://maps.google.com';
+  const lat=l.lat.toFixed(6);
+  const lng=l.lng.toFixed(6);
+  /* This URL opens Google Maps app on phones, browser on desktop */
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 }
 
+/* Navigation/directions link */
 function navLink(l){
-  if(!l)return 'https://maps.google.com';
-  return 'https://www.google.com/maps/dir/?api=1&destination='+l.lat.toFixed(6)+','+l.lng.toFixed(6);
+  if(!l) return 'https://maps.google.com';
+  const lat=l.lat.toFixed(6);
+  const lng=l.lng.toFixed(6);
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
 }
 
 function getTelemetry(){
@@ -1312,19 +1409,39 @@ function getTelemetry(){
   if(lastLoc){
     if(lastLoc.acc) t += '\n🎯 GPS सटीकता: ±' + Math.round(lastLoc.acc) + ' मीटर';
     if(lastLoc.speed != null && lastLoc.speed > 0) t += '\n🚗 वाहन गति: ' + Math.round(lastLoc.speed * 3.6) + ' km/h';
+    if(lastLoc.altitude != null) t += '\n⛰️ ऊंचाई: ' + Math.round(lastLoc.altitude) + ' मीटर';
   }
   const d = new Date();
-  t += '\n⏰ समय: ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ' IST';
+  t += '\n⏰ समय: ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ':' + String(d.getSeconds()).padStart(2,'0') + ' IST';
   return t;
 }
 
 function sosMsg(){
   const nm=store.get('rg_name','');
-  const locBlock = lastLoc 
-    ? ('\n\n📍 1. मेरी वर्तमान पिनपॉइंट स्थिति (Current GPS Spot):\n👉 ' + locLink(lastLoc) + 
-       '\n\n🚗 2. सीधा रास्ता व लाइव नेविगेशन (Start Driving/Walking Route):\n👉 ' + navLink(lastLoc) + 
-       getTelemetry())
-    : '\n\n📍 लाइव लोकेशन: https://maps.google.com';
+  
+  let locBlock = '\n\n📍 **मेरी वर्तमान स्थिति / My Current Location:**';
+  
+  if(lastLoc){
+    /* Address (if available) */
+    if(lastAddress){
+      locBlock += '\n🏠 पता: ' + lastAddress;
+    }
+    
+    /* Coordinates */
+    locBlock += '\n\n📌 GPS निर्देशांक: ' + lastLoc.lat.toFixed(6) + ', ' + lastLoc.lng.toFixed(6);
+    
+    /* Primary map link - works on ALL devices */
+    locBlock += '\n\n🗺️ **Google Maps पर देखें (क्लिक करें):**\n👉 ' + locLink(lastLoc);
+    
+    /* Navigation link */
+    locBlock += '\n\n🚗 **यहां तक का रास्ता (Navigation):**\n👉 ' + navLink(lastLoc);
+    
+    /* Telemetry data */
+    locBlock += '\n\n📊 **अतिरिक्त जानकारी:**' + getTelemetry();
+    
+  }else{
+    locBlock += '\n⚠️ लोकेशन उपलब्ध नहीं / Location unavailable';
+  }
 
   return (nm?((lang==='hi'?'🙏 मैं ':'I am ')+nm+' — '):'')+
    (lang==='hi'?'🚨 आपातकालीन! मुझे तुरंत मदद चाहिए!':'🚨 EMERGENCY! I need help right now!')+
@@ -1339,8 +1456,11 @@ function waLink(num){
   return 'https://wa.me/'+d+'?text='+encodeURIComponent(sosMsg());
 }
 
+/* SMS link - detect Android vs iOS for proper format */
 function smsLink(nums){
-  return 'sms:'+(nums||[]).join(',')+'?&body='+encodeURIComponent(sosMsg());
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const separator = isIOS ? '&' : '?';
+  return 'sms:'+(nums||[]).join(',')+separator+'body='+encodeURIComponent(sosMsg());
 }
 
 function smsText(){return sosMsg();}
@@ -1354,7 +1474,12 @@ function safeText(){
 /* t=0 instant alert — chor phone chhine/phainke tab tak message ja chuka ho */
 async function instantAlert(){
   const nums=contacts.filter(Boolean); if(!nums.length)return;
+  /* Always get fresh location before sending */
   if(!lastLoc){ lastLoc = await getLoc(); }
+  /* Also try to get address */
+  if(lastLoc && !lastAddress){
+    try{ const addr = await getAddress(lastLoc.lat, lastLoc.lng); if(addr) lastAddress=addr; }catch(e){}
+  }
   let ok=false;
   if(window.RakshaSMS&&window.RakshaSMS.sendSms){
     try{ ok=!!window.RakshaSMS.sendSms(nums.join(','), smsText()); }catch(e){}
@@ -1382,7 +1507,12 @@ $('#sendNowBtn').onclick=async()=>{
   $('#modalSend').classList.add('open');
   contactRows('#sendList');
   lastLoc=await getLoc();
-  $('#sendLoc').innerHTML=lastLoc?('📍 <a target="_blank" rel="noopener" href="'+locLink(lastLoc)+'">'+locLink(lastLoc)+'</a>'):T('locFail');
+  /* Also fetch address */
+  if(lastLoc && !lastAddress){
+    try{ const addr=await getAddress(lastLoc.lat,lastLoc.lng); if(addr) lastAddress=addr; }catch(e){}
+  }
+  const addrDisplay = lastAddress ? '<br><small style="color:var(--dim)">🏠 '+lastAddress+'</small>' : '';
+  $('#sendLoc').innerHTML=lastLoc?('📍 <a target="_blank" rel="noopener" href="'+locLink(lastLoc)+'">'+locLink(lastLoc)+'</a>'+addrDisplay):T('locFail');
   contactRows('#sendList');
 };
 $('#smsAllBtn').onclick=()=>{
@@ -1430,6 +1560,11 @@ function fireSOS(){
   (async()=>{
     /* ASLI live location pakki karne ke liye 9s tak retry — kabhi jhoothi location nahi */
     if(!lastLoc){ lastLoc=await getLocRetry(9000); updateLocChip(); }
+    /* Fetch address for SOS message */
+    if(lastLoc && !lastAddress){
+      const addr = await getAddress(lastLoc.lat, lastLoc.lng);
+      if(addr) lastAddress = addr;
+    }
     autoSend();
   })();
 }
@@ -1451,7 +1586,14 @@ async function autoSend(){
         clearInterval(sos.repInt);
         sos.repInt=setInterval(()=>{
           if((sos.rep=(sos.rep||0)+1)>10){clearInterval(sos.repInt);return;}   /* paisa bachane hetu cap */
-          getLoc().then(l=>{ if(l){lastLoc=l;updateLocChip(); try{window.RakshaSMS.sendSms(nums.join(','), smsText());}catch(e){} } });
+          getLoc().then(async l=>{
+            if(l){
+              lastLoc=l; updateLocChip();
+              /* Also refresh address */
+              try{ const addr=await getAddress(l.lat,l.lng); if(addr) lastAddress=addr; }catch(e){}
+              try{window.RakshaSMS.sendSms(nums.join(','), smsText());}catch(e){}
+            }
+          });
         },60000);
         return;
       }
@@ -1758,7 +1900,7 @@ if(store.get('rg_onboarded','0')==='1'){
   $('#onboard').style.display='none';
 }else{
   let micGranted=false;
-  $('#permLoc').onclick=()=>{ if(!navigator.geolocation){setPerm('stLoc',false);return;} navigator.geolocation.getCurrentPosition(()=>{setPerm('stLoc',true);warmLoc();updateLocChip();},()=>setPerm('stLoc',false),{timeout:8000,enableHighAccuracy:true}); };
+  $('#permLoc').onclick=()=>{ if(!navigator.geolocation){setPerm('stLoc',false);return;} navigator.geolocation.getCurrentPosition(()=>{setPerm('stLoc',true);warmLoc();updateLocChip();startLiveTracking();},()=>setPerm('stLoc',false),{timeout:15000,enableHighAccuracy:true,maximumAge:0}); };
   $('#permMic').onclick=()=>{ if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){ navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{st.getTracks().forEach(t=>t.stop());setPerm('stMic',true);micGranted=true;}).catch(()=>setPerm('stMic',false)); } else setPerm('stMic',false); };
   $('#permNot').onclick=()=>{ if('Notification' in window){ Notification.requestPermission().then(p=>setPerm('stNot',p==='granted')); } else setPerm('stNot',false); };
   $('#obNext').onclick=()=>{ $('#obPage1').style.display='none'; $('#obPage2').style.display='flex'; };
@@ -1780,23 +1922,74 @@ if(store.get('rg_onboarded','0')==='1'){
     /* mic permission saved, but mic remains OFF until user explicitly turns it on */
     micOn=false; updateMicUI();
     warmLoc(); updateLocChip();
+    startLiveTracking();  /* Start continuous live tracking after onboarding */
   };
 }
 
 /* PWA service worker (app-like install + offline shell) */
-if('serviceWorker' in navigator){ addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
+if('serviceWorker' in navigator){
+  addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(reg=>{
+      console.log('SW registered, scope:', reg.scope);
+    }).catch(err=>console.warn('SW registration failed:', err));
+  });
+}
 
 /* ================= install (PWA + APK) ================= */
 let deferredPrompt=null;
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
+let installReady=false;
+
+/* Capture the install prompt event — fires on ALL compatible browsers */
+addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  installReady=true;
+  console.log('beforeinstallprompt captured');
+  /* Show install card prominently if it exists */
+  const card=document.getElementById('installCard');
+  if(card) card.style.display='';
+});
+
+/* Listen for successful install */
+addEventListener('appinstalled',()=>{
+  deferredPrompt=null;
+  installReady=false;
+  toast('✅ '+(lang==='hi'?'ऐप इंस्टॉल हो गया! Home screen पर देखें':'App installed! Check home screen'));
+  /* Hide install card after successful install */
+  const card=document.getElementById('installCard');
+  if(card) card.style.display='none';
+});
+
 $('#installBtn').onclick=async()=>{
   if(deferredPrompt){
     deferredPrompt.prompt();
     const r=await deferredPrompt.userChoice;
-    deferredPrompt=null;
-    toast(r.outcome==='accepted'?'✅ '+(lang==='hi'?'इंस्टॉल हो गया! Home screen पर देखें':'Installed! Check home screen'):'ℹ️ '+(lang==='hi'?'कोई बात नहीं — APK भी उपलब्ध है':'No problem — APK available too'));
+    console.log('Install prompt result:', r.outcome);
+    if(r.outcome==='accepted'){
+      deferredPrompt=null;
+      toast('✅ '+(lang==='hi'?'इंस्टॉल हो गया! Home screen पर देखें':'Installed! Check home screen'));
+    }else{
+      toast('ℹ️ '+(lang==='hi'?'फिर से कोशिश करें या नीचे दिए विकल्प उपयोग करें':'Try again or use options below'));
+    }
   }else{
-    toast('ℹ️ '+(lang==='hi'?'Chrome menu (⋮) → "Add to Home Screen / Install app" दबाएं, या APK डाउनलोड करें':'Chrome menu → Add to Home Screen, or download the APK'));
+    /* Fallback: show detailed manual install instructions */
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSamsung=/SAMSUNG|SamsungBrowser/i.test(navigator.userAgent);
+    let msg='';
+    if(isIOS){
+      msg=lang==='hi'
+        ?'ℹ️ Safari में Share बटन (□↑) दबाएं → "Add to Home Screen" चुनें'
+        :'ℹ️ Tap Share button (□↑) in Safari → "Add to Home Screen"';
+    }else if(isSamsung){
+      msg=lang==='hi'
+        ?'ℹ️ Samsung Internet menu (☰) → "Add page to" → "Home screen" चुनें'
+        :'ℹ️ Samsung Internet menu (☰) → "Add page to" → "Home screen"';
+    }else{
+      msg=lang==='hi'
+        ?'ℹ️ Chrome menu (⋮) → "Install app" या "Add to Home Screen" दबाएं'
+        :'ℹ️ Chrome menu (⋮) → "Install app" or "Add to Home Screen"';
+    }
+    toast(msg);
   }
 };
 
@@ -2200,8 +2393,9 @@ if($('#downloadIceImgBtn')){
 /* ================= init ================= */
 applyLang();
 updateLocChip();
-warmLoc();
-setInterval(warmLoc,60000);   /* har minute location refresh — SOS ke liye asli location taiyaar rahe */
+startLiveTracking();  /* Start continuous live location tracking using watchPosition */
+warmLoc();  /* Initial warm-up fetch */
+/* Live tracking is now active - location updates automatically every few seconds */
 </script>
 </body>
 </html>
