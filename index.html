@@ -210,6 +210,72 @@
   body.native .statusbar{display:none}
   body.native #installCard{display:none}
 </style>
+
+<!-- ===== रक्षा-गार्ड SEO + SOCIAL SHARE (added) ===== -->
+<link rel="canonical" href="https://pawanverma966044.github.io/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="keywords" content="रक्षा गार्ड, Raksha Guard, SOS app, emergency app India, women safety app, महिला सुरक्षा ऐप, साइबर फ्रॉड 1930, digital arrest bachav, safety helpline numbers, panic button app, इमरजेंसी ऐप, PAWANGAMINGSTUDIO, Pawan Verma">
+<meta name="geo.region" content="IN">
+<meta name="geo.placename" content="India">
+<!-- Open Graph (WhatsApp/Facebook/LinkedIn preview) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="रक्षा-गार्ड | Raksha-Guard">
+<meta property="og:title" content="रक्षा-गार्ड | Raksha-Guard — इमरजेंसी में एक टैप में मदद">
+<meta property="og:description" content="फ्री सुरक्षा ऐप — SOS बटन, लाइव लोकेशन, वॉइस ट्रिगर 'बचाओ', साइबर फ्रॉड 1930 गाइड और 50+ सेफ्टी टिप्स। परिवार को तुरंत अलर्ट भेजें। Free SOS & safety app for India.">
+<meta property="og:url" content="https://pawanverma966044.github.io/">
+<meta property="og:image" content="https://pawanverma966044.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="रक्षा-गार्ड Raksha-Guard Emergency Protection OS">
+<meta property="og:locale" content="hi_IN">
+<meta property="og:locale:alternate" content="en_IN">
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="रक्षा-गार्ड | Raksha-Guard — इमरजेंसी में एक टैप में मदद">
+<meta name="twitter:description" content="फ्री सुरक्षा ऐप — SOS बटन, लाइव लोकेशन, वॉइस ट्रिगर, साइबर फ्रॉड 1930 गाइड और 50+ सेफ्टी टिप्स।">
+<meta name="twitter:image" content="https://pawanverma966044.github.io/og-image.png">
+<!-- JSON-LD: SoftwareApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "रक्षा-गार्ड — Raksha-Guard",
+  "alternateName": "Raksha Guard Emergency Protection OS",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Android, Web (PWA), iOS",
+  "url": "https://pawanverma966044.github.io/",
+  "image": "https://pawanverma966044.github.io/og-image.png",
+  "description": "रक्षा-गार्ड एक फ्री इमरजेंसी सुरक्षा ऐप है — SOS बटन, लाइव लोकेशन शेयरिंग, वॉइस ट्रिगर, साइबर फ्रॉड 1930 गाइड और 50+ सुरक्षा सलाह।",
+  "author": { "@type": "Person", "name": "Pawan Verma", "alternateName": "PAWANGAMINGSTUDIO" },
+  "publisher": { "@type": "Organization", "name": "PAWANGAMINGSTUDIO", "logo": { "@type": "ImageObject", "url": "https://pawanverma966044.github.io/icon-512.png" } },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "inLanguage": ["hi", "en"]
+}
+</script>
+<!-- JSON-LD: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "रक्षा-गार्ड | Raksha-Guard",
+  "url": "https://pawanverma966044.github.io/",
+  "inLanguage": "hi",
+  "publisher": { "@type": "Organization", "name": "PAWANGAMINGSTUDIO" }
+}
+</script>
+<!-- JSON-LD: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "क्या ऐप बिना इंटरनेट चलता है?", "acceptedAnswer": { "@type": "Answer", "text": "हां — सायरन, कॉल व हेल्पलाइन नंबर ऑफलाइन चलते हैं। SMS भेजने व वॉइस ट्रिगर के लिए इंटरनेट/SIM सेवा चाहिए।" } },
+    { "@type": "Question", "name": "क्या मेरा डेटा सुरक्षित है?", "acceptedAnswer": { "@type": "Answer", "text": "हां — संपर्क नंबर सिर्फ आपके फोन में सेव होते हैं, किसी सर्वर पर नहीं। कोई cookies या ट्रैकिंग नहीं।" } },
+    { "@type": "Question", "name": "क्या रक्षा-गार्ड iPhone पर चलेगा?", "acceptedAnswer": { "@type": "Answer", "text": "हां, पर कुछ लिंक (SMS/WhatsApp) iOS पर अलग तरीके से खुल सकते हैं।" } }
+  ]
+}
+</script>
+<!-- ===== SEO END ===== -->
 </head>
 <body>
 <div id="flash"></div>
@@ -1255,6 +1321,7 @@ function stopVib(){ clearInterval(vibInt); vibInt=null; if(navigator.vibrate)nav
 
 /* ================= location & message ================= */
 let lastLoc=null;
+let lastGeoError=null;   /* last geolocation error (permission denied / GPS off etc.) */
 let watchId=null;
 let lastAddress='';
 
@@ -1312,15 +1379,75 @@ function getLoc(){
   });
 }
 
-/* Retry location fetch multiple times for critical situations */
+/* ================= FAST REAL-TIME FIX (SOS ke liye) =================
+   SOS dabate hi asli (real) GPS location chahiye — 3 second ke andar.
+   - maximumAge:0  => hamesha TAAZA fix, kabhi purani/cache wali nahi
+   - Jaise hi acceptable-accuracy (<=35m) fix mile, TURANT return karta hai
+   - Beech mein jo bhi fix aaye, sabse accurate wala yaad rakhta hai
+   - Koi API key nahi — seedha phone ke GPS/network se
+   Returns the freshest, most accurate location within maxMs. */
+/* ================= REAL GPS-ONLY LOCATION =================
+   BAHUT ZAROORI: Sirf ASLI GPS-quality location accept karo.
+   WiFi/mobile-tower wali "mota andaza" (±500-2000m) location REJECT —
+   warna paas ki galat dukaan/jagah snap ho jati hai (khatarnak).
+   - GOOD_ACC (<=30m) => turant accept (pakka GPS hai)
+   - OK_ACC   (<=100m) => deadline tak GPS ka intezaar, na aaye to yahi
+   - >150m (tower/WiFi) => REJECT, kabhi message me nahi bhejenge
+   Koi API key nahi — seedha phone ke GPS se. */
+const GOOD_ACC = 30;    /* itna accurate = pakka asli GPS */
+const OK_ACC   = 100;   /* itna tak chalega agar behtar na mile */
+const BAD_ACC  = 150;   /* isse zyada error = tower/WiFi = galat, REJECT */
+
+function getFreshLoc(maxMs){
+  maxMs = maxMs || 12000;   /* GPS lock hone me time lagta hai — zyada do */
+  return new Promise(res=>{
+    if(!navigator.geolocation){ lastGeoError={code:2,message:'no geolocation'}; return res(null); }
+    let best=null, done=false, wId=null;
+    const consider=(p)=>{
+      const acc = p.coords.accuracy;
+      const fix={lat:p.coords.latitude,lng:p.coords.longitude,acc:acc,
+        speed:p.coords.speed,heading:p.coords.heading,altitude:p.coords.altitude,timestamp:p.timestamp};
+      /* Sabse accurate yaad rakho */
+      if(!best || (typeof acc==='number' && acc < best.acc)) best=fix;
+      /* Pakka GPS fix mil gaya -> turant bhej do */
+      if(typeof acc==='number' && acc <= GOOD_ACC) finish();
+    };
+    const finish=()=>{
+      if(done) return; done=true;
+      if(wId!=null){ try{navigator.geolocation.clearWatch(wId);}catch(e){} }
+      /* CRITICAL: agar best bhi mota-andaza (tower/WiFi) hai to use REJECT karo */
+      if(best && typeof best.acc==='number' && best.acc <= BAD_ACC){
+        lastLoc=best; updateLocChip(); res(best);
+      }else{
+        /* Sirf galat (bahut mota) location mili — behtar hai koi na bheje */
+        res(null);
+      }
+    };
+    try{
+      navigator.geolocation.getCurrentPosition(consider, e=>{lastGeoError=e;}, {enableHighAccuracy:true,timeout:maxMs,maximumAge:0});
+    }catch(e){}
+    try{
+      wId=navigator.geolocation.watchPosition(consider, e=>{lastGeoError=e;}, {enableHighAccuracy:true,timeout:maxMs,maximumAge:0});
+    }catch(e){}
+    setTimeout(finish, maxMs);
+  });
+}
+
+/* Retry location fetch multiple times for critical situations.
+   Keeps the BEST-accuracy reading seen so far, so even if we never
+   hit <100m we still return the most accurate fix (never a stale one). */
 async function getLocRetry(ms){
   const end=Date.now()+ms;
+  let best=null;
   while(Date.now()<end){
     const l=await getLoc();
-    if(l && l.acc && l.acc < 100) return l; /* Only accept if accuracy < 100m */
-    await new Promise(r=>setTimeout(r,800));
+    if(l && typeof l.acc==='number'){
+      if(!best || l.acc < best.acc) best=l;      /* remember most accurate */
+      if(l.acc < 50) return l;                    /* excellent fix — stop early */
+    }
+    await new Promise(r=>setTimeout(r,700));
   }
-  return lastLoc;
+  return best || lastLoc;                          /* best fix, else last known */
 }
 
 /* Reverse geocoding - get address from coordinates using OpenStreetMap Nominatim (FREE) */
@@ -1412,6 +1539,11 @@ function getTelemetry(){
     if(lastLoc.acc) t += '\n🎯 GPS सटीकता: ±' + Math.round(lastLoc.acc) + ' मीटर';
     if(lastLoc.speed != null && lastLoc.speed > 0) t += '\n🚗 वाहन गति: ' + Math.round(lastLoc.speed * 3.6) + ' km/h';
     if(lastLoc.altitude != null) t += '\n⛰️ ऊंचाई: ' + Math.round(lastLoc.altitude) + ' मीटर';
+    /* Location kitni taaza hai — trust ke liye (purani nahi, abhi ki hai) */
+    if(lastLoc.timestamp){
+      const ageSec = Math.max(0, Math.round((Date.now() - lastLoc.timestamp)/1000));
+      t += '\n🛰️ लोकेशन ' + (ageSec<=5 ? 'अभी-अभी (live)' : (ageSec + ' सेकंड पहले')) + ' ली गई';
+    }
   }
   const d = new Date();
   t += '\n⏰ समय: ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ':' + String(d.getSeconds()).padStart(2,'0') + ' IST';
@@ -1420,36 +1552,54 @@ function getTelemetry(){
 
 function sosMsg(){
   const nm=store.get('rg_name','');
-  
-  let locBlock = '\n\n📍 **मेरी वर्तमान स्थिति / My Current Location:**';
-  
+
+  /* Human-readable timestamp for trust ("kab bheja gaya") */
+  const now=new Date();
+  const pad=n=>String(n).padStart(2,'0');
+  const stamp=pad(now.getDate())+'/'+pad(now.getMonth()+1)+'/'+now.getFullYear()+' '+
+              pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+
+  let locBlock = '\n\n📍 मेरी लाइव लोकेशन / MY LIVE LOCATION';
+
   if(lastLoc){
-    /* Address (if available) */
+    /* Address (if available) — helps recipient trust it's real */
     if(lastAddress){
-      locBlock += '\n🏠 पता: ' + lastAddress;
+      locBlock += '\n🏠 पता / Address: ' + lastAddress;
     }
-    
-    /* Coordinates */
-    locBlock += '\n\n📌 GPS निर्देशांक: ' + lastLoc.lat.toFixed(6) + ', ' + lastLoc.lng.toFixed(6);
-    
-    /* Primary map link - works on ALL devices */
-    locBlock += '\n\n🗺️ **Google Maps पर देखें (क्लिक करें):**\n👉 ' + locLink(lastLoc);
-    
+
+    /* Google Maps link on Google's own domain — recipient can trust it */
+    locBlock += '\n\n📍 Google Maps लिंक (क्लिक करें / tap to open):\n' + locLink(lastLoc);
+
     /* Navigation link */
-    locBlock += '\n\n🚗 **यहां तक का रास्ता (Navigation):**\n👉 ' + navLink(lastLoc);
-    
-    /* Telemetry data */
-    locBlock += '\n\n📊 **अतिरिक्त जानकारी:**' + getTelemetry();
-    
+    locBlock += '\n\n🚗 यहाँ तक पहुँचने का रास्ता / Directions:\n' + navLink(lastLoc);
+
+    /* Coordinates + accuracy = proof the location is genuine */
+    const accTxt = lastLoc.acc ? (' (±'+Math.round(lastLoc.acc)+'m सटीक)') : '';
+    locBlock += '\n\n📌 GPS निर्देशांक / Coordinates: ' + lastLoc.lat.toFixed(6) + ', ' + lastLoc.lng.toFixed(6) + accTxt;
+
+    /* Telemetry (speed, battery, altitude, time) */
+    locBlock += '\n\n📊 अतिरिक्त जानकारी / Details:' + getTelemetry();
+
+    /* Trust note: link Google ka apna domain hai (factual, no false guarantee) */
+    locBlock += '\n\n🔒 यह लिंक google.com (Google Maps) का आधिकारिक लिंक है — किसी अनजान वेबसाइट का नहीं।';
   }else{
-    locBlock += '\n⚠️ लोकेशन उपलब्ध नहीं / Location unavailable';
+    /* Location na mili — reason ke hisab se saaf message (jhoothi location kabhi nahi) */
+    let why = '';
+    if(lastGeoError){
+      if(lastGeoError.code===1) why = ' (ऐप को लोकेशन की अनुमति नहीं मिली / location permission denied)';
+      else if(lastGeoError.code===2) why = ' (GPS बंद है या सिग्नल नहीं / GPS off or no signal)';
+      else if(lastGeoError.code===3) why = ' (लोकेशन मिलने में देरी / location timed out)';
+    }
+    locBlock += '\n⚠️ लोकेशन इस समय नहीं मिल पाई' + why + ' / Location not available.'+
+                '\n📞 कृपया मुझे तुरंत कॉल करें / Please CALL me immediately!';
   }
 
   return (nm?((lang==='hi'?'🙏 मैं ':'I am ')+nm+' — '):'')+
    (lang==='hi'?'🚨 आपातकालीन! मुझे तुरंत मदद चाहिए!':'🚨 EMERGENCY! I need help right now!')+
-   '\n'+(lang==='hi'?'कृपया तुरंत पहुंचें / पुलिस को सूचित करें।':'Please reach immediately / inform the police.')+
+   '\n'+(lang==='hi'?'कृपया तुरंत पहुँचें / पुलिस (112) को सूचित करें।':'Please reach immediately / inform police (112).')+
    locBlock+
-   '\n\n— रक्षा-गार्ड अल्ट्रा OS (by Pawan Verma)';
+   '\n\n🕒 भेजा गया / Sent at: ' + stamp +
+   '\n\n— रक्षा-गार्ड (Raksha-Guard) • by Pawan Verma, PAWANGAMINGSTUDIO';
 }
 
 function waLink(num){
@@ -1476,8 +1626,9 @@ function safeText(){
 /* t=0 instant alert — chor phone chhine/phainke tab tak message ja chuka ho */
 async function instantAlert(){
   const nums=contacts.filter(Boolean); if(!nums.length)return;
-  /* Always get fresh location before sending */
-  if(!lastLoc){ lastLoc = await getLoc(); }
+  /* SOS ki background location taiyar ho to use lo (12s wali), warna ek aur koshish */
+  if(sos.locP){ try{ const l=await sos.locP; if(l){lastLoc=l;updateLocChip();} }catch(e){} }
+  if(!lastLoc){ const fresh = await getFreshLoc(8000); if(fresh){ lastLoc=fresh; updateLocChip(); } }
   /* Also try to get address */
   if(lastLoc && !lastAddress){
     try{ const addr = await getAddress(lastLoc.lat, lastLoc.lng); if(addr) lastAddress=addr; }catch(e){}
@@ -1536,8 +1687,10 @@ function beginSOS(){
   let n=5; sosBtn.classList.add('counting'); $('#cdNum').textContent=n;
   sos.cdInt=setInterval(()=>{n--; if(n>0)$('#cdNum').textContent=n;},1000);
   sos.rep=0;   /* location-update SMS counter (max 10 — balance bachane hetu) */
-  sos.locP=getLoc().then(l=>{if(l){lastLoc=l;updateLocChip();}});  /* location turant shuru */
-  instantAlert();   /* pehla SMS/Alert TURANT — 5s ka intezaar nahi */
+  /* SOS dabate hi ASLI GPS location pakadna shuru — turant, background me */
+  sos.locP=getFreshLoc(12000).then(l=>{if(l){lastLoc=l;updateLocChip();}});
+  /* Pehla alert ~4s baad — tab tak zyadatar GPS lock ho jaata hai */
+  setTimeout(()=>{ if(sos.active) instantAlert(); }, 4000);
   sos.timer=setTimeout(fireSOS,5000);       /* 5s me na roka to auto send */
   toast('🚨 '+(lang==='hi'?'सायरन चालू! न रोका तो 5 सेकंड में SMS अपने आप जाएगा':'Siren ON! SMS auto-sends in 5s unless stopped'));
 }
@@ -1560,8 +1713,18 @@ function fireSOS(){
   $('#sosSub').textContent=T('sosPress');
   if(micOn){setTimeout(()=>{if(micOn&&!sos.active&&rec){try{rec.start();}catch(e){}}},3000);}
   (async()=>{
-    /* ASLI live location pakki karne ke liye 9s tak retry — kabhi jhoothi location nahi */
-    if(!lastLoc){ lastLoc=await getLocRetry(9000); updateLocChip(); }
+    /* SOS ki background GPS koshish (12s) ka result lo */
+    if(sos.locP){ try{ const l=await sos.locP; if(l){lastLoc=l;updateLocChip();} }catch(e){} }
+    /* Abhi tak asli GPS nahi mila to ek lambi koshish aur (kharab signal wali jagah) */
+    if(!lastLoc){ const fresh=await getFreshLoc(12000); if(fresh){ lastLoc=fresh; updateLocChip(); } }
+    /* Location na mili to user ko turant saaf batao kya karein (message phir bhi jayega) */
+    if(!lastLoc){
+      if(lastGeoError && lastGeoError.code===1){
+        toast('⚠️ '+(lang==='hi'?'लोकेशन अनुमति बंद है! Settings → अनुमति → Location चालू करें':'Location permission OFF! Enable it in Settings → Permissions'));
+      }else{
+        toast('⚠️ '+(lang==='hi'?'GPS/लोकेशन चालू करें — फोन में Location ON करें':'Turn ON GPS/Location on your phone'));
+      }
+    }
     /* Fetch address for SOS message */
     if(lastLoc && !lastAddress){
       const addr = await getAddress(lastLoc.lat, lastLoc.lng);
@@ -1581,7 +1744,12 @@ async function autoSend(){
   if(window.RakshaSMS&&window.RakshaSMS.sendSms){
     try{
       if(window.RakshaSMS.smsAllowed&&!window.RakshaSMS.smsAllowed()){ try{window.RakshaSMS.askSms();}catch(e){} toast('⚠️ '+(lang==='hi'?'SMS permission Allow करें':'Allow SMS permission')); }
-      const ok=window.RakshaSMS.sendSms(nums.join(','), smsText());
+      /* Try up to 3 times — musibat mein pehla attempt fail ho to bhi SMS jaye */
+      let ok=false;
+      for(let attempt=0; attempt<3 && !ok; attempt++){
+        try{ ok=window.RakshaSMS.sendSms(nums.join(','), smsText()); }catch(e){}
+        if(!ok) await new Promise(r=>setTimeout(r,600));
+      }
       if(ok){
         try{window.RakshaSMS.openWhatsApp(nums[0], smsText());}catch(e){}  /* WhatsApp auto-open best-effort */
         st.textContent=lang==='hi'?'✅ SMS भेज दिया + WhatsApp खुला — अधिकतम 10 लोकेशन अपडेट':'✅ SMS sent + WhatsApp opened — up to 10 location updates';
